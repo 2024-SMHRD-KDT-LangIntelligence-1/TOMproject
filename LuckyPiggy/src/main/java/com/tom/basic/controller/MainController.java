@@ -9,27 +9,27 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "index.html";
+		return "index";
 	}
 	
 	@GetMapping("/daily")
 	public String daily() {
-		return "daily.html";
+		return "daily";
 	}
 	
 	@GetMapping("/join")
 	public String join() {
-		return "join.html";
+		return "join";
 	}
 	
 	@GetMapping("/login")
 	public String login() {
-		return "login.html";
+		return "login";
 	}
 	
 	@GetMapping("/startPage")
 	public String startPage() {
-		return "start_page.html";
+		return "start_page";
 	}
 	
 }
