@@ -41,6 +41,11 @@ body::-webkit-scrollbar {
   transform: translate(-80%, -50%); /* 오른쪽 상단에 위치 */
 }
 
+.login-btn a {
+	text-decoration: none; /* 텍스트 밑줄 제거 */
+	color: white; /* 링크 색상 */
+}
+
 /* 로고 및 페이지 이름 */
 .logo {
   position: relative; /* 절대 위치 지정 */
