@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>calendar</title>
+    <link rel="stylesheet" href="assets/css/calendar.css" />
+  </head>
+  <body>
+    <!-- 상단바 위치 -->
+    <section class="monthly">
+      <!-- 이전 월 이동 버튼 -->
+      <button id="before-month" class="before-btn">◀</button>
+      <h1>12월</h1>
+      <!-- 다음 월 이동 버튼 -->
+      <button id="next-month" class="next-btn">▶</button>
+      <div class="box">
+        <div class="amount-box">
+          <div class="info-bar">현재 잔액:</div>
+        </div>
+        <div class="expense-box">
+          <div class="cash-expense">현금 지출:</div>
+          <div class="card-expense">카드 지출:</div>
+        </div>
+      </div>
+      <!-- 달력 -->
+      <table id="calendar">
+        <thead>
+          <tr>
+            <th>일</th>
+            <th>월</th>
+            <th>화</th>
+            <th>수</th>
+            <th>목</th>
+            <th>금</th>
+            <th>토</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body">
+          <!-- 날짜표 채워지는 공간 -->
+        </tbody>
+      </table>
+      <!-- 추가 버튼 -->
+      <button class="add-btn" onclick="addExpense()">+</button>
+    </section>
+    <script src="assets/js/calendar.js"></script>
+  </body>
+</html>

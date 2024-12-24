@@ -96,12 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function goToPreviousWeek() {
     currentDate.setDate(currentDate.getDate() - 7);
     updateWeeklyCalendar();
+	h1.textContent = `${currentDate.getMonth()+1}월`;
   }
 
   // 다음 주로 이동하는 함수
   function goToNextWeek() {
     currentDate.setDate(currentDate.getDate() + 7);
     updateWeeklyCalendar();
+	h1.textContent = `${currentDate.getMonth()+1}월`;
   }
 
   // 버튼 클릭 이벤트 리스너 등록

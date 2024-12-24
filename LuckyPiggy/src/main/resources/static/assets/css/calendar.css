@@ -1,0 +1,109 @@
+body {
+  margin: 0; /* 기본 여백을 제거 */
+  height: 100vh; /* 화면 전체 높이 사용 */
+  display: flex;
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+}
+
+/* 스크롤바 숨기기 */
+body::-webkit-scrollbar {
+  width: 0; /* 세로 스크롤바 숨기기 */
+  height: 0; /* 가로 스크롤바 숨기기 */
+}
+
+/* 전체 페이지 스타일 */
+.monthly {
+  height: 100vh; /* 화면 전체 높이 사용 */
+  width: 500px;
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  align-items: center; /* 수직 중앙 정렬 */
+  position: relative;
+  padding: 0;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 설정 */
+}
+
+h1 {
+  font-size: 50px;
+  align-items: center; /* 중앙 정렬 */
+  margin-top: 50px; /* 표와의 간격 */
+}
+
+.amount-box {
+  font-size: 15px;
+  position: absolute;
+  top: 190px; /* 상단에서 190px 위치 */
+  left: 30px; /* 왼쪽에서 50px 위치 */
+}
+
+.expense-box {
+  font-size: 15px;
+  position: absolute;
+  top: 170px; /* 상단에서 170px 위치 */
+  right: 150px; /* 왼쪽에서 150px 위치 */
+}
+
+/* 달력 테이블 */
+table {
+  margin-top: 60px; /* 위에서 60px 위치 */
+  width: 95%; /* 달력크기 */
+  border-collapse: collapse; /* 각 날짜 테두리 하나의 테두리로*/
+}
+
+th,
+td {
+  text-align: center;
+  padding: 15px;
+}
+
+th {
+  background-color: #f9c74f;
+  font-weight: bold;
+  height: 1px;
+  line-height: 1px; /* 텍스트의 줄 간격을 1px로 설정 */
+}
+
+td {
+  background-color: #f4f4f4;
+  cursor: pointer; /* 클릭 가능 표시 */
+  height: 50px; /* 높이를 설정하여 셀 크기 유지 */
+}
+
+td.today {
+  color: #f9c74f;
+  font-weight: bold;
+}
+
+/* 전체 버튼 스타일 */
+button {
+  width: 30px;
+  height: 30px;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* 클릭 가능 표시 */
+}
+
+.before-btn {
+  background-color: #007bff;
+  position: absolute;
+  top: 120px; /* 상단에서 120px 위치 */
+  left: 10px; /* 왼쪽에서 10px 위치 */
+}
+
+.next-btn {
+  background-color: #007bff;
+  position: absolute;
+  top: 120px; /* 상단에서 120px 위치 */
+  right: 13px; /* 오른쪽에서 13px  위치 */
+}
+
+.add-btn {
+  background-color: #1ec800;
+  position: absolute;
+  bottom: 10px; /* 아래에서 95px 위치 */
+  right: 20px; /* 오른쪽에서 20px  위치 */
+  border-radius: 50%; /* 모서리를 50%로 둥글게 만들어 원형 버튼 */
+}

@@ -32,4 +32,14 @@ public class MainController {
 		return "start_page";
 	}
 	
+	@GetMapping("/topbar")
+	public String topbar() {
+		return "top_bar";
+	}
+	
+	@GetMapping("/calendar")
+	public String calendar() {
+		return "calendar";
+	}
+	
 }
