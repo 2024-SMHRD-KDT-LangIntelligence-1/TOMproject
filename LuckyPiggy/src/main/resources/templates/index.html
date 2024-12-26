@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +16,15 @@
 	<a href="/mypage">마이페이지</a></br>
     <a href="/card">카드등록</a></br>
     <a href="/account">계좌등록</a></br>
-  </body>
+
+
+	<div th:if="${session.user} != null">
+		<a href="logout">로그아웃</a>
+	</div>
+
+	<div th:unless="${session.user} != null">
+		<a href="#">로그인</a>
+	</div>
+</body>
 </html>
  

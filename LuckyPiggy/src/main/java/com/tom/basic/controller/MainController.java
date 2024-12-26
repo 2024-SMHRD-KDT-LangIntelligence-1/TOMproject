@@ -90,6 +90,16 @@ public class MainController {
 		
 		session.setAttribute("user", enti);
 		
+		
+		return "redirect:/";
+	}
+	
+	// 로그아웃 기능
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("user");
+		
 		return "redirect:/";
 	}
 	
