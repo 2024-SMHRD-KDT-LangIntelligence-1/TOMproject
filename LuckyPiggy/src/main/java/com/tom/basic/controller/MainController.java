@@ -9,6 +9,8 @@ import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.UserVO;
 import com.tom.basic.repository.UserRepo;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MainController {
 
@@ -79,6 +81,7 @@ public class MainController {
 		
 		return "redirect:/";
 	}
+	
 	
 	
 	
