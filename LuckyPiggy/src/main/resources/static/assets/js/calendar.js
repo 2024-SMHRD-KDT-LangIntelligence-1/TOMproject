@@ -115,7 +115,22 @@ preNextBtn.forEach((btn) => {
   });
 });
 
-// 추가 버튼 클릭 시 (임시로 alert로 지출 추가)
-addExpenseButton.addEventListener("click", () => {
-  alert("또 돈썼지!!"); // 알림창을 띄움
-});
+// 팝업 열기
+function openPopup() {
+  document.getElementById("modal").style.display = "block";
+}
+
+// 팝업 닫기
+function closePopup() {
+  document.getElementById("modal").style.display = "none";
+}
+
+// 저장 버튼 클릭 시 확인 메시지
+function confirmSave() {
+  if (confirm("저장하시겠습니까?")) {
+    // 사용자가 "OK"를 클릭한 경우 저장 처리 로직
+    alert("저장되었습니다.");
+    closePopup(); // 팝업 닫기
+  }
+  // 취소 버튼을 클릭하면 아무 동작도 하지 않음
+}
