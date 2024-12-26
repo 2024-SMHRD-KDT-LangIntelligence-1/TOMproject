@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>join</title>
     <link rel="stylesheet" href="assets/css/join.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="join-box">
@@ -19,21 +20,22 @@
         <h2>LUCKY PIGGY</h2>
       </div>
       <!-- 아이디/비밀번호 입력창 -->
+      <form action="join.do" method="post">
       <div class="input-group">
         <input
           type="text"
-          id="username"
-          name="username"
+          id="user_id"
+          name="user_id"
           placeholder="아이디를 입력하세요"
           required
         />
         <!-- 중복확인 버튼 -->
         <button type="button" class="check-btn">중복확인</button>
-        <br />
+        <br>
         <input
           type="password"
-          id="password"
-          name="password"
+          id="user_pw"
+          name="user_pw"
           placeholder="비밀번호를 입력하세요"
           required
         />
@@ -42,15 +44,21 @@
       <div class="nickname">
         <input
           type="text"
-          id="nickname"
-          name="nickname"
+          id="user_nick"
+          name="user_nick"
           placeholder="닉네임을 입력하세요"
         />
         <!-- 중복확인 버튼 -->
         <button type="button" class="check-btn">중복확인</button>
       </div>
       <!-- 회원가입 버튼 -->
-      <button type="button" id="join-btn" class="join-btn">회원가입</button>
+      <button type="submit" id="join-btn" class="join-btn">회원가입</button>
+      </form>
     </div>
+  
+  
+  <script type="text/javascript">
+  
+  </script> 
   </body>
 </html>

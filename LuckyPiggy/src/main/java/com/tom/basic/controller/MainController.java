@@ -4,15 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tom.basic.entity.GraphEntity;
+import com.tom.basic.entity.TbUser;
+import com.tom.basic.model.UserVO;
 import com.tom.basic.repository.GraphRepo;
+import com.tom.basic.repository.UserRepo;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
-
+	
+	@Autowired
+	UserRepo userRepo;
+	
+	@Autowired
+	GraphRepo graphRepo;
+	
 	@GetMapping("/")
 	public String home() {
 		return "index";
@@ -65,24 +76,43 @@ public class MainController {
 
 	@GetMapping("/graph")
 	public String graph(Model model) {
-		GraphEntity turtle = repo.findPostureByMbIdAndPosType("adkim", "거북목");
+		GraphEntity turtle = graphRepo.findPostureByMbIdAndPosType("adkim", "거북목");
 
 		model.addAttribute("turtle", turtle);
 		System.out.println("가져온 값은" + turtle.getPosCount() + turtle.getMbId());
 		return "graph";
 	}
-
-	@Autowired
-	GraphRepo repo;
-
-//	@GetMapping("/graph.do")
-//	public String graphDo(Model model) {
-//		GraphEntity turtle = repo.findPostureByMbIdAndPosType("adkim", "거북목");
-//
-//		model.addAttribute("turtle", turtle);
-//		System.out.println("가져온 값은" + turtle.getPosCount() + turtle.getMbId());
-//
-//		return "redirect:/";
-//	}
-
+	
+	
+	// 회원가입 기능
+	@PostMapping("/join.do")
+	public String join(UserVO vo) {
+		
+		TbUser en = new TbUser(vo);
+		
+		userRepo.save(en);
+		
+		return "redirect:/";
+	}
+	
+	// 로그인 기능
+	@PostMapping("/login.do")
+	public String login(String user_id, String user_pw, HttpSession session) {
+				
+		TbUser enti = userRepo.findByUserIdAndUserPw(user_id, user_pw);
+		
+		session.setAttribute("user", enti);
+		
+		
+		return "redirect:/";
+	}
+	
+	// 로그아웃 기능
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("user");
+		
+		return "redirect:/";
+	}
 }
