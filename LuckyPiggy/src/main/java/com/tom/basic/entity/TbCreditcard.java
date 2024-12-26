@@ -22,31 +22,31 @@ public class TbCreditcard {
 	// 카드 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long card_idx;
+    private long cardIdx;
 
     // 카드 번호 
-    private byte[] card_num;
+    private byte[] cardNum;
 
     // 카드 CVC 
-    private byte[] card_cvc;
+    private byte[] cardCvc;
 
     // 암호화 벡터 
-    private byte[] init_vector;
+    private byte[] initVector;
 
     // 유효 기한 
-    private Date expired_at;
+    private Date expiredAt;
 
     // 카드 이름 
-    private String card_nm;
+    private String cardNm;
 
     // 생성 일자 
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     // 소유자 아이디 
-    private String user_id;
+    private String userId;
 
     // 카드 구분 
-    private String card_type;
+    private String cardType;
     
 }

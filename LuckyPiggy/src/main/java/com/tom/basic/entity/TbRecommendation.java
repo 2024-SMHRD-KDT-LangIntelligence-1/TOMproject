@@ -21,16 +21,16 @@ public class TbRecommendation {
     // 추천 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long reco_idx;
+    private long recoIdx;
 
     // 사용자 아이디 
-    private String user_id;
+    private String userId;
 
     // 카드 식별자 
-    private long card_idx;
+    private long cardIdx;
 
     // 추천 날짜 
     @CreationTimestamp
-    private Timestamp recommended_at;
+    private Timestamp recommendedAt;
     
 }

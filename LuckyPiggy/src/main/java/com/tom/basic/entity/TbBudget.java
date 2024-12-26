@@ -21,19 +21,19 @@ public class TbBudget {
 	// 예산 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long budget_idx;
+    private long budgetIdx;
 
     // 기준 월 
-    private Timestamp month_std;
+    private Timestamp monthStd;
 
     // 예산 금액 
-    private String budget_balance;
+    private String budgetBalance;
 
     // 등록 일자 
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     // 사용자 아이디 
-    private String user_id;    
+    private String userId;    
     
 }

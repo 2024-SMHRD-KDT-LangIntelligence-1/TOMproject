@@ -21,22 +21,22 @@ public class TbCard {
     // 카드 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long card_idx;
+    private long cardIdx;
 
     // 카드 이름 
-    private String card_nm;
+    private String cardNm;
 
     // 금융기관 이름 
-    private String bank_nm;
+    private String bankNm;
 
     // 카드 설명 
-    private String card_desc;
+    private String cardDesc;
 
     // 카드 이미지 
-    private String card_img;
+    private String cardImg;
 
     // 생성 일자 
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 }

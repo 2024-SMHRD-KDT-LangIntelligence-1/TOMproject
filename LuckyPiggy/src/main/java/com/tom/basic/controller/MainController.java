@@ -82,6 +82,16 @@ public class MainController {
 		return "redirect:/";
 	}
 	
+	// 로그인 기능
+	@PostMapping("/login.do")
+	public String login(String user_id, String user_pw, HttpSession session) {
+				
+		TbUser enti = repo.findByUserIdAndUserPw(user_id, user_pw);
+		
+		session.setAttribute("user", enti);
+		
+		return "redirect:/";
+	}
 	
 	
 	

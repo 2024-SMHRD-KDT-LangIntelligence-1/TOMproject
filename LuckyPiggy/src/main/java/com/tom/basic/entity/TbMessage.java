@@ -19,13 +19,13 @@ public class TbMessage {
     // 메시지 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long msg_idx;
+    private long msgIdx;
 
     // 메시지 내용 
-    private String msg_content;
+    private String msgContent;
 
     // 등록 일자 
-    private Timestamp created_at;
+    private Timestamp createdAt;
 	
     
 }

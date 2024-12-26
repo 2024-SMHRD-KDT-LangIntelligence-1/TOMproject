@@ -21,19 +21,19 @@ public class TbBenefit {
 	// 혜택 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long benefit_idx;
+    private long benefitIdx;
 
     // 카드 식별자 
-    private long card_idx;
+    private long cardIdx;
 
     // 카드 혜택 
-    private String benefit_content;
+    private String benefitContent;
 
     // 혜택 기준 
-    private String benefit_std;
+    private String benefitStd;
 
     // 등록 일자 
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 }

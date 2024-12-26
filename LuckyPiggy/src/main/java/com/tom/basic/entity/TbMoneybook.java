@@ -22,28 +22,28 @@ public class TbMoneybook {
     private long mb_idx;
 
     // 사용 구분(카테고리) 
-    private String mb_type;
+    private String mbType;
 
     // 상점 명 
-    private String shop_nm;
+    private String shopNm;
 
     // 사용 금액 
-    private Integer mb_amount;
+    private Integer mbAmount;
 
     // 결제 수단 
-    private String mb_method;
+    private String mbMethod;
 
     // 카드(계좌) 번호 
-    private String mb_num;
+    private String mbNum;
 
     // 결제 날짜 
-    private Timestamp paid_at;
+    private Timestamp paidAt;
 
     // 사용자 아이디 
-    private String user_id;
+    private String userId;
 
     // 사용 메모 
-    private String mb_memo;
+    private String mbMemo;
 	
     
 }

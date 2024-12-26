@@ -21,23 +21,23 @@ public class TbAccount {
 	// 계좌 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long acc_idx;
+    private long accIdx;
 
     // 금융기관명 
-    private String bank_nm;
+    private String bankNm;
 
     // 계좌번호 
-    private String acc_num;
+    private String accNum;
 
     // 잔액 
     private Long balance;
 
     // 등록 일자 
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     // 사용자 아이디 
-    private String user_id;
+    private String userId;
     
     
 }

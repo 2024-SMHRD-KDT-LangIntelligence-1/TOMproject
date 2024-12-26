@@ -19,35 +19,35 @@ import lombok.NoArgsConstructor;
 public class TbUser {
 
 	public TbUser(UserVO vo) {
-		user_id = vo.getUser_id();
-		user_pw = vo.getUser_pw();
-		user_nick = vo.getUser_nick();
+		userId = vo.getUser_id();
+		userPw = vo.getUser_pw();
+		userNick = vo.getUser_nick();
 	}
 	
     // 사용자 아이디
 	@Id
-    private String user_id;
+    private String userId;
 
     // 사용자 비밀번호 
-    private String user_pw;
+    private String userPw;
 
     // 사용자 이름 
-    private String user_name;
+    private String userName;
 
     // 사용자 이메일 
-    private String user_email;
+    private String userEmail;
 
     // 사용자 닉네임 
-    private String user_nick;
+    private String userNick;
 
     // 사용자 사진 
-    private String user_photo;
+    private String userPhoto;
 
     // 사용자 구분 
-    private String user_type;
+    private String userType;
 
     // 생성 일시
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 }
