@@ -113,3 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 초기 달력 표시
   updateWeeklyCalendar();
 });
+
+// 추가 버튼 클릭 시 (임시로 alert로 지출 추가)
+addExpenseButton.addEventListener("click", () => {
+  alert("또 돈썼지!!"); // 알림창을 띄움
+});

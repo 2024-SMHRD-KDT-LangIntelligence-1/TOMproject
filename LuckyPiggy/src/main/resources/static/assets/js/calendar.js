@@ -1,93 +1,121 @@
-document.addEventListener("DOMContentLoaded", () => {
-  let currentDate = new Date();
-  const monthLabel = document.querySelector("h1");
-  const prevMonthBtn = document.getElementById("before-month");
-  const nextMonthBtn = document.getElementById("next-month");
-  const calendarBody = document.getElementById("calendar-body");
-  const expenseData = {}; // 날짜별 지출 내역 저장
-  const addExpenseButton = document.querySelector(".add-btn");
+// 변수로 저장
+const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소
+  dayTags = document.querySelector(".days"), // 날짜를 표시할 요소
+  preNextBtn = document.querySelectorAll(".month-btn button"), // 이전/다음 버튼
+  addExpenseButton = document.querySelector(".add-btn"); // 추가 버튼 정의
 
-  // 달력 업데이트 함수
-  function updateCalendar() {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    monthLabel.textContent = `${month + 1}월`;
+// 현재 날짜를 가져옴
+let date = new Date();
+currYear = date.getFullYear(); // 현재 연도
+currMonth = date.getMonth(); // 현재 월 (0~11)
 
-    const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0);
-    const daysInMonth = lastDayOfMonth.getDate();
-    const startingDay = firstDayOfMonth.getDay();
+// 월 이름 배열
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-    calendarBody.innerHTML = ""; // 기존 테이블 내용 삭제
+// 날짜 클릭 시 daily.html 페이지로 이동하는 함수
+function redirectToDailyPage(year, month, day) {
+  // 날짜를 YYYY-MM-DD 형식으로 변환
+  const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(
+    day
+  ).padStart(2, "0")}`;
+  // URL에 날짜를 쿼리 파라미터로 전달하여 daily.html로 이동
+  window.location.href = `daily?date=${dateStr}`;
+}
 
-    let row = document.createElement("tr");
+// 달력을 렌더링하는 함수
+const renderCalendar = () => {
+  // 해당 월의 첫 날 요일 (0: 일요일, 1: 월요일 등)
+  let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay(),
+    // 해당 월의 마지막 날짜
+    lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+    // 해당 월의 마지막 날 요일 (0~6)
+    lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay(),
+    // 이전 달의 마지막 날짜
+    lastDayOfLastMonth = new Date(currYear, currMonth, 0).getDate();
 
-    // 첫 번째 주의 빈 칸 추가
-    for (let i = 0; i < startingDay; i++) {
-      row.appendChild(document.createElement("td")); // 공백 추가
+  let liTag = ""; // 날짜 목록을 저장할 변수
+
+  // 이전 달의 날짜를 빈 공간으로 표시 (첫날 전에 해당하는 날짜들)
+  for (let i = firstDayOfMonth; i > 0; i--) {
+    liTag += `<li class="inactive">${lastDayOfLastMonth - i + 1}</li>`;
+  }
+
+  // 이번 달의 날짜를 표시
+  for (let i = 1; i <= lastDateOfMonth; i++) {
+    // 오늘 날짜를 'active' 클래스로 표시
+    let isToday =
+      i === date.getDate() &&
+      currMonth === new Date().getMonth() &&
+      currYear === new Date().getFullYear()
+        ? "active"
+        : "";
+    liTag += `<li class="day ${isToday}" data-day="${i}">${i}</li>`; // 클릭할 수 있는 날짜에 data-day 속성 추가
+  }
+
+  // 다음 달의 날짜를 빈 공간으로 표시 (마지막 날 이후 해당하는 날짜들)
+  for (let i = lastDayOfMonth; i < 6; i++) {
+    liTag += `<li class="inactive">${i - lastDayOfMonth + 1}</li>`;
+  }
+
+  // 월 이름 업데이트
+  currentDate.innerText = `${months[currMonth]}`;
+  // 달력 내용 업데이트
+  dayTags.innerHTML = liTag;
+
+  // 날짜 클릭 이벤트트
+  dayTags.addEventListener("click", (e) => {
+    // 클릭된 요소가 .day 클래스인 경우
+    if (e.target.classList.contains("day")) {
+      const day = e.target.dataset.day; // 클릭된 날짜 가져오기
+      redirectToDailyPage(currYear, currMonth, day); // 날짜 클릭 시 daily.html로 이동
     }
+  });
+};
 
-    // 날짜 채우기
-    for (let day = 1; day <= daysInMonth; day++) {
-      if ((startingDay + day - 1) % 7 === 0 && day !== 1) {
-        calendarBody.appendChild(row); // 이전 주 추가
-        row = document.createElement("tr"); // 새로운 주 시작
+// 월 렌더링
+renderCalendar();
+
+// 이전, 다음 버튼 클릭 시 월 변경
+preNextBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // 이전 버튼 클릭 시
+    if (btn.id === "prev") {
+      currMonth--; // 월을 하나 감소시킴
+      if (currMonth < 0) {
+        // 월이 0보다 작으면 12월로 이동하고 연도도 감소
+        currMonth = 11;
+        currYear--;
       }
-
-      const cell = createDateCell(year, month, day);
-      row.appendChild(cell);
+    } else if (btn.id === "next") {
+      // 다음 버튼 클릭 시
+      currMonth++; // 월을 하나 증가시킴
+      if (currMonth > 11) {
+        // 월이 12보다 크면 1월로 이동하고 연도도 증가
+        currMonth = 0;
+        currYear++;
+      }
     }
 
-    // 마지막 주가 7일로 채워지지 않으면 빈 칸 추가
-    const remainingDays = (startingDay + daysInMonth - 1) % 7;
-    if (remainingDays !== 6) {
-      addEmptyCells(row, 6 - remainingDays);
-    }
-
-    calendarBody.appendChild(row); // 마지막 주 추가
-  }
-
-  // 날짜 셀 생성
-  function createDateCell(year, month, day) {
-    const cell = document.createElement("td");
-    cell.textContent = day;
-    cell.dataset.date = `${year}-${month + 1}-${day}`;
-    cell.addEventListener("click", () => redirectToDailyPage(year, month, day)); // 날짜 클릭 시 daily.html로 이동
-    return cell;
-  }
-
-  // 빈 셀 추가
-  function addEmptyCells(row, count) {
-    for (let i = 0; i < count; i++) {
-      row.appendChild(document.createElement("td")); // 빈 칸 추가
-    }
-  }
-
-  // 날짜 클릭 시 daily.html 페이지로 이동
-  function redirectToDailyPage(year, month, day) {
-    // 날짜를 YYYY-MM-DD 형식으로 변환
-    const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(
-      day
-    ).padStart(2, "0")}`;
-    window.location.href = `daily.html?date=${dateStr}`; // URL에 날짜를 쿼리 파라미터로 전달
-  }
-
-  // 이전/다음 월로 이동하는 버튼 클릭 이벤트
-  prevMonthBtn.addEventListener("click", () => {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    updateCalendar();
+    // 새로운 Date 객체로 업데이트
+    date = new Date(currYear, currMonth);
+    renderCalendar(); // 월 변경 후 다시 달력 렌더링
   });
+});
 
-  nextMonthBtn.addEventListener("click", () => {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    updateCalendar();
-  });
-
-  // 추가 버튼 클릭 이벤트 (임시로 alert로 지출 추가)
-  addExpenseButton.addEventListener("click", () => {
-    alert("또 돈썼지!!");
-  });
-
-  // 달력 초기화
-  updateCalendar();
+// 추가 버튼 클릭 시 (임시로 alert로 지출 추가)
+addExpenseButton.addEventListener("click", () => {
+  alert("또 돈썼지!!"); // 알림창을 띄움
 });
