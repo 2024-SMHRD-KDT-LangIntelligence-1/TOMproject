@@ -42,4 +42,19 @@ public class MainController {
 		return "calendar";
 	}
 	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage";
+	}
+	
+	@GetMapping("/card")
+	public String card() {
+		return "card";
+	}
+	
+	@GetMapping("/account")
+	public String account() {
+		return "account";
+	}
+	
 }

@@ -1,0 +1,92 @@
+body {
+  margin: 0; /* body의 기본 여백을 제거 */
+  height: 100vh; /* 화면 전체 높이 사용 */
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.mypage-box {
+  width: 500px;
+  height: 675px;
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  justify-content: center; /* 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  background-color: white;
+  border-radius: 10px; /* 둥글게 */
+}
+
+.logo {
+  margin-top: -120px; /* 로고 위로 올리기 */
+}
+
+h2 {
+  text-align: center; /* 가로 중앙 정렬 */
+  margin: 0;
+}
+
+form {
+   display: flex;
+   flex-direction: column; /* 세로 배치 */
+   justify-content: center; /* 중앙 정렬 */
+   align-items: center;
+}
+
+
+.input-group,
+.nickname {
+  display: flex;
+  flex-wrap: wrap; /* 박스 벗어나지 않도록 줄바꿈 */
+  align-items: center;
+  margin-bottom: 15px;
+  width: 280px;
+  padding: 1px;
+  border: 2px solid #000; /* 2px 두께, 실선, 검정색 테두리 */
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.input-group input {
+  width: 280px;
+  padding: 12px;
+  outline: none; /* 선택시 테두리 제거*/
+  border: none; /* 기본 테두리 제거 */
+  border-radius: 8px;
+}
+
+.nickname input {
+  width: 180px;
+  padding: 12px;
+  outline: none; /* 선택시 테두리 제거*/
+  border: none; /* 기본 테두리 제거 */
+  border-radius: 8px;
+}
+
+.check-btn {
+  background-color: #1ec800;
+  color: white;
+  width: 70px;
+  padding: 8px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer; /* 클릭 가능 표시 */
+}
+
+.join-btn {
+  background-color: #007bff;
+  color: white;
+  width: 110px;
+  padding: 8px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  margin-top: 30px;
+  cursor: pointer; /* 클릭 가능 표시 */
+}
+
+.Withdraw{
+	font-size: 14px;
+}

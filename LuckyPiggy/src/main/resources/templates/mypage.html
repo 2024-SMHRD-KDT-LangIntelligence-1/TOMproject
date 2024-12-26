@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my page</title>
+    <link rel="stylesheet" href="assets/css/mypage.css" />
+  </head>
+  <body>
+    <div class="mypage-box">
+    
+      <!-- 로고와 페이지 이름 -->
+      <div class="logo">
+        <img
+          src="images/logo.jpg"
+          alt="Lucky Piggy Logo"
+          width="100"
+          height="100"
+        />
+        
+        <h2>My Page</h2>
+      </div>
+      <!-- 아이디/비밀번호 입력창 -->
+      <form action="#">
+      
+      <div class="input-group">
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="아이디를 확인하세요"
+          required
+        />
+       
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="비밀번호를 입력하세요"
+          required
+        />
+        
+        <input
+          type="password"
+          id="password2"
+          name="password2"
+          placeholder="다시한번 입력하세요"
+          required
+        />      
+      </div>
+      
+      
+      <!-- 닉네임임 입력창 -->
+      <div class="nickname">
+        <input
+          type="text"
+          id="nickname"
+          name="nickname"
+          placeholder="닉네임을 입력하세요"
+        />
+        
+       <!-- 중복확인 버튼 -->
+        <button type="button" class="check-btn">중복확인</button>
+      </div>     
+      
+      <!-- 변경완료 버튼 -->
+      <button type="button" onclick="test()" id="join-btn" class="join-btn">변경완료</button>
+      
+	  <!--  회원 탈퇴 기능 -->
+		<br>
+		<div class="Withdraw">
+			<a href="/">회원 탈퇴</a>
+		</div>
+	   </div>
+	</form>
+     
+    
+    <script type="text/javascript">
+    function test() {
+        var p1 = document.getElementById('password').value;
+        var p2 = document.getElementById('password2').value;
+        if( p1 != p2 ) {
+          alert("비밀번호가 일치 하지 않습니다");
+          return false;
+        }else if(p1==""){
+        	alert("비밀번호를 입력해주세요");
+            return false;   
+        }else{
+          alert("비밀번호가 일치합니다");
+          return true;
+        }
+
+      }
+    </script>
+    	
+    	
+  </body>
+</html>
