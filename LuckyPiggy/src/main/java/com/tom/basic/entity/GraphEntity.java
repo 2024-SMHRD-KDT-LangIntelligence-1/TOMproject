@@ -3,6 +3,8 @@ package com.tom.basic.entity;
 import com.tom.basic.model.GraphVO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,19 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GraphEntity {
-
-	private int posSeq;
-	private String posType;
-	private String posTime;
-	private int posCount;
+	
 	@Id
-	private String mbId; // Repo 제네릭스에서 Id타입을 써줘야 함
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idx;
+	private String category;
+	private String expenses;
 	
 	public GraphEntity(GraphVO vo) {
-		posCount = vo.getPos_seq();
-		posType = vo.getPos_type();
-		posTime = vo.getPos_time();
-		posCount = vo.getPos_count();
-		mbId = vo.getMb_id();
+		category = vo.getCategory();
+		expenses = vo.getExpenses();
 	}
+	
 }

@@ -76,10 +76,9 @@ public class MainController {
 
 	@GetMapping("/graph")
 	public String graph(Model model) {
-		GraphEntity turtle = graphRepo.findPostureByMbIdAndPosType("adkim", "거북목");
-
-		model.addAttribute("turtle", turtle);
-		System.out.println("가져온 값은" + turtle.getPosCount() + turtle.getMbId());
+		GraphEntity eat = graphRepo.findByCategory("식비");
+		model.addAttribute("eat", eat);
+		System.out.println(eat);
 		return "graph";
 	}
 	

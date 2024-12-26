@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GraphVO {
 	
-	private int pos_seq;
-	private String pos_type;
-	private String pos_time;
-	private int pos_count;
-	private String mb_id;
+	private String category;
+	private String expenses;
 }
