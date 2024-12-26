@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>card</title>
+<link rel="stylesheet" href="assets/css/card.css" />
+</head>
+<body>
+	<div class="card-box">
+		<!-- 로고와 페이지 이름 -->
+		<div class="logo">
+			<img src="images/logo.jpg" alt="Lucky Piggy Logo" width="100"
+				height="100" />
+
+			<h2>카드등록</h2>
+		</div>
+		
+		<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
+		<form action="#">
+
+			<div class="input-group">
+				<input type="text" id="cardname" name="cardname" placeholder="별칭"
+					required />
+					
+				<input type="text" id="cardcompany"
+					name="cardcompany" placeholder="카드사" required /> 
+					
+				<input type="text" oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
+					id="cardnum" name="cardnum" placeholder="카드번호" required />
+
+				<input type="text"
+					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+					id="cardper" name="cardper" placeholder="이용실적 달성금액" required />
+			</div>
+			
+			
+			<!-- 등록된 카드 확인 버튼 -->
+			<div class="cardview">
+				<button type="button" class="modal_btn">등록된 카드확인</button>
+			</div>
+			
+			<!--모달 팝업, 등록된 카드확인-->
+			<div class="modal">
+				<div class="modal_popup">
+					<h3>카드 목록</h3>
+					<p>카드 목록</p>
+					<button type="button" class="close_btn">닫기</button>
+				</div>
+			</div>			
+
+			<!-- 등록완료 버튼 -->
+			<button type="button" id="join-btn" class="join-btn">등록완료</button>	
+			
+	</div>
+	</form>
+
+</body>
+<script src="assets/js/common.js"></script>
+</html>
