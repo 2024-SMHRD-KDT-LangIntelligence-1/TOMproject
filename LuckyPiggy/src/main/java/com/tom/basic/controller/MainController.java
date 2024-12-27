@@ -1,114 +1,120 @@
 package com.tom.basic.controller;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tom.basic.entity.TbAccount;
-import com.tom.basic.entity.TbBenefit;
 import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
-import com.tom.basic.model.BenefitVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.UserVO;
+import com.tom.basic.model.postVO;
 import com.tom.basic.repository.AccountRepo;
-import com.tom.basic.repository.BenefitRepo;
 import com.tom.basic.repository.CreditcardRepo;
+import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.UserRepo;
 
-import jakarta.persistence.Tuple;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class MainController {
-
-
-	
 	@Autowired
-	UserRepo user_repo;
-	
+	UserRepo userRepo;	
+	@Autowired
+	GraphRepo graphRepo;
 	@Autowired
 	CreditcardRepo creditcard_repo;
-	
 	@Autowired
 	AccountRepo account_repo;
-	
-	
 	
 	
 	@GetMapping("/")
 	public String home() {
 		return "index";
 	}
-	
+
 	@GetMapping("/daily")
 	public String daily() {
 		return "daily";
 	}
-	
+
 	@GetMapping("/join")
 	public String join() {
 		return "join";
 	}
-	
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	
+
 	@GetMapping("/startPage")
 	public String startPage() {
 		return "start_page";
 	}
-	
+
 	@GetMapping("/topbar")
 	public String topbar() {
 		return "top_bar";
 	}
-	
+
 	@GetMapping("/calendar")
 	public String calendar() {
 		return "calendar";
 	}
-	
+
 	@GetMapping("/mypage")
 	public String mypage() {
 		return "mypage";
 	}
-	
+
 	@GetMapping("/card")
-	public String card(HttpSession session) {
+	public String card(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser)session.getAttribute("user");
 		
-		TbUser enti = (TbUser)session.getAttribute("user");
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("저장된 유저아이디 가져오기" + userid);
 		
-		List<CreditcardVO> list = creditcard_repo.findAllByUserId(enti.getUserId());
+		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
+		model.addAttribute("cardlist",cardlist);
 		
-		System.out.println("test");
+		
 		
 		return "card";
 	}
-	
+
 	@GetMapping("/account")
 	public String account() {
 		return "account";
 	}
-	
+
+	@GetMapping("/graph")
+	public String graph(Model model) {
+		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
+		
+		System.out.println("가져온 것은");
+		model.addAttribute("eat",graphlist);
+		
+		return "graph";
+	}
 
 	
 	
 	// 회원가입 기능
 	@PostMapping("/join.do")
-	public String join(UserVO vo) {
-		
+	public String join(UserVO vo) {		
 		TbUser en = new TbUser(vo);
-		
-		user_repo.save(en);
+
+		userRepo.save(en);
 		
 		return "redirect:/";
 	}
@@ -117,10 +123,8 @@ public class MainController {
 	@PostMapping("/login.do")
 	public String login(String user_id, String user_pw, HttpSession session) {
 				
-		TbUser enti = user_repo.findByUserIdAndUserPw(user_id, user_pw);
-		
+		TbUser enti = userRepo.findByUserIdAndUserPw(user_id, user_pw);
 		session.setAttribute("user", enti);
-		
 		
 		return "redirect:/";
 	}
@@ -140,7 +144,7 @@ public class MainController {
 		
 		TbUser en = new TbUser(vo);
 		
-		user_repo.save(en);
+		userRepo.save(en);
 		
 		return "redirect:/";
 	}
@@ -164,8 +168,5 @@ public class MainController {
 		account_repo.save(en);
 		
 		return "redirect:/";
-	}
-	
-	
-	
+	}	
 }

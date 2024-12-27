@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Insert title here</title>
+<meta charset="UTF-8">
+<canvas id="myChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:each="eat : ${eat}">
+		<div th:text="${eat.category}"></div>
+		<div th:text="${eat.sum}"></div>
+
+	</div>
+
+	<script th:inline="javascript">
+	let chartdata = /*[[${eat}]]*/;
+	
+	let labels = chartdata.map(item => item.category);
+	let values = chartdata.map(item => item.sum);
+	let myCt = document.getElementById('myChart');
+	  let myChart = new Chart(myCt, {
+	      type: 'bar',
+	      data: {
+	          labels: labels,
+	          datasets: [{
+	              data: values,
+	              
+	              backgroundColor: [
+		              'rgba(255, 99, 132, 0.2)',
+		              'rgba(255, 159, 64, 0.2)',
+		              'rgba(255, 205, 86, 0.2)'],
+		          borderColor: [
+		               'rgb(255, 99, 132)',
+		               'rgb(255, 159, 64)',
+		               'rgb(255, 205, 86)'],
+		          borderWidth: 1
+	          }],
+	          
+	  
+	      },
+	      options:{
+	    	  scales : {
+	    		  yAxes : [{
+	    			  ticks: {
+	    				  beginAtZero:true
+	    			  }
+	    		  }]
+	    	  }
+	      }
+	  });
+</script>
+</body>
+</html>

@@ -12,5 +12,5 @@ import jakarta.persistence.Tuple;
 
 @Repository
 public interface CreditcardRepo extends JpaRepository<TbCreditcard, Long>{
-	List<CreditcardVO> findAllByUserId(String user_id);
+	List<TbCreditcard> findAllByUserId(String user_id);
 }

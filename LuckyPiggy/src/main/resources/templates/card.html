@@ -20,7 +20,7 @@
 		<form action="card.do" method="post">
 
 			<div class="input-group">
-			    <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
+			    <input type="hidden" id="user_id" name="user_id"/>
 			
 				<input type="text" id="card_nm" name="card_nm" placeholder="별칭"
 					required />
@@ -53,7 +53,10 @@
 			<div class="modal">
 				<div class="modal_popup">
 					<h3>카드 목록</h3>
-					<p>카드 목록</p>
+					<p><span th:text="${session.userid}"></span>님의 카드 목록</p>
+					<div th:each="cardlist : ${cardlist}">
+						<span th:text="${cardlist.cardNm}"></span>
+					</div>
 					<button type="button" class="close_btn">닫기</button>
 				</div>
 			</div>
