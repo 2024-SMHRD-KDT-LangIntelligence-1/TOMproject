@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+<<<<<<< HEAD
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +21,28 @@
 			</ul>
 			<button class="next-btn" id="next-btn">▼</button>
 		</section>
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>daily</title>
+    <link rel="stylesheet" href="assets/css/daily.css" />
+    <script src="assets/js/daily.js" defer></script>
+  </head>
+  <body>
+    <!-- 상단바 위치 -->
+    <section class="daily" id="daily">
+      <h1>12월</h1>
+      <section class="weekend">
+        <button class="before-btn" id="before-btn">▲</button>
+        <ul class="weekdays">
+          <!--날짜 표시 부분-->
+          <!-- 금액을 표시할 영역 -->
+          <div class="amount"></div>
+        </ul>
+        <button class="next-btn" id="next-btn">▼</button>
+      </section>
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 
 		<section class="details">
 			<div class="income">
@@ -44,12 +67,66 @@
 				</ul>
 			</div>
 
-			<div class="expensetotal-box">
-				<div class="total-cash">현금:</div>
-				<div class="total-card">카드:</div>
-				<div class="total-expense">총 지출:</div>
+        <div class="expensetotal-box">
+          <div class="total-cash">현금:</div>
+          <div class="total-card">카드:</div>
+          <div class="total-expense">총 지출:</div>
+        </div>
+      </section>
+	  <!-- 추가 버튼 -->
+	  <button class="add-btn" id="add-btn" onclick="openPopup()">+</button>
+    </section>
+	
+	<div class="modal" id="modal">
+	  <div class="modal_popup">
+	    <div>
+	      <input
+	        type="text"
+	        placeholder="금액을 입력해주세요"
+	        id="money"
+	        name="money"
+	        required
+	      />
+	    </div>
+	    <div class="statements">
+	      <button class="income-btn">입금</button>
+	      <button class="expense-btn">출금</button>
+	    </div>
+	    <div class="payment">
+	      <button class="cash-btn">현금</button>
+	      <button class="debit-btn">체크카드</button>
+	      <button class="credit-btn">신용카드</button>
+	    </div>
+	    <div class="diteil">
+	      <div class="card-category">
+	        <select name="card-name">
+	          <option selected disabled="카드사" hidden>카드사</option>
+	          <option name="국민카드">국민카드</option>
+			  <option name="card-add">추가</option>
+	        </select>
+	      </div>
+	      <div class="category">
+	        <select name="category-name">
+	          <option selected disabled="사용내역" hidden>사용내역</option>
+	          <option value="식비">식비</option>
+			  <option name="card-add">추가</option>
+	        </select>
+	      </div>
+	      <div class="memo">
+	        <input
+	          type="text"
+	          placeholder="메모를 입력하세요"
+	          id="memo"
+	          name="memo"
+			  size="28px"
+	        />
+			<div class="save-btn">
+			<button class="close-btn" onclick="confirmSave()">저장</button>
 			</div>
-		</section>
-	</section>
-</body>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+  </body>
 </html>

@@ -28,8 +28,11 @@ public class CreditcardVO {
     // 유효 기한 
     private Date expired_at;
 
-    // 카드 이름 
+    // 카드 이름
     private String card_nm;
+    
+    // 카드사
+    private String card_com;
 
     // 생성 일자 
     private Timestamp created_at;
@@ -40,4 +43,9 @@ public class CreditcardVO {
     // 카드 구분 
     private String card_type;
     
+    // 카드 혜택 
+    private String benefit_content;
+    
+    // 혜택 기준 
+    private String benefit_std;
 }

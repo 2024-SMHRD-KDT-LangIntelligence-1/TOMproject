@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.tom.basic.model.CreditcardVO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +21,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TbCreditcard {
 
+	public TbCreditcard(CreditcardVO vo) {
+		userId = vo.getUser_id();
+		cardNm = vo.getCard_nm();
+		cardType = vo.getCard_type();
+		cardCom = vo.getCard_com();
+		cardNum = vo.getCard_num();
+		benefitContent = vo.getBenefit_content();
+		benefitStd = vo.getBenefit_std();
+	}
+	
+	
 	// 카드 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +51,9 @@ public class TbCreditcard {
 
     // 카드 이름 
     private String cardNm;
+    
+    // 카드사
+    private String cardCom;
 
     // 생성 일자 
     @CreationTimestamp
@@ -48,5 +64,11 @@ public class TbCreditcard {
 
     // 카드 구분 
     private String cardType;
+    
+    // 카드 혜택 
+    private String benefitContent;
+    
+    // 혜택 기준 
+    private String benefitStd;
     
 }

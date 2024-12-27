@@ -13,9 +13,9 @@ import com.tom.basic.model.postVO;
 public interface GraphRepo extends JpaRepository<GraphEntity, Long>{
 	@Query(value =
 			"SELECT " +
-					" ge.category, SUM(ge.expenses) as sum " +
-					"FROM graph_entity ge " +
-					"GROUP BY category"
+					" mb.mb_type, SUM(mb.mb_amount) as sum " +
+					"FROM tb_moneybook mb " +
+					"GROUP BY mb_type"
 			, nativeQuery = true)
 	List<postVO> findGroupBYReportWithNativeQuery();
 }
