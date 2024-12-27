@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TbBenefit {    
-    
+public class TbBenefit {
+	
 	// 혜택 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long benefitIdx;
-
-    // 카드 식별자 
+	
+    // 카드 식별자
     private long cardIdx;
 
     // 카드 혜택 

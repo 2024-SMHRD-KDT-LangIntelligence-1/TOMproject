@@ -14,6 +14,9 @@ public class AccountVO {
 
     // 계좌 식별자 
     private long acc_idx;
+    
+    // 계좌 이름
+    private String acc_nm;
 
     // 금융기관명 
     private String bank_nm;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,21 +17,30 @@
 		</div>
 		
 		<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
-		<form action="#">
+		<form action="card.do" method="post">
 
 			<div class="input-group">
-				<input type="text" id="cardname" name="cardname" placeholder="별칭"
+			    <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
+			
+				<input type="text" id="card_nm" name="card_nm" placeholder="별칭"
 					required />
-					
-				<input type="text" id="cardcompany"
-					name="cardcompany" placeholder="카드사" required /> 
+				
+				<select id="card_type" name="card_type">
+					<option value="체크">체크카드</option>
+					<option value="신용">신용카드</option>
+				</select>
+				
+				<input type="text" id="card_com"
+					name="card_com" placeholder="카드사" required />
 					
 				<input type="text" oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
-					id="cardnum" name="cardnum" placeholder="카드번호" required />
+					id="card_num" name="card_num" placeholder="카드번호" required />
 
 				<input type="text"
 					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-					id="cardper" name="cardper" placeholder="이용실적 달성금액" required />
+					id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"/>
+				
+				<input type="text" id="benefit_content" name="benefit_content" placeholder="카드혜택"/>
 			</div>
 			
 			
@@ -47,13 +56,13 @@
 					<p>카드 목록</p>
 					<button type="button" class="close_btn">닫기</button>
 				</div>
-			</div>			
+			</div>
 
 			<!-- 등록완료 버튼 -->
-			<button type="button" id="join-btn" class="join-btn">등록완료</button>	
-			
+			<button type="submit" id="join-btn" class="join-btn">등록완료</button>	
+		</form>
 	</div>
-	</form>
+
 
 </body>
 <script src="assets/js/common.js"></script>
