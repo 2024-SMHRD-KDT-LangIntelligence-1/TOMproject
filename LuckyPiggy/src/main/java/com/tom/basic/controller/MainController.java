@@ -1,15 +1,20 @@
 package com.tom.basic.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tom.basic.entity.GraphEntity;
 import com.tom.basic.entity.TbUser;
+import com.tom.basic.model.GraphVO;
 import com.tom.basic.model.UserVO;
+import com.tom.basic.model.postVO;
 import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.UserRepo;
 
@@ -76,9 +81,11 @@ public class MainController {
 
 	@GetMapping("/graph")
 	public String graph(Model model) {
-		GraphEntity eat = graphRepo.findByCategory("식비");
-		model.addAttribute("eat", eat);
-		System.out.println(eat);
+		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
+		
+		System.out.println("가져온 것은");
+		model.addAttribute("eat",graphlist);
+		
 		return "graph";
 	}
 	
