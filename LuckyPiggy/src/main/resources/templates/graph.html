@@ -9,11 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div th:each="eat : ${eat}">
-		<div th:text="${eat.category}"></div>
-		<div th:text="${eat.sum}"></div>
-
-	</div>
+	
 
 	<script th:inline="javascript">
 	let chartdata = /*[[${eat}]]*/;
