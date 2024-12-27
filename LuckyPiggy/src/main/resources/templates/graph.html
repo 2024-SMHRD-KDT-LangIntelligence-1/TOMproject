@@ -9,13 +9,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<div th:each ="eat : ${eat}">
-	<div th:text = "${eat.category}"></div>
-	<div th:text = "${eat.sum}"></div>
-	
-</div>
+	<div th:each="eat : ${eat}">
+		<div th:text="${eat.category}"></div>
+		<div th:text="${eat.sum}"></div>
 
-<script th:inline="javascript">
+	</div>
+
+	<script th:inline="javascript">
 	let chartdata = /*[[${eat}]]*/;
 	
 	let labels = chartdata.map(item => item.category);
@@ -27,7 +27,19 @@
 	          labels: labels,
 	          datasets: [{
 	              data: values,
-	          }]
+	              
+	              backgroundColor: [
+		              'rgba(255, 99, 132, 0.2)',
+		              'rgba(255, 159, 64, 0.2)',
+		              'rgba(255, 205, 86, 0.2)'],
+		          borderColor: [
+		               'rgb(255, 99, 132)',
+		               'rgb(255, 159, 64)',
+		               'rgb(255, 205, 86)'],
+		          borderWidth: 1
+	          }],
+	          
+	  
 	      },
 	      options:{
 	    	  scales : {
