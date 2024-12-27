@@ -137,9 +137,9 @@ header .month-btn button:last-child {
   outline: none; /* 외곽선 제거 */
   border: none; /* 테두리 제거 */
   color: white; /* 텍스트 색상 */
-  background-color: #f9c74f; /* 배경색 */
+  background-color: #1ec800; /* 배경색 */
   cursor: pointer; /* 클릭 시 포인터 커서 */
-  position: absolute; /* 절대 위치로 설정 */
+  position: absolute; /* 절대 위치로 설정; */
   transform: translate(
     530%,
     700%
@@ -186,6 +186,13 @@ header .month-btn button:last-child {
   border: none; /* 테두리 제거 */
 }
 
+/* 비활성화된 버튼 스타일 */
+button.disabled {
+  background-color: #ddd; /* 비활성화된 버튼 색상 */
+  cursor: not-allowed;    /* 커서 모양 변경 */
+  pointer-events: none;   /* 클릭 이벤트 무시 */
+}
+
 .income-btn,
 .expense-btn {
   color: white;
@@ -197,6 +204,17 @@ header .month-btn button:last-child {
   border: none; /* 테두리 제거 */
   border-radius: 3px; /* 테두리 둥글게 */
   cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+}
+
+/* 선택한 버튼 */
+.income-btn.active,
+.expense-btn.active {
+  background-color:  #007bff;
+}
+
+/* 숨기기 위한 클래스 */
+.hidden {
+  display: none;
 }
 
 .cash-btn,

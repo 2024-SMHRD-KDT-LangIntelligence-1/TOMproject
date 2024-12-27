@@ -8,7 +8,7 @@
   </head>
   <body>
     <!-- 상단바 위치 -->
-    <div class="cover">
+    <div class="cover" id="cover">
       <header>
         <p class="month-name">December</p>
         <!-- 월 이동 버튼 -->
@@ -69,12 +69,14 @@
 	        <select name="card-name">
 	          <option selected disabled="카드사" hidden>카드사</option>
 	          <option name="국민카드">국민카드</option>
+			  <option name="card-add">추가</option>
 	        </select>
 	      </div>
 	      <div class="category">
 	        <select name="category-name">
 	          <option selected disabled="사용내역" hidden>사용내역</option>
 	          <option value="식비">식비</option>
+			  <option name="card-add">추가</option>
 	        </select>
 	      </div>
 	      <div class="memo">
@@ -83,6 +85,7 @@
 	          placeholder="메모를 입력하세요"
 	          id="memo"
 	          name="memo"
+			  size="28px"
 	        />
 			<div class="save-btn">
 			<button class="close-btn" onclick="confirmSave()">저장</button>
