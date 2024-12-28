@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbCreditcard;
@@ -37,9 +36,13 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "strat_page";
+		return "start_page";
 	}
-
+	@GetMapping("/startpage")
+	public String startPage() {
+		return "start_page";
+	}
+	
 	@GetMapping("/daily")
 	public String daily() {
 		return "daily";
@@ -115,7 +118,7 @@ public class MainController {
 		TbUser enti = userRepo.findByUserIdAndUserPw(user_id, user_pw);
 		session.setAttribute("user", enti);
 		
-		return "redirect:/";
+		return "index";
 	}
 	
 	// 로그아웃 기능

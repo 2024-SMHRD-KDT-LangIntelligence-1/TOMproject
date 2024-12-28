@@ -10,7 +10,7 @@
     <a href="/daily">데일리</a></br>
     <a href="/join">조인</a></br>
     <a href="/login">로그인</a></br>
-    <a href="/startPage">스타트페이지</a></br>
+    <a href="/startpage">스타트페이지</a></br>
 	<a href="/topbar">상단바</a></br>
 	<a href="/calendar">먼뜰리</a><br>
 	<a href="/mypage">마이페이지</a></br>
@@ -21,10 +21,10 @@
 
 
 	<div th:if="${session.user} != null">
-		<a href="logout">로그아웃</a>
+		<a href="/logout">로그아웃</a>
 	</div>
 	<div th:unless="${session.user} != null">
-		<a href="/">로그인</a>
+		<a href="/login">로그인</a>
 	</div>
 </body>
 </html>
