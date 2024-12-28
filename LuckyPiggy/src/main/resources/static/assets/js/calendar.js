@@ -119,12 +119,14 @@ preNextBtn.forEach((btn) => {
 
 // 팝업 열기
 function openPopup() {
+  resetForm();
   document.getElementById("modal").style.display = "block";
   document.getElementById("cover").style.pointerEvents = 'none'; // 캘린더 클릭 비활성화
 }
 
 // 팝업 닫기
 function closePopup() {
+  resetForm();
   document.getElementById("modal").style.display = "none";
   document.getElementById("cover").style.pointerEvents = 'auto'; // 캘린더 클릭 활성화
 }
@@ -147,12 +149,14 @@ function handleButtonClick(selectedButton) {
 document.querySelector('.income-btn').addEventListener('click', function() {
   handleButtonClick(this); // 클릭된 버튼만 활성화
   showCashOnly(); // 입금 클릭 시 현금만 보이게
+  document.querySelector('#money').setAttribute('name','mb_ic');
 });
 
 // 출금 버튼 클릭 이벤트
 document.querySelector('.expense-btn').addEventListener('click', function() {
   handleButtonClick(this); // 클릭된 버튼만 활성화
   showAllPayments(); // 출금 클릭 시 모든 결제 방식 버튼 보이게
+  document.querySelector('#money').setAttribute('name','mb_amount');
 });
 
 // 저장 버튼 클릭 시 초기화
@@ -161,10 +165,11 @@ function confirmSave() {
   
   if (result) {
     // 사용자가 "OK"를 클릭한 경우 저장 처리 로직
+	
     alert("저장되었습니다.");
 
     // 내용 초기화
-    resetForm(); // 폼 초기화 함수 호출
+    // resetForm(); // 폼 초기화 함수 호출
 
     closePopup(); // 팝업 닫기
   } else {
@@ -185,6 +190,13 @@ function resetForm() {
     button.classList.remove('active');  // 모든 버튼에서 active 클래스 제거
     button.classList.remove('disabled');  // 모든 버튼에서 disabled 클래스 제거
     button.style.pointerEvents = 'auto';  // 버튼을 다시 클릭할 수 있게 만듬
+
+  // payment 초기화
+  document.getElementById('payment').value="";
+	
+  // select 태그 초기화
+  document.getElementById('method_nm').value="";
+  document.getElementById('mb_type').value="";
   });
 
   // 결제 방식 버튼 초기화 (숨겨둔 버튼을 다시 보이게)
@@ -230,14 +242,18 @@ function handlePaymentButtonClick(selectedButton) {
 // 결제 방식 버튼 클릭 이벤트 리스너
 document.querySelector('.cash-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 현금 클릭 시만 활성화
+  document.querySelector('#payment').setAttribute('value','현금');
 });
 
 document.querySelector('.debit-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 체크카드 클릭 시만 활성화
+  document.querySelector('#payment').setAttribute('value','체크');
 });
 
 document.querySelector('.credit-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
+  document.querySelector('#payment').setAttribute('value','신용');
 });
+
 
 
