@@ -28,16 +28,16 @@ public class MainController {
 	@Autowired
 	UserRepo userRepo;	
 	@Autowired
-	GraphRepo graphRepo;
-	@Autowired
 	CreditcardRepo creditcard_repo;
 	@Autowired
 	AccountRepo account_repo;
+	@Autowired
+	GraphRepo graphRepo;
 	
 	
 	@GetMapping("/")
 	public String home() {
-		return "start_page";
+		return "strat_page";
 	}
 
 	@GetMapping("/daily")
@@ -69,6 +69,10 @@ public class MainController {
 	public String mypage() {
 		return "mypage";
 	}
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
 
 	@GetMapping("/card")
 	public String card(HttpServletRequest request, Model model) {
@@ -90,16 +94,6 @@ public class MainController {
 	@GetMapping("/account")
 	public String account() {
 		return "account";
-	}
-
-	@GetMapping("/graph")
-	public String graph(Model model) {
-		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
-		
-		System.out.println("가져온 것은");
-		model.addAttribute("eat",graphlist);
-		
-		return "graph";
 	}
 
 	
@@ -163,5 +157,16 @@ public class MainController {
 		account_repo.save(en);
 		
 		return "redirect:/";
-	}	
+	}
+	
+	@GetMapping("/graph")
+	public String graph(Model model) {
+		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
+		
+		
+		System.out.println("가져온 것은");
+		model.addAttribute("eat",graphlist);
+		
+		return "graph";
+	}
 }

@@ -23,9 +23,8 @@
 	<div th:if="${session.user} != null">
 		<a href="logout">로그아웃</a>
 	</div>
-
 	<div th:unless="${session.user} != null">
-		<a href="#">로그인</a>
+		<a href="/">로그인</a>
 	</div>
 </body>
 </html>
