@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="assets/css/calendar.css" />
   </head>
   <body>
-    <!-- 상단바 위치 -->
-	<div class="top-bar" th:replace="~{/top_bar}"></div>
-    <div class="cover" id="cover">
-      <header>
+    <div class="cover">
+	<header class="top-bar" th:replace="~{/top_bar}"></header>
+      <div>
         <p class="month-name">December</p>
         <!-- 월 이동 버튼 -->
         <div class="month-btn">
@@ -26,7 +25,7 @@
             <div class="card-expense">카드 지출:</div>
           </div>
         </div>
-      </header>
+      </div>
       <div class="calendar">
         <ul class="weeks">
           <li>Sun</li>

@@ -21,12 +21,10 @@ body::-webkit-scrollbar {
 
 /* 화면 크기 설정 */
 .cover {
-	position: relative;
   width: 500px;
   display: flex; /* 자식 요소를 flex로 배치 */
   flex-direction: column;
   justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
-  left: 15px;
 }
 
 /* 상태바 공간 설정 */
