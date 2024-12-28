@@ -53,7 +53,7 @@
 	  <form action="moneybook.do" method="post">
 	  <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
 	    <div>
-	    <input type="date" id="paid_at" name="paid_at"/>
+	      <input type="date" id="paid_at" name="paid_at"/>
 	      <input
 	        type="text"
 	        placeholder="금액을 입력해주세요"
@@ -81,6 +81,7 @@
 			  <option>추가</option>
 	        </select>
 	      </div>
+
 	      <div class="category">
 	        <select id="mb_type" name="mb_type">
 	          <option selected disabled hidden value="">사용내역</option>
@@ -88,13 +89,19 @@
 			  <option>추가</option>
 	        </select>
 	      </div>
+	      <div>
+	      <input type="text"
+	      		 placeholder="상점 이름을 입력하세요"
+	      		 id="shop_nm"
+	      		 name="shop_nm"
+	       />
+	      </div>
 	      <div class="memo">
 	        <input
 	          type="text"
 	          placeholder="메모를 입력하세요"
 	          id="memo"
 	          name="mb_memo"
-			  size="28px"
 	        />
 			<div class="save-btn">
 			<button type="submit" class="close-btn">저장</button>
