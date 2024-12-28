@@ -37,7 +37,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "index";
+		return "start_page";
 	}
 
 	@GetMapping("/daily")
@@ -53,11 +53,6 @@ public class MainController {
 	@GetMapping("/login")
 	public String login() {
 		return "login";
-	}
-
-	@GetMapping("/startPage")
-	public String startPage() {
-		return "start_page";
 	}
 
 	@GetMapping("/topbar")
