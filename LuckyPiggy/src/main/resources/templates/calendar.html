@@ -50,44 +50,48 @@
 			<div>
 				<button onclick="closePopup()">창닫기</button>
 			</div>
-			<div>
-				<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
-					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-					required />
-			</div>
+			<form action="moneybook.do" method="post">
+				<input type="hidden" id="user_id" name="user_id"
+					th:value="${session.user.userId}" />
+				<div>
+					<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
+						required />
+				</div>
+				<div class="statements">
+					<button type="button" class="income-btn">입금</button>
+					<button type="button" class="expense-btn">출금</button>
+				</div>
+				<div class="mb_method">
+					<button type="button" class="cash-btn" value="현금">현금</button>
+					<button type="button" class="debit-btn" value="체크">체크카드</button>
+					<button type="button" class="credit-btn" value="신용">신용카드</button>
+				</div>
+				<div class="diteil">
+					<div class="card-category">
+						<select id="method_nm" name="method_nm">
+							<option selected disabled hidden value="">카드/계좌이름</option>
+							<option value="국민카드">국민카드</option>
+							<option>추가</option>
+						</select>
+					</div>
+					<div class="category">
+						<select id="mb_type" name="mb_type">
+							<option selected disabled hidden value="">사용내역</option>
+							<option value="식비">식비</option>
+							<option>추가</option>
+						</select>
+					</div>
+					<div class="memo">
+						<input type="text" placeholder="메모를 입력하세요" id="memo"
+							name="mb_memo" size="28px" />
+						<div class="save-btn">
+							<button type="submit" class="close-btn">저장</button>
+							<button type="reset" onclick="resetForm()">reset</button>
 
-			<div class="statements">
-				<button class="income-btn">입금</button>
-				<button class="expense-btn">출금</button>
-			</div>
-			<div class="mb_method">
-				<button class="cash-btn" value="현금">현금</button>
-				<button class="debit-btn" value="체크">체크카드</button>
-				<button class="credit-btn" value="신용">신용카드</button>
-			</div>
-			<div class="diteil">
-				<div class="card-category" name="getcard" onsubmit="getCard()" method="post">
-					<select id="method_nm" name="method_nm">
-						<option selected disabled hidden value="">카드/계좌이름</option>
-						<option>추가</option>
-					</select>
-				</div>
-				<div class="category">
-					<select id="mb_type" name="mb_type">
-						<option selected disabled hidden value="">사용내역</option>
-						<option value="식비">식비</option>
-						<option>추가</option>
-					</select>
-				</div>
-				<div class="memo">
-					<input type="text" placeholder="메모를 입력하세요" id="memo" name="mb_memo"
-						size="28px" />
-					<div class="save-btn">
-						<button class="close-btn" type="submit" onclick="confirmSave()">저장</button>
-						<button onclick="resetForm()">reset</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 	<script src="assets/js/calendar.js"></script>

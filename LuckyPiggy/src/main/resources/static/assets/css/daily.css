@@ -72,7 +72,7 @@ body {
 }
 
 /* 선택된 날짜 스타일 */
-.weekdays li.selected {
+.weekdays li.day.selected {
   color: #1ec800;
   border-radius: 5px;
 }

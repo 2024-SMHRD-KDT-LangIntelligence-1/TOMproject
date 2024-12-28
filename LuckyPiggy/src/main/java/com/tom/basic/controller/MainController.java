@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbCreditcard;
+import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
 import com.tom.basic.model.CreditcardVO;
+import com.tom.basic.model.MoneybookVO;
 import com.tom.basic.model.UserVO;
 import com.tom.basic.model.postVO;
 import com.tom.basic.repository.AccountRepo;
 import com.tom.basic.repository.CreditcardRepo;
 import com.tom.basic.repository.GraphRepo;
+import com.tom.basic.repository.MoneybookRepo;
 import com.tom.basic.repository.UserRepo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +35,8 @@ public class MainController {
 	AccountRepo account_repo;
 	@Autowired
 	GraphRepo graphRepo;
+	@Autowired
+	MoneybookRepo moneybook_repo;
 	
 	
 	@GetMapping("/")
@@ -186,11 +191,15 @@ public class MainController {
 		
 		return "redirect:/";
 	}
-	
-	//가계부 등록
-	@GetMapping("/moneyb")
-	public String moneyB() {
+
+	// 가계부 등록 기능
+	@PostMapping("/moneybook.do")
+	public String moneybook(MoneybookVO vo) {
+				
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
 		
-		return "redirect:/";
+		return "redirect:/calendar";
 	}
+	
 }
