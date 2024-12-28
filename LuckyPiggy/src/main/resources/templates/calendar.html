@@ -49,24 +49,25 @@
 	  <div>
 	  	<button onclick="closePopup()">창닫기</button>
 	  </div>
+	  <form action="moneybook.do" method="post">
+	  <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
 	    <div>
 	      <input
 	        type="text"
 	        placeholder="금액을 입력해주세요"
 	        id="money"
 	        name="money"
-	        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
 	        required
 	      />
 	    </div>
 	    <div class="statements">
-	      <button class="income-btn">입금</button>
-	      <button class="expense-btn">출금</button>
+	      <button type="button" class="income-btn">입금</button>
+	      <button type="button" class="expense-btn">출금</button>
 	    </div>
 	    <div class="mb_method">
-	      <button class="cash-btn" value="현금">현금</button>
-	      <button class="debit-btn" value="체크">체크카드</button>
-	      <button class="credit-btn" value="신용">신용카드</button>
+	      <button type="button" class="cash-btn" value="현금">현금</button>
+	      <button type="button" class="debit-btn" value="체크">체크카드</button>
+	      <button type="button" class="credit-btn" value="신용">신용카드</button>
 	    </div>
 	    <div class="diteil">
 	      <div class="card-category">
@@ -92,11 +93,12 @@
 			  size="28px"
 	        />
 			<div class="save-btn">
-			<button class="close-btn" onclick="confirmSave()">저장</button>
-			<button onclick="resetForm()">reset</button>
+			<button type="submit" class="close-btn">저장</button>
+			<button type="reset" onclick="resetForm()">reset</button>
 			</div>
 	      </div>
 	    </div>
+	    </form>
 	  </div>
 	</div>
     <script src="assets/js/calendar.js"></script>

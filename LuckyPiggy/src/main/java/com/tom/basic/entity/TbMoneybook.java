@@ -2,6 +2,8 @@ package com.tom.basic.entity;
 
 import java.sql.Timestamp;
 
+import com.tom.basic.model.MoneybookVO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TbMoneybook {
-
+	
+	public TbMoneybook(MoneybookVO vo) {
+		userId = vo.getUser_id();
+		mbAmount = vo.getMb_amount();
+		mbMethod = vo.getMb_method();
+		methodNm = vo.getMethod_nm();
+		mbMemo = vo.getMb_memo();
+		mbIc = vo.getMb_ic();
+	}
+	
+	
+	
     // 사용 식별자 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
