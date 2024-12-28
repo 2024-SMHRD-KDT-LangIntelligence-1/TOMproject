@@ -1,4 +1,5 @@
-// 상태바 설정정
+
+// 상태바 설정
 // 상태바 진행 상태를 업데이트하는 함수
 function updateProgress(percentage) {
   const progressLine = document.querySelector(".line-progress");
@@ -145,9 +146,11 @@ const renderCalendar = () => {
 // 처음에 달력 렌더링
 renderCalendar();
 
-//캘린더 페이지로 이동
-document.getElementById("calendar").addEventListener("click", function () {
-  window.location.href = "/calendar.html"; // 클릭 시 calendar.html로 이동
+// 달력 선택시 캘린더 페이지로 이동
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('calendar').addEventListener('click', function() {
+    window.location.href = "calendar";
+  });
 });
 
 // 바 차트 설정

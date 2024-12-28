@@ -1,8 +1,15 @@
+/* 모든 페이지의 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
+}
+
 body {
   display: flex; /* 페이지 전체 중앙 정렬 */
+  flex-direction: column; /* 세로 배치 */
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
-  margin-top: 60px; /* 위쪽 여백 */
 }
 
 /* 스크롤바 숨기기 */
@@ -11,10 +18,18 @@ body::-webkit-scrollbar {
   height: 0; /* 가로 */
 }
 
+.top-bar{
+	position: relative;
+	top: -90px;
+	padding-left: 40px;
+}
+
 .cover {
-  width: 500px; /* 화면 크기 500px */
+  width: 480px; /* 화면 크기 500px */
+  height: auto;
   background-color: #f4f4f4; /* 배경색 */
   border-radius: 2%; /* 테두리 둥글게 */
+  margin-top: 30px;
 }
 
 .cover header {
@@ -75,7 +90,7 @@ header .month-btn button:last-child {
 }
 
 .calendar .days {
-  margin-bottom: 60px; /* 아래 여백 설정 */
+  margin-bottom: 10px; /* 아래 여백 설정 */
 }
 
 .calendar .weeks li {
@@ -142,7 +157,7 @@ header .month-btn button:last-child {
   position: absolute; /* 절대 위치로 설정; */
   transform: translate(
     530%,
-    700%
+    750%
   ); /* 버튼의 위치를 고정, 페이지 크기에 따라 변동 가능 */
   height: 40px; /* 높이 */
   width: 40px; /* 너비 */
