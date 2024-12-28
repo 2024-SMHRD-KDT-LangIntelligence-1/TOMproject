@@ -32,6 +32,9 @@ public class TbMoneybook {
 
     // 결제 수단 
     private String mbMethod;
+    
+    // 결제 수단 이름
+    private String methodNm;
 
     // 카드(계좌) 번호 
     private String mbNum;

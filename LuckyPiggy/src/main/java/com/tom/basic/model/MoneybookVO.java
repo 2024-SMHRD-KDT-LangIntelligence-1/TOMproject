@@ -26,6 +26,9 @@ public class MoneybookVO {
 
     // 결제 수단 
     private String mb_method;
+    
+    // 결제 수단 이름
+    private String method_nm;
 
     // 카드(계좌) 번호 
     private String mb_num;

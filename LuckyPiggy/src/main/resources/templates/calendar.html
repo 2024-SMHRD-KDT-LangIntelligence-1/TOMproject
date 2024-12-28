@@ -63,24 +63,24 @@
 	      <button class="income-btn">입금</button>
 	      <button class="expense-btn">출금</button>
 	    </div>
-	    <div class="payment">
-	      <button class="cash-btn">현금</button>
-	      <button class="debit-btn">체크카드</button>
-	      <button class="credit-btn">신용카드</button>
+	    <div class="mb_method">
+	      <button class="cash-btn" value="현금">현금</button>
+	      <button class="debit-btn" value="체크">체크카드</button>
+	      <button class="credit-btn" value="신용">신용카드</button>
 	    </div>
 	    <div class="diteil">
 	      <div class="card-category">
-	        <select name="card-name">
-	          <option selected disabled="카드사" hidden>카드사</option>
-	          <option name="국민카드">국민카드</option>
-			  <option name="card-add">추가</option>
+	        <select id="method_nm" name="method_nm">
+	          <option selected disabled hidden value="">카드/계좌이름</option>
+	          <option value="국민카드">국민카드</option>
+			  <option>추가</option>
 	        </select>
 	      </div>
 	      <div class="category">
-	        <select name="category-name">
-	          <option selected disabled="사용내역" hidden>사용내역</option>
+	        <select id="mb_type" name="mb_type">
+	          <option selected disabled hidden value="">사용내역</option>
 	          <option value="식비">식비</option>
-			  <option name="card-add">추가</option>
+			  <option>추가</option>
 	        </select>
 	      </div>
 	      <div class="memo">
@@ -88,7 +88,7 @@
 	          type="text"
 	          placeholder="메모를 입력하세요"
 	          id="memo"
-	          name="memo"
+	          name="mb_memo"
 			  size="28px"
 	        />
 			<div class="save-btn">
