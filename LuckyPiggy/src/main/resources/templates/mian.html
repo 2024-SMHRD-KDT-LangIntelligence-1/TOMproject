@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="main" id="main">
+        <!-- 상태바 -->
 
+        <div class="condition-bar">
+          <div class="condition">
+            <div class="line"></div>
+            <div class="line-progress"></div>
+            <!-- Step markers -->
+            <div class="step completed" data-progress="0%"></div>
+            <div class="step" data-progress="25%"></div>
+            <div class="step" data-progress="50%"></div>
+            <div class="step" data-progress="75%"></div>
+            <div class="step" data-progress="100%"></div>
+          </div>
+        </div>
+
+        <!-- 도넛 차트 -->
+        <div class="doughnut-cover">
+          <div class="doughnut">
+            <canvas id="doughnutChart1" class="doughnutChart1"></canvas>
+            <p class="description">부족금액 <br />150,000원</p>
+          </div>
+          <div class="doughnut">
+            <canvas id="doughnutChart2" class="doughnutChart2"></canvas>
+            <p class="description">부족금액 <br />30,000원</p>
+          </div>
+          <div class="doughnut">
+            <canvas id="doughnutChart3" class="doughnutChart3"></canvas>
+            <p class="description">부족금액 <br />200,000원</p>
+          </div>
+        </div>
+        <!-- 달력 -->
+        <div class="calendar">
+          <!-- 요일 표시 -->
+          <ul class="weeks">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+          </ul>
+          <!-- 날짜가 동적으로 추가될 영역 -->
+          <ul class="days"></ul>
+        </div>
+
+        <!-- 최근 소비 내역 -->
+        <div class="recent">
+          <h3>최근 소비 내역</h3>
+          <ul class="recent-list">
+            <div class="left-list">
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+            </div>
+            <div class="right-list">
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>10</li>
+            </div>
+          </ul>
+        </div>
+        <!-- 바 차트 -->
+        <div class="bar">
+          <canvas id="barChart" class="barChart"></canvas>
+        </div>
+
+        <!-- 라인 차트 -->
+        <div class="line">
+          <canvas id="lineChart" class="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
