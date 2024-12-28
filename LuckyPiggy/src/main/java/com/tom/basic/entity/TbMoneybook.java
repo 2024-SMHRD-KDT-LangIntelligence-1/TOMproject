@@ -1,6 +1,6 @@
 package com.tom.basic.entity;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import com.tom.basic.model.MoneybookVO;
 
@@ -20,11 +20,15 @@ public class TbMoneybook {
 	
 	public TbMoneybook(MoneybookVO vo) {
 		userId = vo.getUser_id();
+		paidAt = vo.getPaid_at();
+		mbIc = vo.getMb_ic();
 		mbAmount = vo.getMb_amount();
+		mbType = vo.getMb_type();
 		mbMethod = vo.getMb_method();
 		methodNm = vo.getMethod_nm();
+		mbNum = vo.getMb_num();
+		shopNm = vo.getShop_nm();
 		mbMemo = vo.getMb_memo();
-		mbIc = vo.getMb_ic();
 	}
 	
 	
@@ -41,7 +45,7 @@ public class TbMoneybook {
     private String shopNm;
 
     // 출금 금액 
-    private Integer mbAmount;
+    private String mbAmount;
 
     // 결제 수단 
     private String mbMethod;
@@ -53,7 +57,7 @@ public class TbMoneybook {
     private String mbNum;
 
     // 결제 날짜 
-    private Timestamp paidAt;
+    private Date paidAt;
 
     // 사용자 아이디 
     private String userId;
@@ -62,6 +66,6 @@ public class TbMoneybook {
     private String mbMemo;
 	
     // 입금 금액 
-    private Integer mbIc;
+    private String mbIc;
     
 }

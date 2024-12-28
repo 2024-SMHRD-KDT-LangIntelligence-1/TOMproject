@@ -1,19 +1,32 @@
+/* 모든 페이지의 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
+}
+
 body {
   display: flex; /* 페이지 전체 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   overflow-y: scroll;
+  margin: 0;
+  padding: 0;
 }
 
 /* 스크롤바 숨기기 */
 body::-webkit-scrollbar {
   width: 0; /* 세로 */
 }
+
 /* 화면 크기 설정 */
 .cover {
+	position: relative;
   width: 500px;
   display: flex; /* 자식 요소를 flex로 배치 */
+  flex-direction: column;
   justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
+  left: 15px;
 }
 
 /* 상태바 공간 설정 */

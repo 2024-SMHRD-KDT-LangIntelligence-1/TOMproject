@@ -9,10 +9,8 @@
 <body>
 	<div class="start-page">
 		<!--로그인 버튼-->
-			<button th:if="${session.user}!=null" class="login-btn">
-				<a href="index">이동</a>
-			</button>
-			<button th:unless="${session.user}!=null" class="login-btn">
+			
+			<button class="login-btn">
 				<a href="login">Login</a>
 			</button>
 		

@@ -38,6 +38,10 @@ public class MainController {
 	@Autowired
 	MoneybookRepo moneybook_repo;
 	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
 	
 	@GetMapping("/")
 	public String home() {
@@ -48,39 +52,43 @@ public class MainController {
 		return "start_page";
 	}
 	
-	@GetMapping("/daily")
-	public String daily() {
-		return "daily";
-	}
+
 
 	@GetMapping("/join")
 	public String join() {
 		return "join";
 	}
-
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-
+	
 	@GetMapping("/topbar")
 	public String topbar() {
 		return "top_bar";
 	}
-
+	
+	@GetMapping("/main")
+	public String main() {
+		return "main";
+	}
+	
 	@GetMapping("/calendar")
 	public String calendar() {
 		return "calendar";
+	}
+	
+	@GetMapping("/daily")
+	public String daily() {
+		return "daily";
 	}
 
 	@GetMapping("/mypage")
 	public String mypage() {
 		return "mypage";
 	}
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
+
 
 	@GetMapping("/card")
 	public String card(HttpServletRequest request, Model model) {
@@ -121,7 +129,7 @@ public class MainController {
 		TbUser enti = userRepo.findByUserIdAndUserPw(user_id, user_pw);
 		session.setAttribute("user", enti);
 		
-		return "index";
+		return "redirect:/main";
 	}
 	
 	// 로그아웃 기능
@@ -130,7 +138,7 @@ public class MainController {
 		
 		session.removeAttribute("user");
 		
-		return "redirect:/";
+		return "start_page";
 	}
 	
 	// 마이페이지 비밀번호, 닉네임 변경 기능
