@@ -11,13 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
 	let urlParams = url.searchParams;
 	console.log(urlParams);
 
-	/*let currentDate = new Date(urlParams.get('date'));
-	console.log('바꾼' + currentDate);*/
-	let currentDate = new Date();// 오늘 날짜 아닌 받아온 날짜
-	console.log('최근날짜' + currentDate);
+	let currentDate = new Date(urlParams.get('date'));
+	console.log('바꾼' + currentDate);
 	
+	let selectedDate = new Date(urlParams.get('date'));
+	
+	/*
+	// 오늘 날짜
+	let currentDate = new Date();
+	console.log('최근날짜' + currentDate);
 	let selectedDate = new Date();
-	//let selectedDate = new Date(urlParams.get('date')); // 기본 선택 날짜는 오늘
+	*/
+	
 	/*	let currYear = date.getFullYear(); // 현재 연도
 		let currMonth = date.getMonth(); // 현재 월 (0~11)*/
 
