@@ -46,12 +46,16 @@
 	</div>
 	<div class="modal" id="modal">
 	  <div class="modal_popup">
+	  <div>
+	  	<button onclick="closePopup()">창닫기</button>
+	  </div>
 	    <div>
 	      <input
 	        type="text"
 	        placeholder="금액을 입력해주세요"
 	        id="money"
 	        name="money"
+	        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
 	        required
 	      />
 	    </div>
@@ -89,6 +93,7 @@
 	        />
 			<div class="save-btn">
 			<button class="close-btn" onclick="confirmSave()">저장</button>
+			<button onclick="resetForm()">reset</button>
 			</div>
 	      </div>
 	    </div>

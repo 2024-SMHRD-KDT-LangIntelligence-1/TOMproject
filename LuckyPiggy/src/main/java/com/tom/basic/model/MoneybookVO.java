@@ -21,7 +21,7 @@ public class MoneybookVO {
     // 상점 명 
     private String shop_nm;
 
-    // 사용 금액 
+    // 출금 금액 
     private Integer mb_amount;
 
     // 결제 수단 
@@ -38,5 +38,8 @@ public class MoneybookVO {
 
     // 사용 메모 
     private String mb_memo;
+    
+    // 입금 금액 
+    private Integer mb_ic;
     
 }

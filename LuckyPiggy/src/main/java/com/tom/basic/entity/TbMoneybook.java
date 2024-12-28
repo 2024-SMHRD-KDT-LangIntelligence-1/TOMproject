@@ -27,7 +27,7 @@ public class TbMoneybook {
     // 상점 명 
     private String shopNm;
 
-    // 사용 금액 
+    // 출금 금액 
     private Integer mbAmount;
 
     // 결제 수단 
@@ -45,5 +45,7 @@ public class TbMoneybook {
     // 사용 메모 
     private String mbMemo;
 	
+    // 입금 금액 
+    private Integer mbIc;
     
 }
