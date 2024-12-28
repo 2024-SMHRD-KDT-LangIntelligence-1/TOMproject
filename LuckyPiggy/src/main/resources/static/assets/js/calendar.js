@@ -251,4 +251,7 @@ document.querySelector('.credit-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
 });
 
-
+function getCard(){
+	document.getcard.action = '/getcard/getCard()';
+	document.getcard.submit();
+}

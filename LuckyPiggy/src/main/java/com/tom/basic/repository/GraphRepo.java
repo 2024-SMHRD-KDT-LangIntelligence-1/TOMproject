@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.tom.basic.entity.GraphEntity;
+import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.model.postVO;
 
 @Repository
-public interface GraphRepo extends JpaRepository<GraphEntity, Long>{
+public interface GraphRepo extends JpaRepository<TbMoneybook, Long>{
 	@Query(value =
 			"SELECT " +
 					" mb.mb_type, SUM(mb.mb_amount) as sum " +

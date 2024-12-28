@@ -88,9 +88,7 @@ public class MainController {
 		
 		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
 		model.addAttribute("cardlist",cardlist);
-		
-		
-		
+
 		return "card";
 	}
 
@@ -171,5 +169,28 @@ public class MainController {
 		model.addAttribute("eat",graphlist);
 		
 		return "graph";
+	}
+	
+	//가계부에서 카드리스트 보여주기 메소드
+	@PostMapping("/getcard/getCard")
+	public String getCard(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser)session.getAttribute("user");
+		
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("카드리스트 유저 아이디는:" + userid);
+		
+		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
+		model.addAttribute("cardlist",cardlist);
+		
+		return "redirect:/";
+	}
+	
+	//가계부 등록
+	@GetMapping("/moneyb")
+	public String moneyB() {
+		
+		return "redirect:/";
 	}
 }

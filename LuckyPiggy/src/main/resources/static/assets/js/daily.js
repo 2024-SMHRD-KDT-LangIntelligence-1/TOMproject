@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedDate = new Date(date); // 선택된 날짜 저장
     currentDate = new Date(date); // 주간 달력도 선택한 날짜 기준으로 이동
     updateWeeklyCalendar(); // 달력 업데이트
+	ㅇㅁㅅㅁ ``
   }
 
   // 선택된 날짜에 대한 수입/지출 금액을 표시하는 함수
