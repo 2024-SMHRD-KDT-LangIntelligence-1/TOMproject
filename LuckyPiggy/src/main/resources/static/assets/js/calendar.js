@@ -191,6 +191,9 @@ function resetForm() {
     button.classList.remove('disabled');  // 모든 버튼에서 disabled 클래스 제거
     button.style.pointerEvents = 'auto';  // 버튼을 다시 클릭할 수 있게 만듬
 
+  // payment 초기화
+  document.getElementById('payment').value="";
+	
   // select 태그 초기화
   document.getElementById('method_nm').value="";
   document.getElementById('mb_type').value="";
@@ -239,16 +242,18 @@ function handlePaymentButtonClick(selectedButton) {
 // 결제 방식 버튼 클릭 이벤트 리스너
 document.querySelector('.cash-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 현금 클릭 시만 활성화
-  document.querySelector('.cash-btn').setAttribute('name','mb_method');
-  document.querySelector('.cash-btn').setAttribute('value','현금');
+  document.querySelector('#payment').setAttribute('value','현금');
 });
 
 document.querySelector('.debit-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 체크카드 클릭 시만 활성화
+  document.querySelector('#payment').setAttribute('value','체크');
 });
 
 document.querySelector('.credit-btn').addEventListener('click', function() {
   handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
+  document.querySelector('#payment').setAttribute('value','신용');
 });
+
 
 

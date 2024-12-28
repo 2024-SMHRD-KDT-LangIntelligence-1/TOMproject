@@ -155,7 +155,7 @@ header .month-btn button:last-child {
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   width: 280px;
-  height: 400px;
+  height: 420px;
   position: absolute;
   text-align: center;
   border-radius: 10px;

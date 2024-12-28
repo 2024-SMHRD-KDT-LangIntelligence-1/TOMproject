@@ -1,6 +1,6 @@
 package com.tom.basic.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class MoneybookVO {
     private String shop_nm;
 
     // 출금 금액 
-    private Integer mb_amount;
+    private String mb_amount;
 
     // 결제 수단 
     private String mb_method;
@@ -34,7 +34,7 @@ public class MoneybookVO {
     private String mb_num;
 
     // 결제 날짜 
-    private Timestamp paid_at;
+    private Date paid_at;
 
     // 사용자 아이디 
     private String user_id;
@@ -43,6 +43,6 @@ public class MoneybookVO {
     private String mb_memo;
     
     // 입금 금액 
-    private Integer mb_ic;
+    private String mb_ic;
     
 }
