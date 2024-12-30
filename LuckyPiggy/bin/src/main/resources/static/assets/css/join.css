@@ -5,6 +5,7 @@ body {
   flex-direction: column; /* 세로 배치 */
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
+  text-align: center;
 }
 
 .join-box {
@@ -28,7 +29,7 @@ h2 {
 }
 
 .input-group,
-.nickname {
+.user_nick {
   display: flex;
   flex-wrap: wrap; /* 박스 벗어나지 않도록 줄바꿈 */
   align-items: center;
@@ -48,7 +49,7 @@ h2 {
   border-radius: 8px;
 }
 
-.nickname input {
+.user_nick input {
   width: 180px;
   padding: 12px;
   outline: none; /* 선택시 테두리 제거*/
