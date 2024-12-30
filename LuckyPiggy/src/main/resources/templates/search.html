@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>top_bar</title>
+<link rel="stylesheet" href="assets/css/top_bar.css" />
+</head>
+<body>
+
+
+	<div th:each="list : ${searchlist}">
+		<span th:text="${list.shopNm}"></span>
+	</div>
+
+
+</body>
+</html>
