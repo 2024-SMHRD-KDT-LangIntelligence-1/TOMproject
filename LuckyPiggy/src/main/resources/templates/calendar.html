@@ -72,11 +72,13 @@
 					<button type="button" class="credit-btn">신용카드</button>
 				</div>
 				<div class="diteil">
-					<div class="card-category" onclick="getCard()">
-						<select id="method_nm" name="method_nm">
-							<option selected disabled hidden value="">카드/계좌이름</option>
-							<option value="국민카드">국민카드</option>
-							<option>추가</option>
+					<div class="card-category" method="post">
+						<select id="method_nm" name="method_nm" th:field="*{cardlist}">
+						<option selected disabled hidden value="">카드선택</option>
+						
+							<option th:each="cardlist: ${cardlist}" th:value="${cardlist.cardNm}" 
+							
+							th:text="${cardlist.cardNm}">${cardlist.cardNm}</option>
 						</select>
 					</div>
 				</div>
@@ -102,12 +104,7 @@
 		</div>
 	</div>
 	<script src="assets/js/calendar.js"></script>
-	<script>
-		function getCard() {
-			document.getcard.action = '/getcard/getCard()';
-			document.getcard.submit();
-		}
-	</script>
+
 
 </body>
 </html>

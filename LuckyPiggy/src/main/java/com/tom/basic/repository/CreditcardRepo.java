@@ -11,4 +11,5 @@ import com.tom.basic.entity.TbCreditcard;
 @Repository
 public interface CreditcardRepo extends JpaRepository<TbCreditcard, Long>{
 	List<TbCreditcard> findAllByUserId(String user_id);
+	List<TbCreditcard> findAllByUserIdAndCardType(String user_id, String card_type);
 }

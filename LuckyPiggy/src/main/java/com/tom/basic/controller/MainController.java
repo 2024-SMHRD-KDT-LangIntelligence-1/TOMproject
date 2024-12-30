@@ -74,8 +74,21 @@ public class MainController {
 		return "main";
 	}
 	
+	//월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
 	@GetMapping("/calendar")
-	public String calendar() {
+	public String calendar(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser)session.getAttribute("user");
+		
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("카드리스트 유저 아이디는:" + userid);
+		
+		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
+		model.addAttribute("cardlist",cardlist);
+		
+		System.out.println(cardlist);
+		
 		return "calendar";
 	}
 	
@@ -184,21 +197,21 @@ public class MainController {
 		return "graph";
 	}
 	
-	//가계부에서 카드리스트 보여주기 메소드
-	@PostMapping("/getcard/getCard")
-	public String getCard(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		TbUser uid = (TbUser)session.getAttribute("user");
-		
-		String userid = uid.getUserId();
-		session.setAttribute("userid", userid);
-		System.out.println("카드리스트 유저 아이디는:" + userid);
-		
-		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
-		model.addAttribute("cardlist",cardlist);
-		
-		return "redirect:/";
-	}
+//	//가계부에서 카드리스트 보여주기 메소드
+//	@PostMapping("/getcard/getCard")
+//	public String getCard(HttpServletRequest request, Model model) {
+//		HttpSession session = request.getSession();
+//		TbUser uid = (TbUser)session.getAttribute("user");
+//		
+//		String userid = uid.getUserId();
+//		session.setAttribute("userid", userid);
+//		System.out.println("카드리스트 유저 아이디는:" + userid);
+//		
+//		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
+//		model.addAttribute("cardlist",cardlist);
+//		
+//		return "redirect:/";
+//	}
 
 	// 가계부 등록 기능
 	@PostMapping("/moneybook.do")
