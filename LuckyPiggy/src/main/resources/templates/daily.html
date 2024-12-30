@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,17 +15,14 @@
 		<div class="weekend">
 			<button class="before-btn" id="before-btn">▲</button>
 			<ul class="weekdays">
-<<<<<<< HEAD
+
 				<!-- 주간 날짜 동적으로 표시-->
 			<li class="amount"></li>
 				<!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
-=======
 				<!--날짜 표시 부분-->
 
 				<!-- 금액을 표시할 영역 -->
-				<div class="amount"></div>
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
-			</ul>
+				<div class="amount"></div>		</ul>
 			<button class="next-btn" id="next-btn">▼</button>
 		</div>
 
@@ -61,7 +58,11 @@
 	</div>
 
 	<div class="modal" id="modal">
+	<form action="dmoneybook.do" method="post">
 		<div class="modal_popup">
+	
+		<input type="hidden" id="user_id" name="user_id"
+					th:value="${session.user.userId}" />
 			<div>
 				<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
 					required />
@@ -98,8 +99,12 @@
 					</div>
 				</div>
 			</div>
+		
 		</div>
+		</form>
 	</div>
+	
 </div>
+<script src="assets/js/daily.js"></script>
 </body>
 </html>

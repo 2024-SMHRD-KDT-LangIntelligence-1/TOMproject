@@ -222,5 +222,13 @@ public class MainController {
 		
 		return "redirect:/calendar";
 	}
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
+				
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+		
+		return "redirect:/daily";
+	}
 	
 }
