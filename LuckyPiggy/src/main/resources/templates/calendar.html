@@ -1,109 +1,104 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>calendar</title>
-    <link rel="stylesheet" href="assets/css/calendar.css" />
-  </head>
-  <body>
-    <div class="cover">
-	<header class="top-bar" th:replace="~{/top_bar}"></header>
-      <div>
-        <p class="month-name">December</p>
-        <!-- 월 이동 버튼 -->
-        <div class="month-btn">
-          <button id="prev" class="prev-btn"><</button>
-          <button id="next" class="next-btn">></button>
-        </div>
-        <div class="box">
-          <div class="amount-box">
-            <div class="info-bar">현재 잔액:</div>
-          </div>
-          <div class="expense-box">
-            <div class="cash-expense">현금 지출:</div>
-            <div class="card-expense">카드 지출:</div>
-          </div>
-        </div>
-      </div>
-      <div class="calendar">
-        <ul class="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul class="days"></ul>
-      </div>
-    </div>
-	
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>calendar</title>
+<link rel="stylesheet" href="assets/css/calendar.css" />
+</head>
+<body>
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div class="month-container" id="month-container">
+			<p class="month-name">December</p>
+			<!-- 월 이동 버튼 -->
+			<div class="month-btn">
+				<button id="prev" class="prev-btn"><</button>
+				<button id="next" class="next-btn">></button>
+			</div>
+			<div class="box">
+				<div class="amount-box">
+					<div class="info-bar">현재 잔액:</div>
+				</div>
+				<div class="expense-box">
+					<div class="cash-expense">현금 지출:</div>
+					<div class="card-expense">카드 지출:</div>
+				</div>
+			</div>
+
+			<!-- 요일 표시 -->
+			<ul class="weeks">
+				<li>Sun</li>
+				<li>Mon</li>
+				<li>Tue</li>
+				<li>Wed</li>
+				<li>Thu</li>
+				<li>Fri</li>
+				<li>Sat</li>
+			</ul>
+			<ul class="days">
+				<!-- 날짜가 동적으로 추가될 영역 -->
+				<!-- 날짜별 수입 지출 금액 표시 될 영역 -->
+			</ul>
+		</div>
+	</div>
+
+
+
+
 	<!-- 추가 버튼 -->
 	<button class="add-btn" id="add-btn" onclick="openPopup()">+</button>
-	
-	</div>
+
 	<div class="modal" id="modal">
-	  <div class="modal_popup">
-	  <div>
-	  	<button onclick="closePopup()">창닫기</button>
-	  </div>
-	  <form action="moneybook.do" method="post">
-	  <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
-	    <div>
-	    <input type="date" id="paid_at" name="paid_at"/>
-	      <input
-	        type="text"
-	        placeholder="금액을 입력해주세요"
-	        id="money"
-	        name="money"
-	        oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-	        required
-	      />
-	    </div>
-	    <div class="statements">
-	      <button type="button" class="income-btn">입금</button>
-	      <button type="button" class="expense-btn">출금</button>
-	    </div>
-	    <div class="payment">
-	    <input type="hidden" id="payment" name="mb_method"/>
-	      <button type="button" class="cash-btn">현금</button>
-	      <button type="button" class="debit-btn">체크카드</button>
-	      <button type="button" class="credit-btn">신용카드</button>
-	    </div>
-	    <div class="diteil">
-	      <div class="card-category">
-	        <select id="method_nm" name="method_nm">
-	          <option selected disabled hidden value="">카드/계좌이름</option>
-	          <option value="국민카드">국민카드</option>
-			  <option>추가</option>
-	        </select>
-	      </div>
-	      <div class="category">
-	        <select id="mb_type" name="mb_type">
-	          <option selected disabled hidden value="">사용내역</option>
-	          <option value="식비">식비</option>
-			  <option>추가</option>
-	        </select>
-	      </div>
-	      <div class="memo">
-	        <input
-	          type="text"
-	          placeholder="메모를 입력하세요"
-	          id="memo"
-	          name="mb_memo"
-			  size="28px"
-	        />
-			<div class="save-btn">
-			<button type="submit" class="close-btn">저장</button>
-			<button type="reset" onclick="resetForm()">reset</button>
-			</div>
-	      </div>
-	    </div>
-	    </form>
-	  </div>
+		<div class="modal_popup">
+			<button class="close-btn" onclick="closePopup()">X</button>
+			<form action="moneybook.do" method="post">
+				<input type="hidden" id="user_id" name="user_id"
+					th:value="${session.user.userId}"
+				/>
+				<input type="date" id="paid_at" name="paid_at" /> <input
+						type="text" placeholder="금액을 입력해주세요" id="money" name="money"
+						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+						required
+				/>
+				<div class="statements">
+					<button type="button" class="income-btn">입금</button>
+					<button type="button" class="expense-btn">출금</button>
+				</div>
+				<div class="payment">
+					<input type="hidden" id="payment" name="mb_method" />
+					<button type="button" class="cash-btn">현금</button>
+					<button type="button" class="debit-btn">체크카드</button>
+					<button type="button" class="credit-btn">신용카드</button>
+				</div>
+				<div class="diteil">
+					<div class="card-category">
+						<select id="method_nm" name="method_nm">
+							<option selected disabled hidden value="">카드/계좌이름</option>
+							<option value="국민카드">국민카드</option>
+							<option>추가</option>
+						</select>
+					</div>
+					<div class="category">
+						<select id="mb_type" name="mb_type">
+							<option selected disabled hidden value="">사용내역</option>
+							<option value="식비">식비</option>
+							<option>추가</option>
+						</select>
+					</div>
+					<div class="memo">
+						<input type="text" placeholder="메모를 입력하세요" id="memo"
+							name="mb_memo" size="28px"
+						/>
+						<div class="save-btn">
+							<button type="reset"  id="reset" onclick="resetForm()">초기화</button>
+							<button type="submit" class="save">저장</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-    <script src="assets/js/calendar.js"></script>
-  </body>
+	<script src="assets/js/calendar.js"></script>
+</body>
 </html>

@@ -8,25 +8,25 @@
 <script src="assets/js/daily.js" defer></script>
 </head>
 <body>
-	<!-- 상단바 위치 -->
+    <div class="cover">
 	<header class="top-bar" th:replace="~{/top_bar}"></header>
-	<section class="daily" id="daily">
+	<div class="daily" id="daily">
 		<h1>12월</h1>
-		<section class="weekend">
+		<div class="weekend">
 			<button class="before-btn" id="before-btn">▲</button>
 			<ul class="weekdays">
-				<!--날짜 표시 부분-->
-				<!-- 금액을 표시할 영역 -->
-				<div class="amount"></div>
+				<!-- 주간 날짜 동적으로 표시-->
+			<li class="amount"></li>
+				<!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
 			</ul>
 			<button class="next-btn" id="next-btn">▼</button>
-		</section>
+		</div>
 
-		<section class="details">
+		<div class="details">
 			<div class="income">
 				<h2>수입</h2>
 				<ul class="income-list">
-					<!--수입내역 표시 부분-->
+					<!--수입내역을 동적으로 표시할 부분-->
 				</ul>
 			</div>
 
@@ -34,14 +34,12 @@
 				<div class="total-cash">현금 잔액:</div>
 				<div class="total-income">총 수입:</div>
 			</div>
-		</section>
-		<section class="details">
+		</div>
+		<div class="details">
 			<div class="expense">
 				<h2>지출</h2>
 				<ul class="expense-list">
-					<!--지출내역 표시 부분-->
-					<li></li>
-					<li></li>
+					<!--지출내역을 동적으로 표시할 부분-->
 				</ul>
 			</div>
 
@@ -50,12 +48,51 @@
 				<div class="total-card">카드:</div>
 				<div class="total-expense">총 지출:</div>
 			</div>
-		</section>
+		</div>
 		<!-- 추가 버튼 -->
 		<button class="add-btn" id="add-btn" onclick="openPopup()">+</button>
-	</section>
+	</div>
 
-
-
+	<div class="modal" id="modal">
+		<div class="modal_popup">
+			<div>
+				<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
+					required />
+			</div>
+			<div class="statements">
+				<button class="income-btn">입금</button>
+				<button class="expense-btn">출금</button>
+			</div>
+			<div class="payment">
+				<button class="cash-btn">현금</button>
+				<button class="debit-btn">체크카드</button>
+				<button class="credit-btn">신용카드</button>
+			</div>
+			<div class="diteil">
+				<div class="card-category">
+					<select name="card-name">
+						<option selected disabled="카드사" hidden>카드사</option>
+						<option name="국민카드">국민카드</option>
+						<option name="card-add">추가</option>
+					</select>
+				</div>
+				<div class="category">
+					<select name="category-name">
+						<option selected disabled="사용내역" hidden>사용내역</option>
+						<option value="식비">식비</option>
+						<option name="card-add">추가</option>
+					</select>
+				</div>
+				<div class="memo">
+					<input type="text" placeholder="메모를 입력하세요" id="memo" name="memo"
+						size="28px" />
+					<div class="save-btn">
+						<button class="close-btn" onclick="confirmSave()">저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

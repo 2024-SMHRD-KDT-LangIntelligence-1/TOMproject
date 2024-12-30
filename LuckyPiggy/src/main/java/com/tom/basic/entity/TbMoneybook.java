@@ -21,11 +21,14 @@ public class TbMoneybook {
 	public TbMoneybook(MoneybookVO vo) {
 		userId = vo.getUser_id();
 		paidAt = vo.getPaid_at();
+		mbIc = vo.getMb_ic();
 		mbAmount = vo.getMb_amount();
+		mbType = vo.getMb_type();
 		mbMethod = vo.getMb_method();
 		methodNm = vo.getMethod_nm();
+		mbNum = vo.getMb_num();
+		shopNm = vo.getShop_nm();
 		mbMemo = vo.getMb_memo();
-		mbIc = vo.getMb_ic();
 	}
 	
 	

@@ -18,78 +18,7 @@ function updateProgress(percentage) {
 // 상태 업데이트
 updateProgress(100);
 
-// 도넛 차트 설정
-// 도넛 차트 데이터 설정
-const doughnutData = [
-  { goal: 100, current: 60 },
-  { goal: 100, current: 75 },
-  { goal: 100, current: 40 },
-];
 
-// 도넛 차트 옵션
-const options = {
-  responsive: true,
-  cutout: "60%", // 도넛 중앙 비우기
-  animation: {
-    animateRotate: true,
-    animateScale: true,
-  },
-  plugins: {
-    tooltip: {
-      enabled: false, // 툴팁 숨기기
-    },
-    legend: {
-      display: false, // 범례 숨기기
-    },
-  },
-};
-
-// 도넛 차트를 초기화하는 함수
-function createDoughnutChart(canvasId, goalValue, currentValue, chartColors) {
-  const ctx = document.getElementById(canvasId).getContext("2d");
-  const fillRatio = currentValue / goalValue;
-
-  const data = {
-    datasets: [
-      {
-        data: [fillRatio, 1 - fillRatio], // 비율에 맞게 데이터를 설정
-        backgroundColor: chartColors, // 동적으로 색상을 변경
-        borderWidth: 0,
-      },
-    ],
-  };
-
-  new Chart(ctx, {
-    type: "doughnut",
-    data: data,
-    options: options,
-  });
-}
-
-// 각 도넛 차트에 사용할 색상을 설정
-const doughnutColors1 = ["#86A788", "#FFE2E2"]; // 첫 번째 도넛 차트 색상
-const doughnutColors2 = ["#213555", "#F5EFE7"]; // 두 번째 도넛 차트 색상
-const doughnutColors3 = ["#1A4D2E", "#E8DFCA"]; // 세 번째 도넛 차트 색상
-
-// 각 도넛 차트 생성
-createDoughnutChart(
-  "doughnutChart1",
-  doughnutData[0].goal,
-  doughnutData[0].current,
-  doughnutColors1
-);
-createDoughnutChart(
-  "doughnutChart2",
-  doughnutData[1].goal,
-  doughnutData[1].current,
-  doughnutColors2
-);
-createDoughnutChart(
-  "doughnutChart3",
-  doughnutData[2].goal,
-  doughnutData[2].current,
-  doughnutColors3
-);
 
 // 달력
 const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소
@@ -124,10 +53,6 @@ const renderCalendar = () => {
     // 이전 달의 마지막 날짜
     lastDayOfLastMonth = new Date(currYear, currMonth, 0).getDate();
   let liTag = ""; // 날짜 목록을 저장할 변수
-  // 이전 달의 날짜를 빈 공간으로 표시 (첫날 전에 해당하는 날짜들)
-  for (let i = firstDayOfMonth; i > 0; i--) {
-    liTag += `<li class="inactive">${lastDayOfLastMonth - i + 1}</li>`;
-  }
   // 이번 달의 날짜를 표시
   for (let i = 1; i <= lastDateOfMonth; i++) {
     // 오늘 날짜를 'active' 클래스로 표시
