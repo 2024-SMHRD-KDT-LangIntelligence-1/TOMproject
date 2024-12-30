@@ -217,8 +217,16 @@ function resetForm() {
       document.getElementById('payment').value = "";
 
       // select 태그 초기화
-      document.getElementById('method_nm').value = "";
-      document.getElementById('mb_type').value = "";
+      document.getElementById('method_nm').value="";
+	  let a = document.querySelectorAll('.debit_cardlist');
+	  for (var i = 0; i < a.length; i++) {
+	      a[i].setAttribute('hidden', true);
+	  }
+	  let b = document.querySelectorAll('.credit_cardlist');
+	  for (var i = 0; i < b.length; i++) {
+	      b[i].setAttribute('hidden', true);
+	  }  
+	  document.getElementById('mb_type').value = "";
    });
 
    // 결제 방식 버튼 초기화 (숨겨둔 버튼을 다시 보이게)
@@ -272,10 +280,18 @@ document.querySelector('.debit-btn').addEventListener('click', function() {
 
    handlePaymentButtonClick(this); // 체크카드 클릭 시만 활성화
    document.querySelector('#payment').setAttribute('value', '체크');
+   let a = document.querySelectorAll('.debit_cardlist');
+   for (var i = 0; i < a.length; i++) {
+       a[i].removeAttribute('hidden');
+   }
 });
 
 document.querySelector('.credit-btn').addEventListener('click', function() {
 
    handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
    document.querySelector('#payment').setAttribute('value', '신용');
+   let a = document.querySelectorAll('.credit_cardlist');
+   for (var i = 0; i < a.length; i++) {
+       a[i].removeAttribute('hidden');
+   }
 });
