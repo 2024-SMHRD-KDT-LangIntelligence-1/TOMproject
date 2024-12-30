@@ -84,10 +84,15 @@ public class MainController {
 		session.setAttribute("userid", userid);
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 		
-		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
-		model.addAttribute("cardlist",cardlist);
+		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
+		model.addAttribute("debit_cardlist",debit_cardlist);
 		
-		System.out.println(cardlist);
+		System.out.println(debit_cardlist);
+		
+		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
+		model.addAttribute("credit_cardlist",credit_cardlist);
+		
+		System.out.println(credit_cardlist);
 		
 		return "calendar";
 	}
