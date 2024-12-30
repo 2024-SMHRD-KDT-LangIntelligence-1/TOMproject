@@ -17,9 +17,7 @@ function updateProgress(percentage) {
 }
 // 상태 업데이트
 updateProgress(100);
-
-
-
+//----------------------------------------------------------------------------------
 // 달력
 const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소
   dayTags = document.querySelector(".days"); // 날짜를 표시할 요소
@@ -77,7 +75,3 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = "calendar";
   });
 });
-
-// 바 차트 설정
-
-// 라인 차트 설정

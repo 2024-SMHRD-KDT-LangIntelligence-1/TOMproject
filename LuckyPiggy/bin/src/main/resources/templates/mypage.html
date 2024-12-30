@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my page</title>
+    <link rel="stylesheet" href="assets/css/mypage.css" />
+  </head>
+  <body>
+    <div class="mypage-box">
+    
+      <!-- 로고와 페이지 이름 -->
+      <div class="logo">
+        <img
+          src="images/logo.jpg"
+          alt="Lucky Piggy Logo"
+          width="100"
+          height="100"
+        />
+        
+        <h2>My Page</h2>
+      </div>
+      <!-- 아이디/비밀번호 입력창 -->
+      <form action="mypage.do" method="post">
+      
+      <div class="input-group">
+        <input
+          type="text"
+          id="user_id"
+          name="user_id"
+          th:value="${session.user.userId}"
+          readonly
+        />
+       
+        <input
+          type="password"
+		  id="user_pw"
+          name="user_pw"
+          placeholder="새로운 비밀번호를 입력하세요"
+          required
+        />
+        
+        <input
+          type="password"
+          id="user_pw2"
+          name="user_pw2"
+          placeholder="비밀번호를 다시 한번 입력하세요"
+          required
+        />      
+      </div>
+      
+      
+      <!-- 닉네임임 입력창 -->
+      <div class="user_nick">
+        <input
+          type="text"
+          id="user_nick"
+          name="user_nick"
+          placeholder="닉네임을 입력하세요"
+        />
+        
+       <!-- 중복확인 버튼 -->
+        <button type="button" class="check-btn">중복확인</button>
+      </div>     
+      
+      <!-- 변경완료 버튼 -->
+      <button type="submit" onclick="test()" id="join-btn" class="join-btn">변경완료</button>
+      
+	  <!--  회원 탈퇴 기능 -->
+		<br>
+		<div class="withdraw">
+			<a href="withdraw.do">회원 탈퇴</a>
+		</div>
+	   </div>
+	</form>
+     
+    
+    <script type="text/javascript">
+    function test() {
+        var p1 = document.getElementById('user_pw').value;
+        var p2 = document.getElementById('user_pw2').value;
+        if( p1 != p2 ) {
+          alert("비밀번호가 일치하지 않습니다");
+          return false;
+        }else if(p1==""){
+        	alert("비밀번호를 입력해주세요");
+            return false;   
+        }else{
+          alert("변경이 완료되었습니다");
+          return true;
+        }
+
+      }
+    </script>
+    	
+    	
+  </body>
+</html>

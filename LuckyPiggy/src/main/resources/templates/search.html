@@ -8,10 +8,27 @@
 </head>
 <body>
 
+<div class="container">
+  <h2>Filterable Table</h2>
+  
+  <table>
+  	<tr>
+  		<th>index</th>
+  		<th>category</th>
+  		<th>shop</th>
+  		<th>payment</th>
+  	</tr>
+  	<tbody>
+  	<tr th:each="list : ${searchlist}">
+  		<td th:text="${list.mb_idx}"></td>
+  		<td th:text="${list.mbType}"></td>
+  		<td th:text="${list.shopNm}"></td>
+  		<td th:text="${list.mbMethod}"></td>
+  	</tr>
+  	</tbody>
+  </table>
+  </div>
 
-	<div th:each="list : ${searchlist}">
-		<span th:text="${list.shopNm}"></span>
-	</div>
 
 
 </body>

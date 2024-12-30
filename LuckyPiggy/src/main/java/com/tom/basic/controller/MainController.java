@@ -1,6 +1,7 @@
 package com.tom.basic.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -193,6 +194,7 @@ public class MainController {
 		System.out.println("저장된 유저아이디 가져오기" + userid);
 		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
 
+
 		System.out.println("가져온 것은");
 		model.addAttribute("eat", graphlist);
 
@@ -212,15 +214,16 @@ public class MainController {
 	// 검색 기능
 	@RequestMapping("/search")
 	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
-//		HttpSession session = request.getSession();
-//		TbUser uid = (TbUser) session.getAttribute("user");
-//		String userid = uid.getUserId();
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+		String userid = uid.getUserId();
 		
-		List<TbMoneybook> searchlist = srepo.findByMbTypeContaining(keyword);
+		List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
 		System.out.println(searchlist);
 
 		model.addAttribute("searchlist", searchlist);
 
 		return "search";
 	}
+
 }

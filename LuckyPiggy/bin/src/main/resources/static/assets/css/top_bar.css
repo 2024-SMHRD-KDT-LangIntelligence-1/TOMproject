@@ -3,17 +3,21 @@
   display: flex; /* 가로로 배치 */
   align-items: center; /* 세로 중앙에 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
-  margin: 0 auto; /* 수평 중앙 정렬 */
+  margin: 0; /* 수평 중앙 정렬 */
   width: 500px; /* 가로크기 */
   position: relative;
+  left: -18px;
+  padding-top: 15px;
+  margin-bottom: 0;
 }
 
 /* 검색창 스타일 */
 .header input[type="text"] {
   padding: 10px; /* 세로크기 */
   border-radius: 10px; /* 둥굴게 */
-  width: 300px;
-  margin-right: 10px; /* 오른쪽 여백 */
+  width: 315px;
+  margin-left: 10px;
+  margin-right: 15px; /* 오른쪽 여백 */
 }
 
 /* 메뉴 스타일 */
@@ -22,18 +26,35 @@
 }
 
 .menu {
-  display: none; /*메뉴 내용 숨기기*/
+  display: none; /* 메뉴 내용 숨기기 */
   position: absolute;
-  top: 70%;
+  top: 85%;
   right: 0;
-  left: 75%;
-  width: 100%;
+  left: 65%;
+  width: 160px;
   margin: 0;
+  z-index: 10;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), /* 아래 그림자 */
+                0 -4px 8px rgba(0, 0, 0, 0.1); /* 위 그림자 */
+  border-radius: 10px; /* 둥글게 */
 }
 
 .menu a {
+  position: relative;
+  text-align: center;
+  width: 160px;
   color: black;
-  text-decoration: none; /* 밑줄 제거*/
-  padding: 5px 10px; /* 위아래, 좌우 여백 */
+  text-decoration: none; /* 밑줄 제거 */
+  padding: 5px;
+  margin: 10px;
+  margin-left: 0;
   display: block;
+  transition: background-color 0.3s ease; /* 마우스 오버 시 부드러운 색 변화 */
+  box-sizing: border-box; /* padding 포함 크기 계산 */
+  border-radius: 10px; /* 둥글게 */
+}
+
+.menu a:hover {
+  background-color: #f1f1f1; /* 마우스 오버 시 배경 색 변화 */
 }
