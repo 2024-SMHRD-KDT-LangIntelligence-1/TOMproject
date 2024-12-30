@@ -1,169 +1,206 @@
 /* 모든 페이지의 기본 스타일 */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;  /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
 }
 
 body {
-  display: flex; /* 페이지 전체 중앙 정렬 */
-  flex-direction: column; /* 세로 배치 */
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: center; /* 가로 중앙 정렬 */
+	display: flex; /* 페이지 전체 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	justify-content: center; /* 가로 중앙 정렬 */
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
 }
 
-/* 스크롤바 숨기기 */
 body::-webkit-scrollbar {
-  width: 0; /* 세로 */
-  height: 0; /* 가로 */
-}
-
-.top-bar{
-	position: relative;
-	top: -90px;
-	padding-left: 40px;
+	width: 0; /* 세로 */
 }
 
 .cover {
-  width: 480px; /* 화면 크기 500px */
-  height: auto;
-  background-color: #f4f4f4; /* 배경색 */
-  border-radius: 2%; /* 테두리 둥글게 */
-  margin-top: 30px;
+	width: 500px;
+	display: flex; /* 자식 요소를 flex로 배치 */
+	flex-direction: column;
+	justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
+}
+/*-------------------------------------------------------------------------------------*/
+/* 달력 컨테이너*/
+.month-container {
+	width: 430px;
+	height: 573px;
+	background-color: #F5F5F7;
+	margin-top: 15px;
+	margin-left: 35px;
+	margin-right: 35px;
+	border-radius: 10px; /* 테두리 둥글게 */
+}
+.month-name {
+	font-size: 24px;
+	font-weight: 600; /* 폰트 두께 */
+	margin-left: 25px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	text-align: left;
+}
+/* 달 이동 버튼 */
+.month-btn {
+	display: flex;
+	justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+	gap: 15px; /* 버튼 간 간격 설정 */
+	padding-right: 25px; /* 부모 요소에 여백을 추가하여 버튼을 더 왼쪽으로 */
 }
 
-.cover header {
-  display: flex; /* Flexbox로 설정해 각 내용 위치 고정 */
-  justify-content: space-between; /* 내용 각 끝에 위치 */
+.month-btn button:hover {
+	background: #E4E0E1; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
 }
 
-header .month-name {
-  font-size: 30px; /* 폰트 크기 */
-  font-weight: 600; /* 폰트 두께 */
-  position: relative; /* 각각 위치 지정 위해 필요 */
-  top: -10px; /* 상단 -10px 위로 이동 */
-  left: 25px; /* 왼쪽-10px 이동 */
+.month-btn button {
+	height: 35px;
+	width: 30px;
+	color: #878787;
+	font-size: 20px;
+	text-align: center;
+	border-radius: 10px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	transform: translateY(-55px); /* 위로 이동 */
 }
-
-header .month-btn button {
-  height: 35px; /* 높이 */
-  width: 30px; /* 너비 */
-  color: #878787; /* 텍스트 색 */
-  font-size: 25px; /* 텍스트 크기 */
-  text-align: center; /* 텍스트 가운데 정렬 */
-  cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
-  border-radius: 30%; /* 테두리 둥글게 */
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
-}
-
-header .month-btn button:hover {
-  background: white; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
-}
-
-header .month-btn button:last-child {
-  margin-right: -10px; /* 마지막 버튼에 오른쪽 여백을 -10px 설정 */
+/* 잔액/지출 표시 박스 */
+.box {
+	display: flex;
+	flex-direction: row;
+	width: 380px;
+	height: 40px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 5px;
+	transform: translateY(-20px); /* 위로 5px 이동 */
+	font-size: 12px;
+	gap: 10px; /* 간격 설정 */
 }
 
 .amount-box {
-  font-size: 14px; /* 텍스트 크기 */
-  position: relative; /* 상대적 위치 설정 */
-  top: 110px; /* 상단 110px 위로 이동 */
-  left: -375px; /* 왼쪽 -375px 이동 */
+	width: 180px;
+	background-color: #EDDFE0;
+	border-radius: 8px;
+	padding: 5px;
+	padding-top: 11px;
 }
 
 .expense-box {
-  font-size: 14px; /* 텍스트 크기 설정 */
-  position: relative; /* 각각 위치 지정 위해 필요 */
-  top: 70px; /* 상단에서 70px 위로 위치 이동 */
-  right: 180px; /* 오른쪽에서 180px 위치 이동 */
+	width: 180px;
+	background-color: #EDDFE0;
+	border-radius: 8px;
+	padding: 3px; /* 내부여백 */
+	line-height: 1.5; /* 줄간격*/
+}
+/* 요일 표시 */
+.weeks {
+	display: flex; /* 가로배치 */
+	justify-content: space-around; /* 각 요일을 고르게 배치 */
+	padding: 0;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 20px;
+	list-style: none;
+	margin-right: 25px;
+	margin-bottom: 30px;
 }
 
-.calendar {
-  padding: 10px; /* 캘린더 여백 설정 */
+.weeks li {
+	font-weight: 800; /* 텍스트 두께 설정 */
+	font-size: 15px;
+	text-align: center;
+}
+/* 날짜 */
+.days {
+	display: flex;
+	flex-wrap: wrap; /* 날짜를 여러 줄로 나눠서 표시 */
+	list-style: none;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-left: 25px;
 }
 
-.calendar ul {
-  display: flex; /* 캘린더 리스트를 Flexbox로 설정 */
-  list-style: none; /* 기본 리스트 스타일 제거 */
-  flex-wrap: wrap; /* 날짜 각각 넓이 지정 */
+.days li {
+	width: calc(100%/ 7); /* 7일로 나누어 1칸의 너비 설정 */
+	text-align: center;
+	position: relative;
+	padding-bottom: 38px;
+	box-sizing: border-box;
+	z-index: 1;
+	cursor: pointer;
 }
-
-.calendar .days {
-  margin-bottom: 10px; /* 아래 여백 설정 */
+/* 오늘 날짜 */
+.days li.active {
+	color: white; /* 텍스트 색상 */
+	font-weight: bold; /* 텍스트 굵게 */
 }
-
-.calendar .weeks li {
-  font-weight: 600; /*텍스트트 두께 설정 */
-  left: -5px; /* 왼쪽으로 5px 이동 */
-  margin: 0 0 -35px 0; /* 날짜와의 간격 35px 설정 */
+/* 오늘 날짜 배경을 둥글게 설정 */
+.days li.active::before {
+	position: absolute;
+	content: "";
+	height: 30px;
+	width: 30px;
+	top: -3px; /* 상단 중앙 위치 */
+	left: 13px; /* 좌측 중앙 위치 */
+	z-index: -1;
+	border-radius: 50%; /* 둥근 배경 설정 */
+	background: #FFCF96;
 }
-
-.calendar ul li {
-  position: relative; /*  각각 위치 지정 위해 필요 */
-  width: calc(100% / 7); /* 7일로 나누어 1칸의 너비 설정 */
-  height: 33px; /* 높이 설정 */
-  line-height: 45px; /* 텍스트 세로 정렬 */
-}
-
-.calendar .days li {
-  height: 50px; /* 날짜 셀의 높이를 50px로 설정 */
-  z-index: 1; /* 배경 앞으로 글자 위치치 */
-  cursor: pointer; /* 클릭 시 포인터 커서 */
-  margin-top: 30px; /* 상단 여백*/
-}
-
 /* 이전/다음달 날짜 스타일 */
 .days li.inactive {
-  color: #aaa; /* 텍스트 색상 */
+	color: #aaa; /* 텍스트 색상 */
 }
-
-/* 오늘 날짜 스타일 */
-.days li.active {
-  color: #fff; /* 텍스트 색상 */
-  font-weight: bold; /*텍스트 굵게 */
-}
-
-/* 날짜 모양 스타일 */
-.calendar .days li::before {
-  position: absolute; /*  각각 위치 지정 위해 필요 */
-  content: ""; /* 내용 없음 */
-  height: 30px; /* 높이 */
-  width: 40px; /* 너비 */
-  top: 50%; /* 상단 50% 위치 */
-  left: 15%; /* 왼쪽 15% 위치 */
-  z-index: -1; /* 배경 날짜 뒤로 배치 */
-  border-radius: 20%; /* 둥근 배경 설정 */
-  transform: translate(-50%, -50%); /* 정확히 가운데로 위치시킴 */
-}
-
 /* 날짜 hover 효과 */
 .days li:hover::before {
-  background: #f2f2f2; /* hover 시 배경색 변경 */
+	background: #B7B7B7; /* hover 시 배경색 변경 */
 }
-
-/* 오늘 날짜 배경색 */
-.days li.active::before {
-  background: #f9c74f; /* 오늘 날짜 배경색 설정 */
+/* 날짜 모양 스타일 */
+.days li::before {
+	position: absolute;
+	content: "";
+	height: 30px;
+	width: 30px;
+	top: -3px; /* 상단 중앙 위치 */
+	left: 13px; /* 좌측 중앙 위치 */
+	z-index: -1;
+	border-radius: 50%;
+	left: 13px; /* 둥근 배경 설정 */
 }
-
+/* 날짜 밑에 수입/지출 표시 */
+.expense-info {
+	position: absolute;
+	width: 100%;
+	font-size: 12px;
+	text-align: center;
+	bottom: 1px;
+}
+/* 수입: 초록색 */
+.income {
+	color: #4caf50; /* 초록색 */
+}
+/* 지출: 빨간색 */
+.expense {
+	color: #f44336; /* 빨간색 */
+}
 /* 추가 버튼 */
 .add-btn {
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
-  color: white; /* 텍스트 색상 */
-  background-color: #1ec800; /* 배경색 */
-  cursor: pointer; /* 클릭 시 포인터 커서 */
-  position: absolute; /* 절대 위치로 설정; */
-  transform: translate(
-    530%,
-    750%
-  ); /* 버튼의 위치를 고정, 페이지 크기에 따라 변동 가능 */
-  height: 40px; /* 높이 */
-  width: 40px; /* 너비 */
-  border-radius: 50%; /* 원형 설정 */
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
+	color: white; /* 텍스트 색상 */
+	background-color: #89A8B2; /* 배경색 */
+	cursor: pointer; /* 클릭 시 포인터 커서 */
+	height: 25px; /* 높이 */
+	width: 25px; /* 너비 */
+	border-radius: 8px;
+	position: absolute;
+	bottom: 30px;
+	transform: translateX(760%); /* 오른쪽으로 이동 */
 }
-
+/*-------------------------------------------------------------------------------------*/
 /*  팝업창 스타일 */
 .modal {
   display: none; /* 기본적으로 모달 숨기기 */
@@ -180,114 +217,126 @@ header .month-btn button:last-child {
   z-index: 10; /* 맨앞으로 위치 */
 }
 
-#money {
-  color: black;
-  background-color: #f4f4f4;
-  font-size: 18px;
-  text-align: right;
-  height: 70px;
-  margin-top: 20px;
-  border-radius: 3px; /* 테두리 둥글게 */
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
+.close-btn {
+	color: white;
+	background-color: #007bff;
+	margin-top: 10px;
+	margin-bottom: 25px;
+	margin-left: 220px;
+	width: 30px;
+	height: 25px;
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
+	border-radius: 3px; /* 테두리 둥글게 */
+	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+}
+#paid_at{
+		width: 220px;
+	height: 30px;
+	margin-bottom: 10px;
 }
 
-#shop_nm {
-  color: black;
-  background-color: #f4f4f4;
-  text-align: right;
-  height: 30px;
-  border-radius: 3px; /* 테두리 둥글게 */
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
-  margin-bottom: 10px;
-  width: 220px;
+#money {
+	color: black;
+	background-color: #f4f4f4;
+	font-size: 18px;
+	text-align: right;
+	height: 70px;
+	margin-top: 0px;
+	border-radius: 3px; /* 테두리 둥글게 */
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
 }
 
 #memo {
-  color: black;
-  background-color: #f4f4f4;
-  text-align: right;
-  height: 30px;
-  border-radius: 3px; /* 테두리 둥글게 */
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
-  width: 220px;
+	color: black;
+	background-color: #f4f4f4;
+	text-align: right;
+	height: 30px;
+	border-radius: 3px; /* 테두리 둥글게 */
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
 }
 
 /* 비활성화된 버튼 스타일 */
 button.disabled {
-  color: black;
-  background-color: #ddd; /* 비활성화된 버튼 색상 */
-  cursor: not-allowed;    /* 커서 모양 변경 */
-  pointer-events: none;   /* 클릭 이벤트 무시 */
-  border: none; /* 테두리 제거 */
+	color: black;
+	background-color: #ddd; /* 비활성화된 버튼 색상 */
+	cursor: not-allowed; /* 커서 모양 변경 */
+	pointer-events: none; /* 클릭 이벤트 무시 */
+	border: none; /* 테두리 제거 */
 }
 
-.income-btn,
-.expense-btn {
-  color: #007bff;
-  background-color: white;
-  width: 108px;
-  height: 30px;
-  margin-top: 10px;
-  outline: none; /* 외곽선 제거 */
-  border-style:solid;
-  border-color: #007bff;
-  /*border: none; /* 테두리 제거 */
-  border-radius: 3px; /* 테두리 둥글게 */
-  cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+.income-btn, .expense-btn {
+	color: #007bff;
+	background-color: white;
+	width: 108px;
+	height: 30px;
+	margin-top: 10px;
+	outline: none; /* 외곽선 제거 */
+	border-style: solid;
+	border-color: #007bff;
+	/*border: none; /* 테두리 제거 */
+	border-radius: 3px; /* 테두리 둥글게 */
+	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
 }
 
 /* 선택한 버튼 */
-.income-btn.active,
-.expense-btn.active,
-.cash-btn.active,
-.debit-btn.active,
-.credit-btn.active {
-  color: white;
-  background-color:  #007bff;
+.income-btn.active, .expense-btn.active, .cash-btn.active, .debit-btn.active,
+	.credit-btn.active {
+	color: white;
+	background-color: #007bff;
 }
 
 /* 숨기기 위한 클래스 */
 .hidden {
-  display: none;
+	display: none;
 }
 
-.cash-btn,
-.debit-btn,
-.credit-btn {
-  color: #007bff;
-  background-color: white;
-  width: 70px;
-  height: 30px;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  outline: none; /* 외곽선 제거 */
-  border-style:solid;
-  border-color: #007bff;
-  /*border: none; /* 테두리 제거 */
-  border-radius: 3px; /* 테두리 둥글게 */
-  cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+.cash-btn, .debit-btn, .credit-btn {
+	color: #007bff;
+	background-color: white;
+	width: 70px;
+	height: 30px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	outline: none; /* 외곽선 제거 */
+	border-style: solid;
+	border-color: #007bff;
+	/*border: none; /* 테두리 제거 */
+	border-radius: 3px; /* 테두리 둥글게 */
+	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
 }
 
-.card-category select,
-.category select {
-  width: 220px;
-  height: 30px;
-  margin-bottom: 10px;
+.card-category select, .category select {
+	width: 220px;
+	height: 30px;
+	margin-bottom: 10px;
 }
 
-.close-btn {
-  color: white;
-  background-color: #1ec800;
-  margin-top: 30px;
-  margin-bottom: 0;
-  width: 70px;
-  height: 30px;
-  outline: none; /* 외곽선 제거 */
-  border: none; /* 테두리 제거 */
-  border-radius: 3px; /* 테두리 둥글게 */
-  cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+#reset {
+	color: white;
+	background-color: #1ec800;
+	margin-top: 30px;
+	margin-bottom: 0;
+	width: 70px;
+	height: 30px;
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
+	border-radius: 3px; /* 테두리 둥글게 */
+	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
+}
+
+.save {
+	color: white;
+	background-color: #1ec800;
+	margin-top: 30px;
+	margin-bottom: 0;
+	width: 70px;
+	height: 30px;
+	outline: none; /* 외곽선 제거 */
+	border: none; /* 테두리 제거 */
+	border-radius: 3px; /* 테두리 둥글게 */
+	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
 }

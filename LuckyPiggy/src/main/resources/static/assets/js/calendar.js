@@ -37,6 +37,16 @@ function redirectToDailyPage(year, month, day) {
 	window.location.href = `daily?date=${dateStr}`;
 }
 
+// 예시 수입/지출 내역 데이터 (날짜별로 현금 지출과 카드 지출)
+const expenseData = {
+  "1": { cash: 5000, card: 2000 },
+  "2": { cash: 3000, card: 1000 },
+  "6": { cash: 4000, card: 2500 },
+  "17": { cash: 3000, card: 0 },
+  "30": { cash: 5000, card: 1000 },
+  // 추가적인 날짜와 지출 데이터를 설정할 수 있음
+};
+
 // 달력을 렌더링하는 함수
 const renderCalendar = () => {
 	// 해당 월의 첫 날 요일 (0: 일요일, 1: 월요일 등)
@@ -55,6 +65,31 @@ const renderCalendar = () => {
 		liTag += `<li class="inactive">${lastDayOfLastMonth - i + 1}</li>`;
 	}
 
+<<<<<<< HEAD
+  // 이번 달의 날짜를 표시
+  for (let i = 1; i <= lastDateOfMonth; i++) {
+    // 오늘 날짜를 'active' 클래스로 표시
+    let isToday =
+      i === date.getDate() &&
+      currMonth === new Date().getMonth() &&
+      currYear === new Date().getFullYear()
+        ? "active"
+        : "";
+
+    // 수입/지출 정보 가져오기
+    const expense = expenseData[i] || { cash: 0, card: 0 };
+    let income = expense.cash + expense.card > 0 ? `<div class="income">${expense.cash + expense.card}</div>` : '';
+    let expenseText = expense.card > 0 || expense.cash > 0 ? `<div class="expense">${expense.cash + expense.card}</div>` : '';
+
+    liTag += `<li class="day ${isToday}" data-day="${i}">
+                ${i}
+                <div class="expense-info">
+                  ${income}
+                  ${expenseText}
+                </div>
+              </li>`;
+  }
+=======
 	// 이번 달의 날짜를 표시
 	for (let i = 1; i <= lastDateOfMonth; i++) {
 		// 오늘 날짜를 'active' 클래스로 표시
@@ -66,6 +101,7 @@ const renderCalendar = () => {
 				: "";
 		liTag += `<li class="day ${isToday}" data-day="${i}">${i}</li>`; // 클릭할 수 있는 날짜에 data-day 속성 추가
 	}
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 
 	// 다음 달의 날짜를 빈 공간으로 표시 (마지막 날 이후 해당하는 날짜들)
 	for (let i = lastDayOfMonth; i < 6; i++) {
@@ -77,6 +113,16 @@ const renderCalendar = () => {
 	// 달력 내용 업데이트
 	dayTags.innerHTML = liTag;
 
+<<<<<<< HEAD
+  // 날짜 클릭 이벤트
+  dayTags.addEventListener("click", (e) => {
+    // 클릭된 요소가 .day 클래스인 경우
+    if (e.target.classList.contains("day")) {
+      const day = e.target.dataset.day; // 클릭된 날짜 가져오기
+      redirectToDailyPage(currYear, currMonth, day); // 날짜 클릭 시 daily.html로 이동
+    }
+  });
+=======
 	// 날짜 클릭 이벤트트
 	dayTags.addEventListener("click", (e) => {
 		// 클릭된 요소가 .day 클래스인 경우
@@ -85,6 +131,7 @@ const renderCalendar = () => {
 			redirectToDailyPage(currYear, currMonth, day); // 날짜 클릭 시 daily.html로 이동
 		}
 	});
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 };
 
 // 월 렌더링
@@ -119,16 +166,28 @@ preNextBtn.forEach((btn) => {
 
 // 팝업 열기
 function openPopup() {
+<<<<<<< HEAD
+  resetForm();
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("cover").style.pointerEvents = 'none'; // 페이지 클릭 비활성화
+=======
 	resetForm();
 	document.getElementById("modal").style.display = "block";
 	document.getElementById("cover").style.pointerEvents = 'none'; // 캘린더 클릭 비활성화
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 }
 
 // 팝업 닫기
 function closePopup() {
+<<<<<<< HEAD
+  resetForm();
+  document.getElementById("modal").style.display = "none";
+  document.getElementById("cover").style.pointerEvents = 'auto'; // 페이지 클릭 활성화
+=======
 	resetForm();
 	document.getElementById("modal").style.display = "none";
 	document.getElementById("cover").style.pointerEvents = 'auto'; // 캘린더 클릭 활성화
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 }
 
 // 버튼 클릭 시 'active' 클래스를 추가하고 나머지 버튼 비활성화
