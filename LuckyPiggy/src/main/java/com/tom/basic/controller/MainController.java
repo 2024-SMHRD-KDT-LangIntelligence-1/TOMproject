@@ -30,11 +30,11 @@ public class MainController {
 	@Autowired
 	UserRepo userRepo;	
 	@Autowired
-	GraphRepo graphRepo;
-	@Autowired
 	CreditcardRepo creditcard_repo;
 	@Autowired
 	AccountRepo account_repo;
+	@Autowired
+	GraphRepo graphRepo;
 	@Autowired
 	MoneybookRepo moneybook_repo;
 	
@@ -47,6 +47,12 @@ public class MainController {
 	public String home() {
 		return "start_page";
 	}
+	@GetMapping("/startpage")
+	public String startPage() {
+		return "start_page";
+	}
+	
+
 
 	@GetMapping("/join")
 	public String join() {
@@ -83,6 +89,7 @@ public class MainController {
 		return "mypage";
 	}
 
+
 	@GetMapping("/card")
 	public String card(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
@@ -94,25 +101,13 @@ public class MainController {
 		
 		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
 		model.addAttribute("cardlist",cardlist);
-		
-		
-		
+
 		return "card";
 	}
 
 	@GetMapping("/account")
 	public String account() {
 		return "account";
-	}
-
-	@GetMapping("/graph")
-	public String graph(Model model) {
-		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
-		
-		System.out.println("가져온 것은");
-		model.addAttribute("eat",graphlist);
-		
-		return "graph";
 	}
 
 	
@@ -178,6 +173,33 @@ public class MainController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/graph")
+	public String graph(Model model) {
+		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
+		
+		
+		System.out.println("가져온 것은");
+		model.addAttribute("eat",graphlist);
+		
+		return "graph";
+	}
+	
+	//가계부에서 카드리스트 보여주기 메소드
+	@PostMapping("/getcard/getCard")
+	public String getCard(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser)session.getAttribute("user");
+		
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("카드리스트 유저 아이디는:" + userid);
+		
+		List<TbCreditcard> cardlist = creditcard_repo.findAllByUserId(userid);
+		model.addAttribute("cardlist",cardlist);
+		
+		return "redirect:/";
+	}
+
 	// 가계부 등록 기능
 	@PostMapping("/moneybook.do")
 	public String moneybook(MoneybookVO vo) {

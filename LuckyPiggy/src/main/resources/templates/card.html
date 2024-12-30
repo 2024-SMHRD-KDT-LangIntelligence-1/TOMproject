@@ -15,54 +15,53 @@
 
 			<h2>카드등록</h2>
 		</div>
-		
+
 		<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
 		<form action="card.do" method="post">
 
 			<div class="input-group">
-			    <input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
-			
-				<input type="text" id="card_nm" name="card_nm" placeholder="별칭"
-					required />
-				
-				<select id="card_type" name="card_type">
+				<input type="hidden" id="user_id" name="user_id"
+					th:value="${session.user.userId}" /> <input type="text"
+					id="card_nm" name="card_nm" placeholder="별칭" required /> <select
+					id="card_type" name="card_type">
 					<option value="체크">체크카드</option>
 					<option value="신용">신용카드</option>
-				</select>
-				
-				<input type="text" id="card_com"
-					name="card_com" placeholder="카드사" required />
-					
-				<input type="text" oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
-					id="card_num" name="card_num" placeholder="카드번호" required />
-
-				<input type="text"
+				</select> <input type="text" id="card_com" name="card_com" placeholder="카드사"
+					required /> <input type="text"
+					oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
+					id="card_num" name="card_num" placeholder="카드번호" required /> <input
+					type="text"
 					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-					id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"/>
-				
-				<input type="text" id="benefit_content" name="benefit_content" placeholder="카드혜택"/>
+					id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액" /> <input
+					type="text" id="benefit_content" name="benefit_content"
+					placeholder="카드혜택" />
 			</div>
-			
-			
+
+
 			<!-- 등록된 카드 확인 버튼 -->
 			<div class="cardview">
 				<button type="button" class="modal_btn">등록된 카드확인</button>
 			</div>
-			
+
 			<!--모달 팝업, 등록된 카드확인-->
 			<div class="modal">
 				<div class="modal_popup">
 					<h3>카드 목록</h3>
-					<p><span th:text="${session.userid}"></span>님의 카드 목록</p>
+					<p>
+						<span th:text="${session.userid}"></span>님의 카드 목록
+					</p>
+
+					<!-- db에 있는 내 카드목록 가져옴 -->
 					<div th:each="cardlist : ${cardlist}">
 						<span th:text="${cardlist.cardNm}"></span>
 					</div>
+
 					<button type="button" class="close_btn">닫기</button>
 				</div>
 			</div>
 
 			<!-- 등록완료 버튼 -->
-			<button type="submit" id="join-btn" class="join-btn">등록완료</button>	
+			<button type="submit" id="join-btn" class="join-btn">등록완료</button>
 		</form>
 	</div>
 

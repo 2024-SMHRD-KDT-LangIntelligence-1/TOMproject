@@ -7,5 +7,5 @@ import com.tom.basic.entity.TbMoneybook;
 
 @Repository
 public interface MoneybookRepo extends JpaRepository<TbMoneybook, Long>{
-
+	
 }
