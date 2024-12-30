@@ -60,21 +60,26 @@
 	<div class="modal" id="modal">
 	<form action="dmoneybook.do" method="post">
 		<div class="modal_popup">
-	
+		<div>
+				<button onclick="closePopup()">창닫기</button>
+			</div>
+
 		<input type="hidden" id="user_id" name="user_id"
 					th:value="${session.user.userId}" />
 			<div>
+			
 				<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
 					required />
+					
 			</div>
 			<div class="statements">
-				<button class="income-btn">입금</button>
-				<button class="expense-btn">출금</button>
+				<button type = "button" class="income-btn">입금</button>
+				<button type = "button" class="expense-btn">출금</button>
 			</div>
 			<div class="payment">
-				<button class="cash-btn">현금</button>
-				<button class="debit-btn">체크카드</button>
-				<button class="credit-btn">신용카드</button>
+				<button type = "button" class="cash-btn">현금</button>
+				<button type = "button" class="debit-btn">체크카드</button>
+				<button type = "button" class="credit-btn">신용카드</button>
 			</div>
 			<div class="diteil">
 				<div class="card-category">
@@ -95,13 +100,13 @@
 					<input type="text" placeholder="메모를 입력하세요" id="memo" name="memo"
 						size="28px" />
 					<div class="save-btn">
-						<button class="close-btn" onclick="confirmSave()">저장</button>
+						<button type = "submit" class="close-btn" onclick="confirmSave()">저장</button>
 					</div>
 				</div>
 			</div>
 		
 		</div>
-		</form>
+	</form>
 	</div>
 	
 </div>
