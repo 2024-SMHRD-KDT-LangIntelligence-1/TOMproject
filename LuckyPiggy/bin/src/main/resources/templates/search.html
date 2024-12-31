@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>top_bar</title>
+<link rel="stylesheet" href="assets/css/top_bar.css" />
+</head>
+<body>
+
+<div class="container">
+  <h2>Filterable Table</h2>
+  
+  <table>
+  	<tr>
+  		<th>index</th>
+  		<th>category</th>
+  		<th>shop</th>
+  		<th>payment</th>
+  	</tr>
+  	<tbody>
+  	<tr th:each="list : ${searchlist}">
+  		<td th:text="${list.mb_idx}"></td>
+  		<td th:text="${list.mbType}"></td>
+  		<td th:text="${list.shopNm}"></td>
+  		<td th:text="${list.mbMethod}"></td>
+  	</tr>
+  	</tbody>
+  </table>
+  </div>
+
+
+
+</body>
+</html>

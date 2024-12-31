@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>top_bar</title>
-    <link rel="stylesheet" href="assets/css/top_bar.css" />
-  </head>
-  <body>
-    <!-- 상단바 -->
-    <header class="header" id="top-bar">
-      <!-- 로고 누르면 메인화면으로 이동 -->
-      <div class="logo">
-        <a href="main">
-          <img src="/images/logo.jpg" height="80px" width="80px" />
-        </a>
-      </div>
-      <div>
-        <input type="text" placeholder="검색어를 입력하세요" />
-      </div>
-      <!-- 메뉴 아이콘을 올리면 토글메뉴 생성 -->
-      <div class="menu-toggle" 
-           onmouseover="toggleMenu(true)" 
-           onmouseout="toggleMenu(false)">
-        <img src="/images/menu.png" width="30" height="30" />
-      </div>
-      <!-- 메뉴 선택시 페이지 이동 -->
-      <div class="menu" id="menu" style="display: none;">
-        <ul>
-          <a href="calendar" onclick="keepMenuVisible()">Calendar</a>
-        </ul>
-        <ul>
-          <a id="daily" onclick="keepMenuVisible()">Daily</a>
-        </ul>
-        <ul>
-          <a href="mypage" onclick="keepMenuVisible()">MyPage</a>
-        </ul>
-		<ul>
-		  <a href="/" onclick="keepMenuVisible()">Logout</a>
-		</ul>
-      </div>
-    </header>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>top_bar</title>
+<link rel="stylesheet" href="assets/css/top_bar.css" />
+</head>
+<body>
+	<!-- 상단바 -->
+	<header class="header" id="top-bar">
+		<!-- 로고 누르면 메인화면으로 이동 -->
+		<div class="logo">
+			<a href="main"> <img src="/images/logo.jpg" height="80px"
+				width="80px" />
+			</a>
+		</div>
+
+		<!-- 검색창 -->
+		<div>
+		<form id = "searchForm" action="/search" method = "GET">
+			<input type="search" placeholder="검색어를 입력하세요" onkeyup ="enterkey()" name="searchValue" />
+		</form>
+		</div>
+		<script>
+			function enterkey() {
+				if (window.event.KeyCode == 13) {
+					document.getElementById("searchForm").submit();
+				}
+			}
+		</script>
+		
+		<!-- 메뉴 아이콘을 올리면 토글메뉴 생성 -->
+		<div class="menu-toggle" onmouseover="toggleMenu(true)"
+			onmouseout="toggleMenu(false)">
+			<img src="/images/menu.png" width="30" height="30" />
+		</div>
+		<!-- 메뉴 선택시 페이지 이동 -->
+		<div class="menu" id="menu" style="display: none;">
+			<ul>
+				<a href="calendar" onclick="keepMenuVisible()">Calendar</a>
+			</ul>
+			<ul>
+				<a id="daily" onclick="keepMenuVisible()">Daily</a>
+			</ul>
+			<ul>
+				<a href="mypage" onclick="keepMenuVisible()">MyPage</a>
+			</ul>
+			<ul>
+				<a href="/" onclick="keepMenuVisible()">Logout</a>
+			</ul>
+		</div>
+	</header>
 
 	<script>
 	  // 오늘 날짜 포맷 변경하기 
@@ -87,5 +98,5 @@
 	    }
 	  });
 	</script>
-  </body>
+</body>
 </html>

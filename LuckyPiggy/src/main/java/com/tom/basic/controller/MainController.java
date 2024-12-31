@@ -3,7 +3,6 @@ package com.tom.basic.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +46,11 @@ public class MainController {
 	MoneybookRepo moneybook_repo;
 	@Autowired
 	SearchRepo srepo;
+<<<<<<< HEAD
     @Autowired
     BudgetRepo brepo ;
+=======
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 
 	@GetMapping("/index")
 	public String index() {
@@ -90,22 +92,23 @@ public class MainController {
 		session.setAttribute("userid", userid);
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 
-		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
-		model.addAttribute("debit_cardlist",debit_cardlist);
-		
-		//System.out.println(debit_cardlist);
-		
-		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
-		model.addAttribute("credit_cardlist",credit_cardlist);
-		
-		//System.out.println(credit_cardlist);
-		
+
+		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "체크");
+		model.addAttribute("debit_cardlist", debit_cardlist);
+
+		// System.out.println(debit_cardlist);
+
+		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "신용");
+		model.addAttribute("credit_cardlist", credit_cardlist);
+
+		// System.out.println(credit_cardlist);
+
 //		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
 //		model.addAttribute("moneybook_list", moneybook_list);
 
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
-		
+
 		return "calendar";
 	}
 
@@ -219,10 +222,14 @@ public class MainController {
 		System.out.println("저장된 유저아이디 가져오기" + userid);
 		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
 
-
 		System.out.println("가져온 것은");
 		model.addAttribute("eat", graphlist);
 
+		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
+		model.addAttribute("moneybook_list7", moneybook_list7);
+		
+		System.out.println(moneybook_list7);
+		
 		return "main";
 	}
 
@@ -242,7 +249,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 		String userid = uid.getUserId();
-		
+
 		List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
 		System.out.println(searchlist);
 
@@ -250,15 +257,23 @@ public class MainController {
 
 		return "search";
 	}
+<<<<<<< HEAD
 	// 데일리
+=======
+
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
-				
+
 		TbMoneybook en = new TbMoneybook(vo);
 		moneybook_repo.save(en);
-		
+
 		return "redirect:/daily";
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 }

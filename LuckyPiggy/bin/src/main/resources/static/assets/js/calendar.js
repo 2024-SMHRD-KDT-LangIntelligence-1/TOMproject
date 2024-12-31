@@ -217,8 +217,25 @@ function resetForm() {
       document.getElementById('payment').value = "";
 
       // select 태그 초기화
-      document.getElementById('method_nm').value = "";
-      document.getElementById('mb_type').value = "";
+      document.getElementById('method_nm').value="";
+	  document.querySelector('#method_nm').removeAttribute('disabled');
+	  let a = document.querySelectorAll('.debit_cardlist');
+	  for (var i = 0; i < a.length; i++) {
+	      a[i].setAttribute('hidden', true);
+	  }
+	  let b = document.querySelectorAll('.credit_cardlist');
+	  for (var i = 0; i < b.length; i++) {
+	      b[i].setAttribute('hidden', true);
+	  }
+	  
+	  document.getElementById('mb_type').value = "";
+	  document.getElementById('mb_type').setAttribute('name','mb_type');
+	  document.getElementById('mb_type').removeAttribute('hidden');
+	  document.getElementById('mb_type2').setAttribute('hidden', true);
+	  document.getElementById('mb_type2').removeAttribute('name');
+	  document.getElementById('mb_type2').removeAttribute('required');
+	  
+	  
    });
 
    // 결제 방식 버튼 초기화 (숨겨둔 버튼을 다시 보이게)
@@ -237,6 +254,7 @@ function showCashOnly() {
    document.querySelector('.debit-btn').classList.add('hidden');
    document.querySelector('.credit-btn').classList.add('hidden');
    document.querySelector('.cash-btn').classList.remove('hidden');
+   document.querySelector('.cash-btn').click();
 }
 
 // 출금 버튼 클릭 시 모든 결제 방식 버튼을 보이도록 하는 함수
@@ -266,16 +284,37 @@ document.querySelector('.cash-btn').addEventListener('click', function() {
 
    handlePaymentButtonClick(this); // 현금 클릭 시만 활성화
    document.querySelector('#payment').setAttribute('value', '현금');
+   document.querySelector('#method_nm').setAttribute('disabled', "disabled");
 });
 
 document.querySelector('.debit-btn').addEventListener('click', function() {
 
    handlePaymentButtonClick(this); // 체크카드 클릭 시만 활성화
    document.querySelector('#payment').setAttribute('value', '체크');
+   let a = document.querySelectorAll('.debit_cardlist');
+   for (var i = 0; i < a.length; i++) {
+       a[i].removeAttribute('hidden');
+   }
 });
 
 document.querySelector('.credit-btn').addEventListener('click', function() {
 
    handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
    document.querySelector('#payment').setAttribute('value', '신용');
+   let a = document.querySelectorAll('.credit_cardlist');
+   for (var i = 0; i < a.length; i++) {
+       a[i].removeAttribute('hidden');
+   }
 });
+
+function changeFn() {
+	var select = document.getElementById('mb_type');
+	var value = select.options[select.selectedIndex].value;
+	if(value==="write") {
+		document.getElementById('mb_type').removeAttribute('name');
+		document.getElementById('mb_type').setAttribute('hidden', true);
+		document.getElementById('mb_type2').removeAttribute('hidden');
+		document.getElementById('mb_type2').setAttribute('name','mb_type');
+		document.getElementById('mb_type2').setAttribute('required','required');
+	}
+};
