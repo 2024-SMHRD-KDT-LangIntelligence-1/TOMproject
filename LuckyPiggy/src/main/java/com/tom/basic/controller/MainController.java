@@ -51,7 +51,7 @@ public class MainController {
 	}
 
 	@GetMapping("/")
-	public String home() {
+	public String ho0me() {
 		return "start_page";
 	}
 
@@ -88,13 +88,19 @@ public class MainController {
 		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
 		model.addAttribute("debit_cardlist",debit_cardlist);
 		
-		System.out.println(debit_cardlist);
+		//System.out.println(debit_cardlist);
 		
 		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
 		model.addAttribute("credit_cardlist",credit_cardlist);
 		
-		System.out.println(credit_cardlist);
+		//System.out.println(credit_cardlist);
+		
+//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
+//		model.addAttribute("moneybook_list", moneybook_list);
 
+		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
+		model.addAttribute("mb_type_list", mb_type_list);
+		
 		return "calendar";
 	}
 
@@ -230,5 +236,14 @@ public class MainController {
 
 		return "search";
 	}
-
+	
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
+				
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+		
+		return "redirect:/daily";
+	}
+	
 }

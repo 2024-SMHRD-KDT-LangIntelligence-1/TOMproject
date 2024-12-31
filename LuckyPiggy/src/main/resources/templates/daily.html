@@ -1,105 +1,249 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>daily</title>
 <link rel="stylesheet" href="assets/css/daily.css" />
-<script src="assets/js/calendar.js" defer></script>
 <script src="assets/js/daily.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
 </head>
 <body>
-	<div class="cover">
-		<header class="top-bar" th:replace="~{/top_bar}"></header>
-		<div class="daily" id="daily">
-			<h1>12월</h1>
-			<div class="weekend">
-				<button class="before-btn" id="before-btn">▲</button>
-				<ul class="weekdays">
-					<!-- 주간 날짜 동적으로 표시-->
-					<li class="amount"></li>
-					<!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
-					<!--날짜 표시 부분-->
+   <div class="cover">
+      <header class="top-bar" th:replace="~{/top_bar}"></header>
+      <div id="dailyPage">
+         <div class="weekend">
+            <h3>12월</h3>
+            <button class="before-btn" id="before-btn">▲</button>
+            <ul class="weekdays">
+               <!-- 주간 날짜 동적으로 표시-->
+               <li class="amount" id="amountList"></li>
+               <!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
+            </ul>
+            <button class="next-btn" id="next-btn">▼</button>
+         </div>
 
-					<!-- 금액을 표시할 영역 -->
-					<div class="amount"></div>
-				</ul>
-				<button class="next-btn" id="next-btn">▼</button>
-			</div>
+         <div class="details">
+            <div class="income" id="income">
+               <ul id="incomeItems">
+                  <!--여기에 동적으로 생성된 li 항목 들어감-->
+               </ul>
+            </div>
 
-			<div class="details">
-				<div class="income">
-					<h2>수입</h2>
-					<ul class="income-list">
-						<!--수입내역을 동적으로 표시할 부분-->
-					</ul>
-				</div>
+            <div class="incometotal-box">
+               <div class="total-cash">현금 잔액:</div>
+               <div class="total-income">총 수입:</div>
+            </div>
+         </div>
+         <div class="details">
+            <div class="expense" id="expense">
+               <ul id="expenseItems">
+                  <!--지출내역을 동적으로 표시할 부분-->
+               </ul>
+            </div>
 
-				<div class="incometotal-box">
-					<div class="total-cash">현금 잔액:</div>
-					<div class="total-income">총 수입:</div>
-				</div>
-			</div>
-			<div class="details">
-				<div class="expense">
-					<h2>지출</h2>
-					<ul class="expense-list">
-						<!--지출내역을 동적으로 표시할 부분-->
-					</ul>
-				</div>
+            <div class="expensetotal-box">
+               <div class="total-cash">현금:</div>
+               <div class="total-card">카드:</div>
+               <div class="total-expense">총 지출:</div>
+            </div>
+         </div>
+         <!-- 추가 버튼 -->
+         <button class="add-btn" id="add-btn" type="button"
+            onclick="openPopup()"
+         >+</button>
+      </div>
+      <!-- ------------------------------------------------------------------------------------ -->
+      <!-- 모달팝업 (추가하는 부분) -->
+      <div class="addModal" id="addModal">
+         <div class="addModal_popup">
+            <div>
+               <button onclick="window.location.reload()">X</button>
+            </div>
+            <div>
+               <input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
+                  required
+               />
+            </div>
+            <div class="statements">
+               <button class="income-btn" type="button">입금</button>
+               <button class="expense-btn" type="button">출금</button>
+            </div>
+            <div class="payment">
+               <button class="cash-btn" type="button">현금</button>
+               <button class="debit-btn" type="button">체크카드</button>
+               <button class="credit-btn" type="button">신용카드</button>
+            </div>
+            <div class="diteil">
+               <div class="card-category">
+                  <select name="card-name">
+                     <option selected disabled hidden>카드사</option>
+                     <option value="국민카드">국민카드</option>
+                     <option value="card-add">추가</option>
+                  </select>
+               </div>
+               <div class="category">
+                  <select name="category-name">
+                     <option selected disabled hidden>사용내역</option>
+                     <option value="식비">식비</option>
+                     <option value="card-add">추가</option>
+                  </select>
+               </div>
+               <div>
+                  <input type="text" placeholder="어디서 결제하셨나요?" id="shop_nm"
+                     name="shop_nm"
+                  />
+               </div>
+               <div class="memo">
+                  <input type="text" placeholder="메모를 입력하세요" id="memo" name="memo"
+                     size="28px"
+                  />
+                  <div class="finish-btn">
+                     <button type="reset" onclick="resetForm()">초기화</button>
+                     <button type="submit" class="close-btn" onclick="confirmSave()">저장</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- ---------------------------------------------------------------------------------- -->
+      <!-- 모달 팝업 (입금 상세 내역을 보여주는 부분) -->
+      <div class="indetailModal" id="indetailModal" style="display: none;">
+         <div class="indetailModal_popup">
+            <div class="modal-header">
+                  <span id="modalDate"></span> <!-- 선택된 날짜 표시 -->
+            </div>
+            <div class="modal-category">
+               <strong>카테고리:</strong> <span id="modalCategory"></span> <!-- 카테고리 표시 -->
+            </div>
+            <div class="modal-amount">
+               <strong>금액:</strong> <span id="modalAmount"></span> 원 <!-- 금액 표시 -->
+            </div>
+            <div class="modal-item">
+               <strong>내역:</strong> <span id="modalItem"></span> <!-- 내역 표시 -->
+            </div>
+            <div class="modal-memo">
+               <strong>메모:</strong> <span id="modalMemo"></span> <!-- 메모 표시 -->
+            </div>
+            <div class="finish-btn">
+               <button type="button" onclick="editItem()">수정</button>
+                  <button type="button" onclick="closePopup()">닫기</button>   
+              </div>
+         </div>
+      </div>
+      <!-- ------------------------------------------------------------------------------------------------------- -->
+      <script th:inline="javascript">
+       // Thymeleaf에서 전달된 데이터를 JavaScript 변수로 설정
+       const income = /*[[${income}]]*/ [];  // 서버에서 전달된 `income` 객체
 
-				<div class="expensetotal-box">
-					<div class="total-cash">현금:</div>
-					<div class="total-card">카드:</div>
-					<div class="total-expense">총 지출:</div>
-				</div>
-			</div>
-			<!-- 추가 버튼 -->
-			<button class="add-btn" id="add-btn" onclick="openPopup()">+</button>
-		</div>
-		<formaciton"dmoney.do">
-	<div class="modal" id="modal">
-		<div class="modal_popup">
-			<div>
-				<input type="text" placeholder="금액을 입력해주세요" id="money" name="money"
-					required />
-			</div>
-			<div class="statements">
-				<button class="income-btn">입금</button>
-				<button class="expense-btn">출금</button>
-			</div>
-			<div class="payment">
-				<button class="cash-btn">현금</button>
-				<button class="debit-btn">체크카드</button>
-				<button class="credit-btn">신용카드</button>
-			</div>
-			<div class="diteil">
-				<div class="card-category">
-					<select name="card-name">
-						<option selected disabled="카드사" hidden>카드사</option>
-						<option name="국민카드">국민카드</option>
-						<option name="card-add">추가</option>
-					</select>
-				</div>
-				<div class="category">
-					<select name="category-name">
-						<option selected disabled="사용내역" hidden>사용내역</option>
-						<option value="식비">식비</option>
-						<option name="card-add">추가</option>
-					</select>
-				</div>
-				<div class="memo">
-					<input type="text" placeholder="메모를 입력하세요" id="memo" name="memo"
-						size="28px" />
-					<div class="save-btn">
-					
-						<button class="submit" onclick="confirmSave()">저장</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</form>
-</div>
+       // 모달을 여는 함수
+       function openModal(income) {
+           const modal = document.getElementById('indetailModal');
+        // 모달에 표시할 내용을 동적으로 생성하여 설정
+        document.getElementById('money').value = income.amount;  // 금액 입력란에 금액을 설정
+        document.getElementById('shop_nm').value = income.shopName || '';  // 상점명 입력란에 값 설정 (optional)
+        document.getElementById('memo').value = income.memo || '';  // 메모 입력란에 값 설정 (optional)
+        
+        modal.style.display = 'flex';  // 모달 보이기
+       }
+
+       // 모달을 닫는 함수
+       function closeModal() {
+           const modal = document.getElementById('indetailModal');
+           modal.style.display = 'none';  // 모달 숨기기
+       }
+
+       // 동적으로 li 요소 생성 및 클릭 이벤트 처리
+       window.onload = function() {
+           const incomeItems = document.getElementById('incomeItems');
+        
+             expenses.forEach(income => {
+               // li 요소 생성
+               const li = document.createElement('li');
+               li.textContent = income.itemName + ' - ' + income.amount + '원';
+            
+               // li 클릭 시 모달을 여는 이벤트 리스너 추가
+               li.addEventListener('click', function() {
+                   openModal(income);  // 모달 열 때 해당 항목 정보를 넘겨줌
+               });
+
+               // ul에 li 추가
+               listContainer.appendChild(li);
+           });
+       };
+      </script>
+      <!-- ------------------------------------------------------------------------------- -->
+      <!-- 모달 팝업 (출금 상세 내역을 보여주는 부분) -->
+      <div class="exdetailModal" id="exdetailModal">
+         <div class="exdetaiiModal_popup">
+            <div class="modal-header">
+                  <span id="modalDate"></span> <!-- 선택된 날짜 표시 -->
+            </div>
+            <div class="modal-category">
+               <strong>카테고리:</strong> <span id="modalCategory"></span>
+            </div>
+            <div class="modal-amount">
+               <strong>금액:</strong> <span id="modalAmount"></span> 원
+            </div>
+            <div class="modal-item">
+               <strong>내역:</strong> <span id="modalItem"></span>
+            </div>
+            <div class="modal-payment">
+                  <strong>결제수단:</strong> <span id="modalPayment"></span>
+              </div>
+            <div class="modal-memo">
+               <strong>메모:</strong> <span id="modalMemo"></span>
+            </div>
+            <div class="finish-btn">
+               <button type="button" onclick="editItem()">수정</button>
+                  <button type="button" onclick="closePopup()">닫기</button>   
+              </div>
+         </div>
+      </div>
+      <!-- --------------------------------------------------------------------------------------- -->
+      <script th:inline="javascript">
+       // Thymeleaf에서 전달된 데이터를 JavaScript 변수로 설정
+       const expenses = /*[[${expenses}]]*/ [];  // 서버에서 전달된 `expenses` 객체
+
+       // 모달을 여는 함수
+       function openModal(expense) {
+           const modal = document.getElementById('indetailModal');
+        // 모달에 표시할 내용을 동적으로 생성하여 설정
+        document.getElementById('money').value = expense.amount;  // 금액 입력란에 금액을 설정
+        document.getElementById('shop_nm').value = expense.shopName || '';  // 상점명 입력란에 값 설정 (optional)
+        document.getElementById('memo').value = expense.memo || '';  // 메모 입력란에 값 설정 (optional)
+        
+        modal.style.display = 'flex';  // 모달 보이기
+       }
+
+       // 모달을 닫는 함수
+       function closeModal() {
+           const modal = document.getElementById('indetailModal');
+           modal.style.display = 'none';  // 모달 숨기기
+       }
+
+       // 동적으로 li 요소 생성 및 클릭 이벤트 처리
+       window.onload = function() {
+           const expenseItems = document.getElementById('expenseItems');
+        
+             expenses.forEach(expense => {
+               // li 요소 생성
+               const li = document.createElement('li');
+               li.textContent = expense.itemName + ' - ' + expense.amount + '원';
+            
+               // li 클릭 시 모달을 여는 이벤트 리스너 추가
+               li.addEventListener('click', function() {
+                   openModal(expense);  // 모달 열 때 해당 항목 정보를 넘겨줌
+               });
+
+               // ul에 li 추가
+               listContainer.appendChild(li);
+           });
+       };
+      </script>
+   </div>
 </body>
 </html>
