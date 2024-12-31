@@ -19,4 +19,7 @@ public interface MoneybookRepo extends JpaRepository<TbMoneybook, Long>{
 	List<TbMoneybook> findAllByUserId7(String user_id);
 	
 
+	@Query(value = "select * from tb_moneybook where user_id=:user_id", nativeQuery = true)
+	List<TbMoneybook> finddaily(String user_id);
+
 }
