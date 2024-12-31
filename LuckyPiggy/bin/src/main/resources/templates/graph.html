@@ -3,19 +3,20 @@
 <head>
 <title>Insert title here</title>
 <meta charset="UTF-8">
-<canvas id="myChart"></canvas>
+<canvas id="barChart"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<script th:inline="javascript">
+	
 	let chartdata = /*[[${eat}]]*/;
 	
 	let labels = chartdata.map(item => item.category);
 	let values = chartdata.map(item => item.sum);
-	let myCt = document.getElementById('myChart');
-	  let myChart = new Chart(myCt, {
+	let barCt = document.getElementById('barChart');
+	  let barChart = new Chart(barCt, {
 	      type: 'bar',
 	      data: {
 	          labels: labels,

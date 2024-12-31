@@ -95,9 +95,6 @@ public class MainController {
 		
 		//System.out.println(credit_cardlist);
 		
-//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
-//		model.addAttribute("moneybook_list", moneybook_list);
-
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
 		
@@ -209,6 +206,11 @@ public class MainController {
 		System.out.println("가져온 것은");
 		model.addAttribute("eat", graphlist);
 
+		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
+		model.addAttribute("moneybook_list7", moneybook_list7);
+		
+		System.out.println(moneybook_list7);
+		
 		return "main";
 	}
 

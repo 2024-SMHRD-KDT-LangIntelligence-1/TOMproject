@@ -200,7 +200,7 @@ body::-webkit-scrollbar {
 }
 /* 오늘날짜 */
 .days li.active {
-    color: white; /* 텍스트 색상 */
+    color: rgb(128, 128, 128); /* 텍스트 색상 */
 }
 /* 오늘 날짜 배경을 둥글게 설정 */
 .calendar .days li.active::before {
@@ -210,11 +210,18 @@ body::-webkit-scrollbar {
 	width: 30px; /* 너비 */
 	z-index: -1; /* 배경 날짜 뒤로 배치 */
 	border-radius: 50%; /* 둥근 배경 설정 */
-	background: #f9c74f;
+	display: none;
 	top: 50%; /* 세로 중앙 정렬 */
     left: 50%; /* 가로 중앙 정렬 */
     transform: translate(-230%, 220%); /* 정중앙으로 이동 */
 }
+
+/* 날짜 hover 효과 */
+#days:hover::before{
+	display: none;
+}
+
+
 /*-------------------------------------------------------------------------------------*/
 /* 최근 소비 내역 공간*/
 .recent-container {
