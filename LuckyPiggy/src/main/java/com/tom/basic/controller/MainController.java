@@ -77,29 +77,26 @@ public class MainController {
 
 	// 월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
 	@GetMapping("/calendar")
-	public String calendar(HttpServletRequest request, Model model) {
+	public String calendar(HttpServletRequest request, Model model, @RequestParam("month")String month) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
-
+		
 		String userid = uid.getUserId();
-		session.setAttribute("userid", userid);
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 
 		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
 		model.addAttribute("debit_cardlist",debit_cardlist);
-		
-		//System.out.println(debit_cardlist);
-		
 		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
 		model.addAttribute("credit_cardlist",credit_cardlist);
-		
-		//System.out.println(credit_cardlist);
-		
-//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
-//		model.addAttribute("moneybook_list", moneybook_list);
-
+	
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
+		
+		//calender 날짜별 입출금 내역 표시하기
+//		String month = request.getParameter();
+		
+		
+		
 		
 		return "calendar";
 	}
@@ -223,7 +220,7 @@ public class MainController {
 	}
 
 	// 검색 기능
-	@RequestMapping("/search")
+	@GetMapping("/search")
 	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
@@ -245,5 +242,6 @@ public class MainController {
 		
 		return "redirect:/daily";
 	}
+	
 	
 }

@@ -4,12 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main</title>
-<canvas id="myChart"></canvas>
+<canvas id="mylienchart"></canvas>
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="cover">
@@ -32,6 +31,7 @@
 			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
+
 			<!-- 달력/최근소비내역 -->
 			<div class="double" id="double">
 				<!-- 달력 -->
@@ -60,10 +60,11 @@
 			<div id="barChartsContainer">
 				<canvas id="barChart" width="400px" height="300px"></canvas>
 			</div>
+
 			<!-- 라인 차트 -->
 			<div class="bar-container" id="bar-container"></div>
 			<!-- 라인 차트가 동적으로 추가될 영역 -->
-			
+
 			<div id="lineChartsContainer">
 				<canvas id="lineChart" width="400px" height="300px"></canvas>
 			</div>
@@ -152,11 +153,6 @@ chartdata.forEach(item => {
 	</script>
 
 
-
-
-
-
-
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
 	
@@ -206,14 +202,9 @@ chartdata.forEach(item => {
 	</script>
 
 
-
-
 	<!-- 최근소비내역 7개 -->
-
-
-
-
-
+	
+	
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');
