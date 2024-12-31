@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
-<html xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>daily</title>
@@ -14,6 +14,8 @@
 <body>
 	<div class="cover">
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<input type="hidden" id="user_id" name="user_id"
+						th:value="${session.user.userId}" />
 		<div id="dailyPage">
 			<div class="weekend">
 				<h3>12월</h3>
@@ -36,7 +38,7 @@
 					</ul>
 				</div>
 				<div class="incometotal-box">
-					<div class="total-cash">현금 잔액:</div>
+					<div class="total-cash">현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원</div>
 					<div class="total-income">총 수입:</div>
 				</div>
 			</div>

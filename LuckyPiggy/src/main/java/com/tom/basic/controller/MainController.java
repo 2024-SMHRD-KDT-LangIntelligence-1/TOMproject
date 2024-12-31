@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.basic.entity.TbAccount;
+import com.tom.basic.entity.TbBudget;
 import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
+import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
 import com.tom.basic.model.UserVO;
 import com.tom.basic.model.postVO;
 import com.tom.basic.repository.AccountRepo;
+import com.tom.basic.repository.BudgetRepo;
 import com.tom.basic.repository.CreditcardRepo;
 import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.MoneybookRepo;
@@ -44,6 +47,8 @@ public class MainController {
 	MoneybookRepo moneybook_repo;
 	@Autowired
 	SearchRepo srepo;
+    @Autowired
+    BudgetRepo brepo ;
 
 	@GetMapping("/index")
 	public String index() {
@@ -104,10 +109,19 @@ public class MainController {
 		return "calendar";
 	}
 
-	@GetMapping("/daily")
-	public String daily() {
-		return "daily";
-	}
+	   @GetMapping("/daily")
+	   public String daily(HttpServletRequest request, Model model) {
+	      HttpSession session = request.getSession();
+	      TbUser uid = (TbUser) session.getAttribute("user");
+
+	      String userid = uid.getUserId();
+	      session.setAttribute("userid", userid);
+	      System.out.println("저장된 유저아이디 가져오기" + userid);
+	      
+	      TbBudget bud = brepo.findByUserId(userid);
+	      model.addAttribute("budget", bud);
+	      return "daily";
+	   }
 
 	@GetMapping("/mypage")
 	public String mypage() {
@@ -236,7 +250,7 @@ public class MainController {
 
 		return "search";
 	}
-	
+	// 데일리
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
 				
@@ -245,5 +259,6 @@ public class MainController {
 		
 		return "redirect:/daily";
 	}
+	
 	
 }
