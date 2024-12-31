@@ -9,7 +9,7 @@
 <body>
 
 	<!-- 상단바 위치 -->
-	<div class="cover">
+	<div class="cover" id="cover">
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
 		<div class="month-container" id="month-container">
 			<p class="month-name">December</p>
@@ -28,7 +28,6 @@
 					<div class="card-expense">카드 지출:</div>
 				</div>
 			</div>
-			</header>
 			<div class="calendar">
 				<ul class="weeks">
 					<li>Sun</li>
@@ -53,15 +52,15 @@
 	<div class="modal" id="modal">
 
 		<div class="modal_popup">
-			<div>
-				<button onclick="closePopup()">창닫기</button>
+			<div id="close_btn">
+				<button id="close_button" onclick="closePopup()">   ×   </button>
 			</div>
 			<form action="moneybook.do" method="post">
-				<input type="hidden" id="user_id" name="user_id"
-					th:value="${session.user.userId}" />
+				<input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}" />
 				<div>
-					<input type="date" id="paid_at" name="paid_at" /> <input
-						type="text" placeholder="금액을 입력해주세요" id="money" name="money"
+					<input type="date" id="paid_at" name="paid_at" required/>
+					<input
+						type="text" placeholder="금액을 입력하세요" id="money" name="money"
 						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
 						required />
 				</div>
@@ -77,35 +76,35 @@
 				</div>
 				<div class="diteil">
 					<div class="card-category" method="post">
-						<select id="method_nm" name="method_nm" th:field="*{cardlist}">
+						<!-- <select id="method_nm" name="method_nm" th:object="${debit_cardlist}", "${credit_cardlist}" required>
 							<option selected disabled hidden value="">카드선택</option>
-
-							<option th:each="cardlist: ${cardlist}"
-								th:value="${cardlist.cardNm}" th:text="${cardlist.cardNm}">${cardlist.cardNm}</option>
-						</select>
+							<option hidden class="debit_cardlist" th:each="debit_cardlist: ${debit_cardlist}"
+								th:value="${debit_cardlist['cardNm']}" th:text="${debit_cardlist['cardNm']}"></option>
+							<option hidden class="credit_cardlist" th:each="credit_cardlist: ${credit_cardlist}"
+								th:value="${credit_cardlist['cardNm']}" th:text="${credit_cardlist['cardNm']}"></option>
+						</select> -->
 					</div>
 				</div>
 				<div class="category">
-					<select id="mb_type" name="mb_type">
+					<!-- <select id="mb_type" name="mb_type" onchange="changeFn()" th:object="${mb_type_list}" required>
 						<option selected disabled hidden value="">사용내역</option>
-						<option value="식비">식비</option>
-						<option>추가</option>
-					</select>
-				</div>
-				<div>
-					<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
-						name="shop_nm" />
+						<option class="mb_type_list" th:each="mb_type_list: ${mb_type_list}"
+								th:value="${mb_type_list}" th:text="${mb_type_list}"></option>
+						<option id="write" value="write">직접입력</option>
+					</select> -->
+					<input type="text" id="mb_type2" hidden/>
 				</div>
 				<div class="memo">
+				<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm" name="shop_nm" />
 					<input type="text" placeholder="메모를 입력하세요" id="memo" name="mb_memo" />
-					<div class="save-btn">
-						<button type="submit" class="close-btn">저장</button>
-						<button type="reset" onclick="resetForm()">reset</button>
 					</div>
-				</div>
+					<div class="save-btn">
+						<button id="save" type="submit">저장</button>
+						<button id="reset" type="reset" onclick="resetForm()">초기화</button>
+					</div>
 			</form>
+			</div>
 		</div>
-	</div>
 	<script src="assets/js/calendar.js"></script>
 </body>
 </html>

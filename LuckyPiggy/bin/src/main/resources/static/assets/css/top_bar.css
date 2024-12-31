@@ -12,7 +12,7 @@
 }
 
 /* 검색창 스타일 */
-.header input[type="text"] {
+.header input[type="search"] {
   padding: 10px; /* 세로크기 */
   border-radius: 10px; /* 둥굴게 */
   width: 315px;
