@@ -76,22 +76,22 @@
 				</div>
 				<div class="diteil">
 					<div class="card-category" method="post">
-						<select id="method_nm" name="method_nm" th:object="${debit_cardlist}", "${credit_cardlist}" required>
+						<!-- <select id="method_nm" name="method_nm" th:object="${debit_cardlist}", "${credit_cardlist}" required>
 							<option selected disabled hidden value="">카드선택</option>
 							<option hidden class="debit_cardlist" th:each="debit_cardlist: ${debit_cardlist}"
 								th:value="${debit_cardlist['cardNm']}" th:text="${debit_cardlist['cardNm']}"></option>
 							<option hidden class="credit_cardlist" th:each="credit_cardlist: ${credit_cardlist}"
 								th:value="${credit_cardlist['cardNm']}" th:text="${credit_cardlist['cardNm']}"></option>
-						</select>
+						</select> -->
 					</div>
 				</div>
 				<div class="category">
-					<select id="mb_type" name="mb_type" onchange="changeFn()" th:object="${mb_type_list}" required>
+					<!-- <select id="mb_type" name="mb_type" onchange="changeFn()" th:object="${mb_type_list}" required>
 						<option selected disabled hidden value="">사용내역</option>
 						<option class="mb_type_list" th:each="mb_type_list: ${mb_type_list}"
 								th:value="${mb_type_list}" th:text="${mb_type_list}"></option>
 						<option id="write" value="write">직접입력</option>
-					</select>
+					</select> -->
 					<input type="text" id="mb_type2" hidden/>
 				</div>
 				<div class="memo">

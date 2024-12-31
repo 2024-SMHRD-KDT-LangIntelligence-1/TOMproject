@@ -3,10 +3,13 @@ package com.tom.basic.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbCreditcard;
@@ -21,6 +24,7 @@ import com.tom.basic.repository.AccountRepo;
 import com.tom.basic.repository.CreditcardRepo;
 import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.MoneybookRepo;
+import com.tom.basic.repository.SearchRepo;
 import com.tom.basic.repository.UserRepo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +42,8 @@ public class MainController {
 	GraphRepo graphRepo;
 	@Autowired
 	MoneybookRepo moneybook_repo;
+	@Autowired
+	SearchRepo srepo;
 
 	@GetMapping("/index")
 	public String index() {
@@ -45,7 +51,7 @@ public class MainController {
 	}
 
 	@GetMapping("/")
-	public String home() {
+	public String ho0me() {
 		return "start_page";
 	}
 
@@ -189,10 +195,16 @@ public class MainController {
 		return "redirect:/";
 	}
 
-	// 메인페이지 차트 표시 기능
 	@GetMapping("/main")
-	public String graph(Model model) {
-		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery();
+	public String graph(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("저장된 유저아이디 가져오기" + userid);
+		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
+
 
 		System.out.println("가져온 것은");
 		model.addAttribute("eat", graphlist);
@@ -210,6 +222,21 @@ public class MainController {
 		return "redirect:/calendar";
 	}
 
+	// 검색 기능
+	@RequestMapping("/search")
+	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+		String userid = uid.getUserId();
+		
+		List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
+		System.out.println(searchlist);
+
+		model.addAttribute("searchlist", searchlist);
+
+		return "search";
+	}
+	
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
 				
@@ -219,5 +246,4 @@ public class MainController {
 		return "redirect:/daily";
 	}
 	
-
 }
