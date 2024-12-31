@@ -51,12 +51,12 @@
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
-					<div id="recentList"></div>
-					
-					<div id="recent7" th:object="${moneybook_list7}">
-							<p class="recent7" th:each="moneybook_list7: ${moneybook_list7}"
-								th:text="|${moneybook_list7['shopNm']} ${moneybook_list7['mbAmount']} ${moneybook_list7['paidAt']}|"></p>
-								</div>	
+					<table class="recent-table">
+						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
+							<td th:text="${moneybook_list7['shopNm']}" ></td>
+							<td th:text="${moneybook_list7['mbAmount']}"></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 
@@ -67,7 +67,7 @@
 			<!-- 라인 차트 -->
 			<div class="bar-container" id="bar-container"></div>
 			<!-- 라인 차트가 동적으로 추가될 영역 -->
-			
+
 			<div id="lineChartsContainer">
 				<canvas id="lineChart" width="400px" height="300px"></canvas>
 			</div>
@@ -208,15 +208,6 @@ chartdata.forEach(item => {
 	      }
 	  });	  
 	</script>
-
-
-
-
-	<!-- 최근소비내역 7개 -->
-
-
-
-
 
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
