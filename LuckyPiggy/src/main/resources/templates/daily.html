@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
-<html xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>daily</title>
@@ -31,9 +31,16 @@
 			<div class="details">
 				<div class="income">
 					<h2>수입</h2>
-					<ul class="income-list">
-						<!--수입내역을 동적으로 표시할 부분-->
-					</ul>
+					<table>
+						<tr>
+							<th>카테고리</th>
+							<th>금액</th>
+						</tr>
+						<tr th:each="moneybook : ${moneybook}">
+							<th th:text="${moneybook.mbType}"></th>
+							<th th:text="${moneybook.mbIc}"></th>
+						</tr>
+					</table>
 				</div>
 				<div class="incometotal-box">
 					<div class="total-cash">현금 잔액:</div>
@@ -43,9 +50,18 @@
 			<div class="details">
 				<div class="expense">
 					<h2>지출</h2>
-					<ul class="expense-list">
-						<!--지출내역을 동적으로 표시할 부분-->
-					</ul>
+					<table>
+						<tr>
+							<th>카테고리</th>
+							<th>상점명</th>
+							<th>금액</th>
+						</tr>
+						<tr th:each="moneybook : ${moneybook}">
+							<th th:text="${moneybook.mbType}"></th>
+							<th th:text="${moneybook.shopNm}"></th>
+							<th th:text="${moneybook.mbAmount}"></th>
+						</tr>
+					</table>
 				</div>
 
 				<div class="expensetotal-box">
@@ -67,8 +83,8 @@
 						<button onclick="window.location.reload()">X</button>
 					</div>
 					<input type="hidden" id="user_id" name="user_id"
-						th:value="${session.user.userId}" /> 
-						<input type="date" id="myDate" name="paid_at" style="display:none;" required />
+						th:value="${session.user.userId}" /> <input type="date"
+						id="myDate" name="paid_at" style="display: none;" required />
 					<div>
 
 						<input type="text" placeholder="금액을 입력해주세요" id="money"

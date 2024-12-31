@@ -105,7 +105,16 @@ public class MainController {
 	}
 
 	@GetMapping("/daily")
-	public String daily() {
+	public String daily(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+
+		String userid = uid.getUserId();
+		session.setAttribute("userid", userid);
+		System.out.println("카드리스트 유저 아이디는:" + userid);
+		List<TbMoneybook> list  = moneybook_repo.finddaily(userid);
+		
+		model.addAttribute("moneybook",list);
 		return "daily";
 	}
 
