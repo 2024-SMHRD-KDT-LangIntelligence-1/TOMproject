@@ -111,11 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	updateWeeklyCalendar();
 	
 	// 새로고침 시 날짜가 오늘로 돌아가게 설정
-	if (urlParams.has('date')) {
+	/*if (urlParams.has('date')) {
 	    const currentUrl = new URL(window.location.href);
 	    currentUrl.searchParams.delete('date');  // 'date' 파라미터 삭제
 	    window.history.replaceState(null, '', currentUrl);  // URL에서 'date' 파라미터 제거
-	}
+	}*/
 });
 //----------------------------------------------------------------------------------------------------
 
