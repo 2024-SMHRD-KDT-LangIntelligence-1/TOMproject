@@ -75,3 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = "calendar";
   });
 });
+
+// 달력 날짜 마우스 커서 올렸을 때 색상 변경 
+let mouseEvent = document.getElementById("days");
+mouseEvent.addEventListener("mouseover",function(event){ 
+	event.target.style.color = "rgb(251, 211, 121)";
+},false);
+
+mouseEvent.addEventListener("mouseout",function(event){ 
+	event.target.style.color = "";
+},false);

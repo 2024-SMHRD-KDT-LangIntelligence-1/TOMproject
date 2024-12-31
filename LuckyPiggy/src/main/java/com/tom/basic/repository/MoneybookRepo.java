@@ -14,4 +14,12 @@ public interface MoneybookRepo extends JpaRepository<TbMoneybook, Long>{
 	
 	@Query(value = "select distinct mb_type from tb_moneybook where user_id=:user_id order by mb_type asc", nativeQuery = true)
     List<String> findDistinctMbTypeByUserId(String user_id);
+	
+	@Query(value = "select * from tb_moneybook where user_id=:user_id order by paid_at desc limit 7", nativeQuery = true)
+	List<TbMoneybook> findAllByUserId7(String user_id);
+	
+
+	@Query(value = "select * from tb_moneybook where user_id=:user_id", nativeQuery = true)
+	List<TbMoneybook> finddaily(String user_id);
+
 }

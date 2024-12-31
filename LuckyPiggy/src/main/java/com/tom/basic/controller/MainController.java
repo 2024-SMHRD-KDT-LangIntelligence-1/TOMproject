@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
+import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
 import com.tom.basic.model.UserVO;
@@ -52,8 +52,9 @@ public class MainController {
 	SearchRepo srepo;
 	@Autowired
 	CalenderRepo calrepo;
-	@Autowired
-	BudgetRepo brepo;
+    @Autowired
+    BudgetRepo brepo ;
+
 
 	@GetMapping("/index")
 	public String index() {
@@ -96,11 +97,20 @@ public class MainController {
 		session.setAttribute("userid", userid);
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 
-		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
-		model.addAttribute("debit_cardlist",debit_cardlist);
-		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
-		model.addAttribute("credit_cardlist",credit_cardlist);
-	
+
+		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "체크");
+		model.addAttribute("debit_cardlist", debit_cardlist);
+
+		// System.out.println(debit_cardlist);
+
+		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "신용");
+		model.addAttribute("credit_cardlist", credit_cardlist);
+
+		// System.out.println(credit_cardlist);
+
+//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
+//		model.addAttribute("moneybook_list", moneybook_list);
+
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
 		
@@ -111,9 +121,10 @@ public class MainController {
 		
 		//System.out.println(calist.get(1));
 		
-		
+
 		return "calendar";
 	}
+
 
 	@GetMapping("/daily")
 	public String daily(HttpServletRequest request, Model model) {
@@ -122,12 +133,17 @@ public class MainController {
 
 		String userid = uid.getUserId();
 		session.setAttribute("userid", userid);
-		System.out.println("저장된 유저아이디 가져오기" + userid);
+
+		System.out.println("카드리스트 유저 아이디는:" + userid);
+		List<TbMoneybook> list  = moneybook_repo.finddaily(userid);
 		
-		TbBudget bud = brepo.findByUserId(userid);
-		model.addAttribute("budget", bud);
+		 TbBudget bud = brepo.findByUserId(userid);
+	      model.addAttribute("budget", bud);
+		
+		model.addAttribute("moneybook",list);
 		return "daily";
 	}
+
 
 	@GetMapping("/mypage")
 	public String mypage() {
@@ -224,10 +240,15 @@ public class MainController {
 		session.setAttribute("userid", userid);
 		System.out.println("저장된 유저아이디 가져오기" + userid);
 		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
-		
+
 
 		model.addAttribute("eat", graphlist);
 
+		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
+		model.addAttribute("moneybook_list7", moneybook_list7);
+		
+		System.out.println(moneybook_list7);
+		
 		return "main";
 	}
 
@@ -247,7 +268,7 @@ public class MainController {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 		String userid = uid.getUserId();
-		
+
 		List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
 		System.out.println(searchlist);
 
@@ -255,15 +276,20 @@ public class MainController {
 
 		return "search";
 	}
-	
+
+	// 데일리
+
+
+
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
-				
+		
+		
+
 		TbMoneybook en = new TbMoneybook(vo);
 		moneybook_repo.save(en);
-		
+
 		return "redirect:/daily";
 	}
-	
-	
+
 }
