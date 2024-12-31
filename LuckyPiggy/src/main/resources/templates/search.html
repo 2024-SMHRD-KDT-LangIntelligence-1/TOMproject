@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>top_bar</title>
-<link rel="stylesheet" href="assets/css/top_bar.css" />
-</head>
-<body>
-
-<div class="container">
-  <h2>Filterable Table</h2>
-  
-  <table>
-  	<tr>
-  		<th>index</th>
-  		<th>category</th>
-  		<th>shop</th>
-  		<th>payment</th>
-  	</tr>
-  	<tbody>
-  	<tr th:each="list : ${searchlist}">
-  		<td th:text="${list.mb_idx}"></td>
-  		<td th:text="${list.mbType}"></td>
-  		<td th:text="${list.shopNm}"></td>
-  		<td th:text="${list.mbMethod}"></td>
-  	</tr>
-  	</tbody>
-  </table>
-  </div>
-
-
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search</title>
+    <link rel="stylesheet" href="assets/css/search.css" />
+  </head>
+  <body>
+    <!-- 상단바 위치 -->
+    <div class="cover" id="cover">
+      <header class="top-bar" th:replace="~{/top_bar}"></header>
+      <div class="search-container" id="searchContainer">
+        <h2>검색결과</h2>
+        <table class="search-table">
+          <tr>
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>상점명</th>
+            <th>날짜</th>
+          </tr>
+          <tbody>
+            <tr class="search-detail" th:each="list, iterStat : ${searchlist}">
+              <td th:text="${iterStat.index + 1}"></td>
+              <!-- 번호 -->
+              <td th:text="${list.mbType}"></td>
+              <td th:text="${list.shopNm}"></td>
+              <td th:text="${list.paidAt}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>
