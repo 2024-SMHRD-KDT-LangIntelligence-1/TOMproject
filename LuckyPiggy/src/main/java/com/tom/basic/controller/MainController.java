@@ -46,11 +46,10 @@ public class MainController {
 	MoneybookRepo moneybook_repo;
 	@Autowired
 	SearchRepo srepo;
-<<<<<<< HEAD
+
     @Autowired
     BudgetRepo brepo ;
-=======
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
+
 
 	@GetMapping("/index")
 	public String index() {
@@ -257,23 +256,20 @@ public class MainController {
 
 		return "search";
 	}
-<<<<<<< HEAD
-	// 데일리
-=======
 
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
+	// 데일리
+
+
+
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
+		
+		
 
 		TbMoneybook en = new TbMoneybook(vo);
 		moneybook_repo.save(en);
 
 		return "redirect:/daily";
 	}
-<<<<<<< HEAD
-	
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 }
