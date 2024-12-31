@@ -1,20 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-	const beforeBtn = document.getElementById("before-btn");
-	const nextBtn = document.getElementById("next-btn");
-	const weekdaysContainer = document.querySelector(".weekdays");
-	const h1 = document.querySelector(".daily h1");
-	const amountContainer = document.querySelector(".amount"); // 금액을 표시할 컨테이너
-	
-	let url = new URL(window.location.href);
-	console.log(url);
+    const beforeBtn = document.getElementById("before-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const weekdaysContainer = document.querySelector(".weekdays");
+    const h3 = document.querySelector(".weekend h3");
+    const today = new Date(); // 오늘 날짜
 
-	let urlParams = url.searchParams;
-	console.log(urlParams);
+    // 현재 URL에서 파라미터 가져오기
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
 
-	let currentDate = new Date(urlParams.get('date'));
-	console.log('바꾼' + currentDate);
-	
-	let selectedDate = new Date(urlParams.get('date'));
+	let currentDate = urlParams.has('date') ? new Date(urlParams.get('date')) : today;
+    let selectedDate = new Date(currentDate);  // 선택된 날짜는 currentDate로 초기화
 	
 	/*
 	// 오늘 날짜
@@ -30,14 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// 요일 이름 배열 (일 ~ 토)
 	const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-
-	// 임의의 수입/지출 데이터 예시 (실제 데이터를 동적으로 처리할 경우에는 서버나 다른 방법으로 데이터를 가져옵니다)
-	const transactions = {
-		"2024-12-22": { income: 50000, expense: 20000 },
-		"2024-12-23": { income: 100000, expense: 15000 },
-		"2024-12-24": { income: 30000, expense: 10000 },
-		// ... (다른 날짜에 대한 예시)
-	};
 
 	// 주간 달력을 업데이트하는 함수
 	function updateWeeklyCalendar() {
@@ -82,10 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// 선택된 날짜의 월을 헤더에 표시
 		const selectedMonth = selectedDate.getMonth() + 1; // 0-based month (0 = January, 11 = December)
-		h1.textContent = `${selectedMonth}월`;
+		h3.textContent = `${selectedMonth}월`;
 
-		// 선택된 날짜에 맞는 수입/지출 금액을 표시
-		displayIncomeExpense(selectedDate);
 	}
 
 	// 날짜 클릭 시 선택된 날짜를 변경하는 함수
@@ -103,38 +89,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		window.location.href = `daily?date=${dateStr}`;
 	}
 
-
-
-	// 선택된 날짜에 대한 수입/지출 금액을 표시하는 함수
-	function displayIncomeExpense(date) {
-		const dateString = date.toISOString().split("T")[0]; // 날짜를 "yyyy-mm-dd" 형식으로 변환
-
-		// 선택된 날짜에 해당하는 수입과 지출 금액을 가져옴
-		const transaction = transactions[dateString];
-
-		// 수입과 지출이 없을 경우 기본 값 설정
-		const income = transaction ? transaction.income : 0;
-		const expense = transaction ? transaction.expense : 0;
-
-		// 금액만 표시 (수입과 지출에 각각 클래스를 추가하여 색상을 다르게 적용)
-		amountContainer.innerHTML = `
-      <p class="income">${income.toLocaleString()}</p>
-      <p class="expense">${expense.toLocaleString()}</p>
-    `;
-	}
-
 	// 이전 주로 이동하는 함수
 	function goToPreviousWeek() {
 		currentDate.setDate(currentDate.getDate() - 7);
 		updateWeeklyCalendar();
-		h1.textContent = `${currentDate.getMonth() + 1}월`;
+		h3.textContent = `${currentDate.getMonth() + 1}월`;
 	}
 
 	// 다음 주로 이동하는 함수
 	function goToNextWeek() {
 		currentDate.setDate(currentDate.getDate() + 7);
 		updateWeeklyCalendar();
-		h1.textContent = `${currentDate.getMonth() + 1}월`;
+		h3.textContent = `${currentDate.getMonth() + 1}월`;
 	}
 
 	// 버튼 클릭 이벤트 리스너 등록
@@ -143,20 +109,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// 초기 달력 표시
 	updateWeeklyCalendar();
+	
+	// 새로고침 시 날짜가 오늘로 돌아가게 설정
+	if (urlParams.has('date')) {
+	    const currentUrl = new URL(window.location.href);
+	    currentUrl.searchParams.delete('date');  // 'date' 파라미터 삭제
+	    window.history.replaceState(null, '', currentUrl);  // URL에서 'date' 파라미터 제거
+	}
 });
+//----------------------------------------------------------------------------------------------------
 
 // 팝업 열기
 function openPopup() {
-	document.getElementById("modal").style.display = "block";
+	document.getElementById("addModal").style.display = "block";
+	document.getElementById("indetailModal").style.display = "block";
+	document.getElementById("exdetailModal").style.display = "block";
 	document.getElementById("daily").style.pointerEvents = 'none'; // 데일리 클릭 비활성화
 }
 
 // 팝업 닫기
 function closePopup() {
-	document.getElementById("modal").style.display = "none";
+	document.getElementById("addModal").style.display = "none";
+	document.getElementById("indetailModal").style.display = "none";
+	document.getElementById("exdetailModal").style.display = "none";
 	document.getElementById("daily").style.pointerEvents = 'auto'; // 데일리 클릭 활성화
 }
-
+//----------------------------------------------------------------------------------------------------
+// 추가 팝업
 // 버튼 클릭 시 'active' 클래스를 추가하고 나머지 버튼 비활성화
 function handleButtonClick(selectedButton) {
 	// 입금/출금 버튼만 비활성화 (결제 방식 버튼은 그대로)
@@ -199,6 +178,7 @@ function confirmSave() {
 		closePopup(); // 팝업 닫기
 	} else {
 		// 사용자가 "취소"를 클릭한 경우 팝업을 닫지 않고 모든 버튼 활성화
+		alert("취소되었습니다.");
 		resetForm(); // 버튼 활성화 및 초기화
 	}
 }
@@ -269,4 +249,51 @@ document.querySelector('.debit-btn').addEventListener('click', function() {
 document.querySelector('.credit-btn').addEventListener('click', function() {
 	handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
 });
+
+//----------------------------------------------------------------------------------------------------
+// 상세내역 팝업 수정하기 버튼
+// 수정 버튼을 클릭했을 때 동작
+function editItem() {
+    const result = confirm("수정하시겠습니까?");
+    
+    if (result) {
+        // 수정 상태로 바꾸기
+        switchToEditMode();
+    } else {
+        // 취소 시 초기화
+        resetForm();
+    }
+}
+
+// 수정 상태로 전환하는 함수
+function switchToEditMode() {
+    // 각 항목을 입력 필드로 바꿔줍니다.
+    document.getElementById("modalCategory").innerHTML = `<input type="text" id="editCategory" value="${currentData.category}">`;
+    document.getElementById("modalAmount").innerHTML = `<input type="number" id="editAmount" value="${currentData.amount}">`;
+    document.getElementById("modalItem").innerHTML = `<input type="text" id="editItemText" value="${currentData.item}">`;
+    document.getElementById("modalMemo").innerHTML = `<textarea id="editMemo">${currentData.memo}</textarea>`;
+
+	// 수정 버튼을 저장으로 변경
+	const editItem = document.getElementById("editItem");
+	editItem.textContent = "저장"; // 버튼 텍스트 변경
+	editItem.setAttribute('onclick', 'saveItem()'); // 클릭 시 저장 함수 호출
+}
+
+// 저장 버튼 클릭 시 실행되는 함수
+function saveItem() {
+    const updatedData = {
+        category: document.getElementById("editCategory").value,
+        amount: document.getElementById("editAmount").value,
+        item: document.getElementById("editItemText").value,
+        memo: document.getElementById("editMemo").value
+    };
+
+    // 저장 처리 (예: 서버로 데이터 전송)
+    console.log("저장된 데이터:", updatedData);
+
+    // 저장 후, 모달을 닫고 초기화
+    alert("저장되었습니다.");
+    closePopup();
+    resetForm(); // 내용 초기화
+}
 

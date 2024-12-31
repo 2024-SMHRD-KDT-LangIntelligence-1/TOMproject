@@ -82,13 +82,19 @@ public class MainController {
 		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"체크");
 		model.addAttribute("debit_cardlist",debit_cardlist);
 		
-		System.out.println(debit_cardlist);
+		//System.out.println(debit_cardlist);
 		
 		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid,"신용");
 		model.addAttribute("credit_cardlist",credit_cardlist);
 		
-		System.out.println(credit_cardlist);
+		//System.out.println(credit_cardlist);
+		
+//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
+//		model.addAttribute("moneybook_list", moneybook_list);
 
+		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
+		model.addAttribute("mb_type_list", mb_type_list);
+		
 		return "calendar";
 	}
 

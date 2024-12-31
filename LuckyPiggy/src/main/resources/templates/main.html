@@ -68,13 +68,7 @@
 
 	<script th:inline="javascript">
 // 기존 데이터 (카테고리, sum, goal 포함)
-
-
-let chartdata = [
-    { category: 'Category 1', sum: 50, goal: 100 },
-    { category: 'Category 2', sum: 30, goal: 100 },
-    { category: 'Category 3', sum: 70, goal: 100 }
-];
+let chartdata = /*[[${eat}]]*/;
 
 // 도넛 차트를 생성하는 함수
 function createDoughnutChartForCategory(containerId, category, sum, goal) {
