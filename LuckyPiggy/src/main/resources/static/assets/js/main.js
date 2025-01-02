@@ -18,6 +18,13 @@ function updateProgress(percentage) {
 // 상태 업데이트
 updateProgress(100);
 //----------------------------------------------------------------------------------
+//도넛 선택시 혜택 페이지로 이동
+document.addEventListener('DOMContentLoaded', function() {
+document.getElementById('donutChartsContainer').addEventListener('click', function() {
+  window.location.href = "benefit";
+});
+});
+//----------------------------------------------------------------------------------
 // 달력
 const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소
   dayTags = document.querySelector(".days"); // 날짜를 표시할 요소

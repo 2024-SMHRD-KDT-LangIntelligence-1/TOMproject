@@ -67,21 +67,6 @@
 	</header>
 
 	<script>
-		// 오늘 날짜 포맷 변경하기 
-		var today = new Date();
-		var year = today.getFullYear();
-		var month = ('0' + (today.getMonth() + 1)).slice(-2);
-		var day = ('0' + today.getDate()).slice(-2);
-		var dateString = year + '-' + month + '-' + day;
-
-		// daily에 마우스 올릴 때 href 설정
-		document.querySelector('#daily').addEventListener(
-				'mouseover',
-				function() {
-					document.querySelector('#daily').setAttribute('href',
-							'daily?date=' + dateString);
-				});
-
 		// 메뉴를 마우스 올릴 때 보이게 하고, 내릴 때 숨기기
 		function toggleMenu(isHovered) {
 			var menu = document.getElementById("menu");

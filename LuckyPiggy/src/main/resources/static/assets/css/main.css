@@ -135,6 +135,7 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    cursor: pointer; /* 클릭 시 포인터 커서 */
 }
 /* 스크롤바 전체 */
 ::-webkit-scrollbar {

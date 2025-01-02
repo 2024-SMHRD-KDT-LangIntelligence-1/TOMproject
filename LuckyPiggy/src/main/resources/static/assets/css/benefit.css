@@ -1,0 +1,53 @@
+/* 모든 페이지의 기본 스타일 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
+}
+
+body {
+	display: flex; /* 페이지 전체 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	justify-content: center; /* 가로 중앙 정렬 */
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
+}
+
+body::-webkit-scrollbar {
+	width: 0; /* 세로 */
+}
+
+.cover {
+	width: 500px;
+	display: flex; /* 자식 요소를 flex로 배치 */
+	flex-direction: column;
+	justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
+}
+/*-------------------------------------------------------------------------------------*/
+#donutChartsContainer {
+	max-width: 430px;
+	height: 250px;
+	display: flex; /* 차트들을 가로로 정렬 */
+    flex-wrap: nowrap; /* 한 줄로만 배치 */
+    gap: 10px; /* 차트들 간의 간격 설정 */
+    width: 100%; /* 최대 너비 설정 */
+    padding: 10px; /* 컨테이너의 여백 */
+    box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    overflow-x: auto; /* 가로 스크롤을 활성화 */
+	margin-top: 15px;
+	margin-bottom: 25px;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+/* 도넛차트 스타일 */
+.doughnut {
+    width: 205px; /* 도넛 차트의 가로 크기 */
+    height: 205px; /* 도넛 차트의 세로 크기 */
+    border-radius: 50%; /* 원형으로 만듦 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    cursor: pointer; /* 클릭 시 포인터 커서 */
+}

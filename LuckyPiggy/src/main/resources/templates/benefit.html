@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>benefit</title>
+<link rel="stylesheet" href="assets/css/benefit.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div id="donutChartsContainer"></div>
+	</div>
+	<script th:inline="javascript">
+	// 기존 데이터 (카테고리, sum, goal 포함)
+	let chartdata = /*[[${eat}]]*/;
+	let chartdata2 = /*[[${cardsum}]]*/;
+
+	// 도넛 차트를 생성하는 함수
+	function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
+    	// 동적으로 캔버스를 감싸는 div 생성
+    	const canvasWrapper = document.createElement('div');
+    	canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
+    	containerId.appendChild(canvasWrapper); // 지정된 컨테이너에 캔버스 추가
+
+    	const canvas = document.createElement('canvas');
+    	canvasWrapper.appendChild(canvas); // 캔버스를 도넛 div에 추가
+
+    	// canvas 크기 명시적으로 설정 (doughnut div의 크기 맞추기)
+    	canvas.width = 205;  // .doughnut의 width 값
+    	canvas.height = 205; // .doughnut의 height 값
+    
+   		const ctx = canvas.getContext("2d");
+
+    	const fillRatio = mb_amount / benefit_std;  // 목표 대비 실제 값 비율
+    	const shortage = benefit_std - mb_amount;   // 부족한 금액 계산
+
+    	const data = {
+        	datasets: [{
+            	data: [fillRatio, 1 - fillRatio], // 비율에 맞게 두 부분으로 나눔
+            	backgroundColor: [
+                	'rgba(75, 192, 192, 0.5)',  // 실제 값 부분 색상
+                	'rgba(201, 203, 207, 0.5)', // 목표 값에 해당하는 부분 색상
+            	],
+            	borderWidth: 0, // 테두리 없애기
+        	}],
+    	};
+
+    	const options = {
+            	responsive: true,
+            	plugins: {
+                	legend: {
+                    	display: false,  // 범례 숨기기
+                	},
+                	tooltip: {
+                    	enabled: false,  // 툴팁 비활성화
+                	}
+            	},
+            
+        	// 도넛 차트 중앙에 텍스트 추가
+        	animation: {
+            	onComplete: function() {
+                	const centerX = ctx.canvas.width / 2;
+                	const centerY = ctx.canvas.height / 2;
+
+                	ctx.font = "18px";  // 폰트 스타일 지정
+                	ctx.fillStyle = "#333"; // 텍스트 색상
+                	ctx.textAlign = "center";
+                	ctx.textBaseline = "middle";
+
+                	// 부족한 금액을 중앙에 표시
+                	ctx.fillText(method_nm, centerX-20, centerY -45);
+                	ctx.fillText(`필요금액`, centerX-25, centerY -15);
+                	ctx.fillText(`${shortage.toLocaleString()} 원`, centerX-20, centerY );  // 부족한 금액을 표시
+            	}
+        	}
+    	};
+
+    	// 차트 생성
+    	new Chart(ctx, {
+        	type: "doughnut",
+        	data: data,
+        	options: options,
+    	});
+	}
+
+	// 모든 카테고리에 대해 도넛 차트 생성
+	const donutChartsContainer = document.getElementById('donutChartsContainer');
+
+
+	</script>
+</body>
+</html>

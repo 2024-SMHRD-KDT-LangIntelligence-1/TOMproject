@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.tom.basic.entity.TbCardsum;
 import com.tom.basic.entity.TbMoneybook;
+import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.postVO;
 
 @Repository
@@ -21,3 +23,6 @@ public interface GraphRepo extends JpaRepository<TbMoneybook, Long>{
 			, nativeQuery = true)
 	List<postVO> findGroupBYReportWithNativeQuery(@Param("userid") String userid);
 }
+
+
+

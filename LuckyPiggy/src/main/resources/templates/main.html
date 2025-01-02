@@ -25,7 +25,7 @@
 				</div>
 			</div>
 			<!-- 도넛 차트 -->
-			<div id="donutChartsContainer">
+			<div id="donutChartsContainer" >
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
 
@@ -65,9 +65,6 @@
 				<canvas id="barChart" width="400px" height="300px"></canvas>
 			</div>
 			<!-- 라인 차트 -->
-			<div class="bar-container" id="bar-container"></div>
-			<!-- 라인 차트가 동적으로 추가될 영역 -->
-
 			<div id="lineChartsContainer">
 				<canvas id="lineChart" width="400px" height="300px"></canvas>
 			</div>
@@ -77,10 +74,11 @@
 
 	<script th:inline="javascript">
 // 기존 데이터 (카테고리, sum, goal 포함)
-let chartdata = /*[[${eat}]]*/
+let chartdata = /*[[${eat}]]*/;
+let chartdata2 = /*[[${cardsum}]]*/;
 
 // 도넛 차트를 생성하는 함수
-function createDoughnutChartForCategory(containerId, category, sum, goal) {
+function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
     // 동적으로 캔버스를 감싸는 div 생성
     const canvasWrapper = document.createElement('div');
     canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
@@ -95,8 +93,8 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
     
     const ctx = canvas.getContext("2d");
 
-    const fillRatio = sum / goal;  // 목표 대비 실제 값 비율
-    const shortage = goal - sum;   // 부족한 금액 계산
+    const fillRatio = mb_amount / benefit_std;  // 목표 대비 실제 값 비율
+    const shortage = benefit_std - mb_amount;   // 부족한 금액 계산
 
     const data = {
         datasets: [{
@@ -132,8 +130,9 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
                 ctx.textBaseline = "middle";
 
                 // 부족한 금액을 중앙에 표시
-                ctx.fillText(`필요금액`, centerX, centerY - 10);
-                ctx.fillText(`${shortage.toFixed(2)} units`, centerX, centerY + 10);  // 부족한 금액을 표시
+                ctx.fillText(method_nm, centerX-20, centerY -45);
+                ctx.fillText(`필요금액`, centerX-25, centerY -15);
+                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX-20, centerY );  // 부족한 금액을 표시
             }
         }
     };
@@ -150,9 +149,10 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
 const donutChartsContainer = document.getElementById('donutChartsContainer');
 
 // 각 카테고리별로 도넛 차트 생성
-chartdata.forEach(item => {
-    createDoughnutChartForCategory(donutChartsContainer, item.category, item.sum, item.goal);
+chartdata2.forEach(item => {
+    createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std);
 });
+
 	</script>
 
 
