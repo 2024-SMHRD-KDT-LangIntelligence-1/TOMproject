@@ -187,6 +187,7 @@ function confirmSave() {
       alert("취소되었습니다.");
       resetForm(); // 버튼 활성화 및 초기화
    }
+   }
 
 // 입력 필드와 버튼 초기화 함수
 function resetForm() {
@@ -302,4 +303,3 @@ function changeFn() {
 		document.getElementById('mb_type2').setAttribute('required', 'required');
 	}
 };
-}
