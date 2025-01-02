@@ -1,10 +1,11 @@
-<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>top_bar</title>
 <link rel="stylesheet" href="assets/css/top_bar.css" />
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<!-- 상단바 -->
@@ -42,10 +43,23 @@
 		<!-- 메뉴 선택시 페이지 이동 -->
 		<div class="menu" id="menu" style="display: none;">
 			<ul>
-				<a href="calendar" onclick="keepMenuVisible()">캘린더</a>
+
+			<script type="text/javascript">
+			var now = new Date();
+				var month = now.getMonth();
+				
+				$.ajax({
+					url: "calendar",
+					data: {month : (month+1)},
+					type: "GET",
+					
+				});
+				</script>
+				<a href="calendar" onclick="keepMenuVisible()" id ="calendar">Calendar</a>
+
 			</ul>
 			<ul>
-				<a href="daily" onclick="keepMenuVisible()">데일리</a>
+				<a href="daily" onclick="keepMenuVisible()" id = "daily">데일리</a>
 			</ul>
 			<ul>
 				<a href="recommend" onclick="keepMenuVisible()">카드추천</a>
@@ -114,6 +128,46 @@
 				menu.style.display = 'none'; // 메뉴가 보일 때 클릭하면 메뉴를 숨김
 			}
 		});
+
+	  
+	  // calendar에 마우스 올릴 때 calendar 설정
+	  document.querySelector('#calendar').addEventListener('mouseover', function() {
+			document.querySelector('#calendar').setAttribute('href', 'calendar?month='+(today.getMonth()+1));
+		});
+	  
+	  
+	  // 메뉴를 마우스 올릴 때 보이게 하고, 내릴 때 숨기기
+	  function toggleMenu(isHovered) {
+	    var menu = document.getElementById("menu");
+	    if (isHovered) {
+	      // 메뉴를 보이게
+	      menu.style.display = "block";
+	    } else {
+	      // 마우스를 내릴 때 바로 숨기지 않고, 메뉴가 계속 보이도록
+	      // 메뉴는 클릭될 때만 숨겨짐
+	    }
+	  }
+
+	  // a 태그를 클릭하면 메뉴를 숨김
+	  function hideMenu() {
+	    var menu = document.getElementById("menu");
+	    menu.style.display = "none";  // 메뉴 숨기기
+	  }
+
+	  // 메뉴 항목을 클릭할 때 메뉴가 사라지지 않도록 함
+	  function keepMenuVisible(event) {
+	    event.stopPropagation();  // 클릭 이벤트가 상위 요소로 전파되지 않도록 막기
+	  }
+
+	  // 클릭할 때 메뉴가 사라지지 않도록, body 클릭 이벤트 추가 (다른 곳 클릭 시 메뉴 숨기기)
+	  document.body.addEventListener('click', function(event) {
+	    var menu = document.getElementById("menu");
+	    var menuToggle = document.querySelector('.menu-toggle');
+	    if (!menu.contains(event.target) && !menuToggle.contains(event.target)) {
+	      menu.style.display = 'none';  // 메뉴가 보일 때 클릭하면 메뉴를 숨김
+	    }
+	  });
+
 	</script>
 </body>
 </html>
