@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <canvas id="mylienchart"></canvas>
+
 <title>Main</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -50,12 +52,14 @@
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
+
 					<table class="recent-table">
 						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
 							<td th:text="${moneybook_list7['shopNm']}" ></td>
 							<td th:text="${moneybook_list7['mbAmount']}"></td>
 						</tr>
 					</table>
+
 				</div>
 			</div>
 
@@ -78,7 +82,6 @@
 // 기존 데이터 (카테고리, sum, goal 포함)
 let chartdata = /*[[${eat}]]*/;
 let chartdata2 = /*[[${cardsum}]]*/;
-
 
 // 도넛 차트를 생성하는 함수
 function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
@@ -204,7 +207,9 @@ chartdata2.forEach(item => {
 	    	  }
 	      }
 	  });	  
+
 	</script>
+
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');

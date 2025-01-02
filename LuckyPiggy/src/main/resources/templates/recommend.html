@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>card</title>
+<link rel="stylesheet" href="assets/css/recommend.css" />
+</head>
+<body>
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div class="recommend-box">
+			<h3>추천카드</h3>
+			<table class="card-table">
+				<thead>
+					<tr>
+						<th>카드사</th>
+						<th>카드 이름</th>
+						<th>카드 혜택</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>카드사 A</td>
+						<td>카드 이름 1</td>
+						<td>
+							<ul>
+								<li>혜택 1: 1% 캐시백</li>
+								<li>혜택 2: 해외 사용 시 3% 할인</li>
+								<li>혜택 3: 연회비 50,000원</li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+<script src="assets/js/common.js"></script>
+</html>
