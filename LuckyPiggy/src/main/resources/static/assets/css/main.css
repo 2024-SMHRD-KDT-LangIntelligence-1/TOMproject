@@ -195,33 +195,22 @@ body::-webkit-scrollbar {
 /*날짜*/
 .calendar ul li {
 	width: calc(100%/ 7); /* 7일로 나누어 1칸의 너비 설정 */
-	margin-top: 20px;
-	z-index: 1; /* 배경 앞으로 글자 위치 */
-}
-/* 오늘날짜 */
-.days li.active {
-    color: rgb(128, 128, 128); /* 텍스트 색상 */
-}
-/* 오늘 날짜 배경을 둥글게 설정 */
-.calendar .days li.active::before {
-	position: absolute; /* 부모 요소인 .calendar에 상대적으로 위치 */
-	content: ""; /* 내용 없음 */
-	height: 30px; /* 높이 */
-	width: 30px; /* 너비 */
-	z-index: -1; /* 배경 날짜 뒤로 배치 */
-	border-radius: 50%; /* 둥근 배경 설정 */
-	display: none;
-	top: 50%; /* 세로 중앙 정렬 */
-    left: 50%; /* 가로 중앙 정렬 */
-    transform: translate(-230%, 220%); /* 정중앙으로 이동 */
+	height: 35px;
+	display: flex;
+	align-items: center;
+  	justify-content: center
 }
 
-/* 날짜 hover 효과 */
-#days:hover::before{
-	display: none;
+/* 오늘 날짜에 배경 색 추가 */
+.day.active {
+  width: 25px;
+  height: 25px;
+  color:white;
+  background-color: orange;
+  border-radius: 10px;
+  font-weight: bold; /* 텍스트 굵게 */
+  margin-top: 5px;
 }
-
-
 /*-------------------------------------------------------------------------------------*/
 /* 최근 소비 내역 공간*/
 .recent-container {
