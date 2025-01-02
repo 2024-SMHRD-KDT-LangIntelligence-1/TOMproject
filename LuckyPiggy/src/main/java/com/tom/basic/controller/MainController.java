@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tom.basic.entity.TbAccount;
@@ -67,7 +65,21 @@ public class MainController {
 	}
 
 	@GetMapping("/benefit")
-	public String benefit() {
+	public String benefit(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+
+		if (uid == null) {
+			return "redirect:/login"; // 로그인 페이지로 리다이렉트
+		}
+
+		String userid = uid.getUserId();
+		List<CardsumVO> cardUsageData = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
+
+		if (!cardUsageData.isEmpty()) {
+			model.addAttribute("cardsum", cardUsageData.get(0)); // 첫 번째 데이터 전달
+		}
+
 		return "benefit";
 	}
 
@@ -98,9 +110,9 @@ public class MainController {
 
 	// 월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
 
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
-	public String calendar(HttpServletRequest request, Model model,
-			@RequestParam(value = "month", required = false) String month) {
+	@GetMapping("/calendar")
+	public String calendar(HttpServletRequest request, Model model, @RequestParam("month") String month) {
+
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 
@@ -125,11 +137,10 @@ public class MainController {
 		model.addAttribute("mb_type_list", mb_type_list);
 
 		// 달 입출금 표시
-
-		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month);
+		System.out.println("내가보낸 달" + month);
+		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month, userid);
+		System.out.println(calist);
 		model.addAttribute("calist", calist);
-
-		// System.out.println(calist.get(1));
 
 		return "calendar";
 	}
