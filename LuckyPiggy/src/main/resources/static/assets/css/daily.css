@@ -161,7 +161,7 @@ body::-webkit-scrollbar {
 
 .income-table td:nth-child(3) {
 	font-size: 12px;
-	width: 35%;
+	width: 50%;
 	padding: 1px;
 	text-align: right;
 	padding-right: 20px;
@@ -178,7 +178,7 @@ body::-webkit-scrollbar {
 	font-size: 12px;
 	width: 20%;
 	padding: 1px;
-	text-align: right;
+	text-align: center;
 	padding-right: 5px;
 	border-radius: 5px;
 }
@@ -234,17 +234,16 @@ body::-webkit-scrollbar {
 }
 /*-------------------------------------------------------------------------------------*/
 /*  팝업창 스타일 */
-.modal{
+.modal {
 	position: fixed; /* 페이지 스크롤에 영향을 받지 않도록 고정 위치 */
 	top: 50%; /* 화면 중간 위치 */
 	left: 50%; /* 화면 가운데 */
 	transform: translate(-40%, -50%); /* 정확히 화면 중앙에 위치시킴 */
 	width: 280px;
-	height: 380px;
+	height: 450px;
 	background-color: white;
 	border-radius: 10px;
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-	padding-top: 10px;
 	padding-left: 30px;
 	display: none; /* 기본적으로 숨김 */
 	z-index: 99999;
@@ -362,6 +361,12 @@ button.disabled {
 	height: 30px;
 	margin-bottom: 10px;
 }
+#mb_type2 {
+   width: 220px;
+   height: 30px;
+   margin-bottom: 10px;
+   text-align: right;
+}
 /* 초기화버튼 */
 #reset {
 	color: white;
@@ -390,12 +395,54 @@ button.disabled {
 	cursor: pointer; /* 마우스를 올리면 커서가 포인터로 바뀌도록 설정 */
 }
 /* ------------------------------------------------------------------------------ */
+/* 수입 상세내역 스타일 */
+.modal-income {
+	margin-top: 100px;
+}
 
+.modal-income th, 
+.modal-income td {
+	font-size: 15px;
+	line-height: 2; /* 줄 간격을 늘림 */
+    text-align: left;
+}
 
+.modal-income th {
+	padding-left: 20px;
+    font-weight: bold;
+    width: 30%; /* Key 칸의 너비 */
+}
+
+.modal-income td {
+	padding-left: 20px;
+    width: 60%; /* Value 칸의 너비 */
+}
+/* 지출 상세내역 스타일 */
+.modal-expense {
+	margin-top: 100px;
+}
+
+.modal-expense th, 
+.modal-expense td {
+	font-size: 15px;
+	line-height: 2; /* 줄 간격을 늘림 */
+    text-align: left;
+}
+
+.modal-expense th {
+    font-weight: bold;
+    width: 20%; /* Key 칸의 너비 */
+}
+
+.modal-expense td {
+	padding-left: 20px;
+    width: 60%; /* Value 칸의 너비 */
+}
 .retouch {
 	color: white;
 	background-color: orange;
-	margin-top: 30px;
+	margin-top: 80px;
+	margin-left: 35px;
 	margin-bottom: 0;
 	width: 70px;
 	height: 30px;

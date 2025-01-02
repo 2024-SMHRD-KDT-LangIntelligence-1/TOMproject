@@ -7,15 +7,10 @@
 <link rel="stylesheet" href="assets/css/card.css" />
 </head>
 <body>
-	<div class="card-box">
-		<!-- 로고와 페이지 이름 -->
-		<div class="logo">
-			<img src="images/logo.jpg" alt="Lucky Piggy Logo" width="100"
-				height="100" />
-
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div class="card-box">
 			<h2>카드등록</h2>
-		</div>
-
 		<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
 		<form action="card.do" method="post">
 
@@ -23,7 +18,7 @@
 				<input type="hidden" id="user_id" name="user_id"
 					th:value="${session.user.userId}" /> <input type="text"
 					id="card_nm" name="card_nm" placeholder="별칭" required /> <select
-					id="card_type" name="card_type">
+					id="card_type" name="card_type" >
 					<option value="체크">체크카드</option>
 					<option value="신용">신용카드</option>
 				</select> <input type="text" id="card_com" name="card_com" placeholder="카드사"
@@ -42,7 +37,7 @@
 			<div class="cardview">
 				<button type="button" class="modal_btn">등록된 카드확인</button>
 			</div>
-
+			
 			<!--모달 팝업, 등록된 카드확인-->
 			<div class="modal">
 				<div class="modal_popup">
@@ -63,9 +58,8 @@
 			<!-- 등록완료 버튼 -->
 			<button type="submit" id="join-btn" class="join-btn">등록완료</button>
 		</form>
+		</div>
 	</div>
-
-
 </body>
 <script src="assets/js/common.js"></script>
 </html>

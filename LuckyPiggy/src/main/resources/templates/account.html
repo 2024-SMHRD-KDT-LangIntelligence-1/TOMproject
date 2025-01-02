@@ -7,59 +7,53 @@
 <link rel="stylesheet" href="assets/css/account.css" />
 </head>
 <body>
-	<div class="account-box">
-		<!-- 로고와 페이지 이름 -->
-		<div class="logo">
-			<img src="images/logo.jpg" alt="Lucky Piggy Logo" width="100"
-				height="100" />
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div class="account-box">
+				<h2>계좌등록</h2>
+			</div>
 
-			<h2>계좌등록</h2>
-		</div>
-		
-		<!-- 별칭, 은행, 계좌번호, 예금주 입력창 -->
-		<form action="account.do" method="post">
+			<!-- 별칭, 은행, 계좌번호, 예금주 입력창 -->
+			<form action="account.do" method="post">
 
-			<div class="input-group">
-				<input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}"/>
-			
-				<input type="text" id="acc_nm" name="acc_nm" placeholder="별칭"
-					required />
-				
-				<input type="text" id="bank_nm"
-					name="bank_nm" placeholder="은행" required />
-				
-				<input
-					type="text" oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
-					id="acc_num" name="acc_num" placeholder="계좌번호" required />
-	
-				<!-- 
+				<div class="input-group">
+					<input type="hidden" id="user_id" name="user_id"
+						th:value="${session.user.userId}"
+					/> <input type="text" id="acc_nm" name="acc_nm" placeholder="별칭"
+						required
+					/> <input type="text" id="bank_nm" name="bank_nm" placeholder="은행"
+						required
+					/> <input type="text"
+						oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
+						id="acc_num" name="acc_num" placeholder="계좌번호" required
+					/>
+
+					<!-- 
 				<input type="text" id="holder" name="holder" placeholder="예금주"
 					required />
 				 -->
-				 
-			</div>
 
-			<!-- 등록된 카드 확인 버튼 -->
-			<div class="accview">
-				<button type="button" class="modal_btn">등록된 계좌확인</button>
-			</div>
-
-			<!--모달 팝업-->
-			<div class="modal">
-				<div class="modal_popup">
-					<h3>계좌목록</h3>
-					 <p>등록된 계좌확인</p>
-					 
-					<button type="button" class="close_btn">닫기</button>
 				</div>
-			</div>
 
-			<!-- 등록완료 버튼 -->
-			<button type="submit" id="join-btn" class="join-btn">등록완료</button>
-		</form>
-	</div>
-	
+				<!-- 등록된 카드 확인 버튼 -->
+				<div class="accview">
+					<button type="button" class="modal_btn">등록된 계좌확인</button>
+				</div>
 
+				<!--모달 팝업-->
+				<div class="modal">
+					<div class="modal_popup">
+						<h3>계좌목록</h3>
+						<p>등록된 계좌확인</p>
+
+						<button type="button" class="close_btn">닫기</button>
+					</div>
+				</div>
+
+				<!-- 등록완료 버튼 -->
+				<button type="submit" id="join-btn" class="join-btn">등록완료</button>
+			</form>
+		</div>
 </body>
 <script src="assets/js/common.js"></script>
 </html>
