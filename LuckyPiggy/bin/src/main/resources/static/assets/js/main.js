@@ -21,10 +21,12 @@ updateProgress(100);
 // 달력
 const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소
   dayTags = document.querySelector(".days"); // 날짜를 표시할 요소
+
 // 현재 날짜를 가져옴
 let date = new Date();
 let currYear = date.getFullYear(); // 현재 연도
 let currMonth = date.getMonth(); // 현재 월 (0~11)
+
 // 월 이름 배열
 const months = [
   "January",
@@ -40,17 +42,21 @@ const months = [
   "November",
   "December",
 ];
+
 // 달력을 렌더링하는 함수
 const renderCalendar = () => {
   // 해당 월의 첫 날 요일 (0: 일요일, 1: 월요일 등)
   let firstDayOfMonth = new Date(currYear, currMonth, 1).getDay(),
     // 해당 월의 마지막 날짜
-    lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate(),
-    // 해당 월의 마지막 날 요일 (0~6)
-    lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay(),
-    // 이전 달의 마지막 날짜
-    lastDayOfLastMonth = new Date(currYear, currMonth, 0).getDate();
+    lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
+
   let liTag = ""; // 날짜 목록을 저장할 변수
+
+  // 첫 번째 날의 요일만큼 빈 공간을 추가 (이전 달 날짜는 숨기기)
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    liTag += `<li class="inactive"></li>`; // 빈 공간 추가
+  }
+
   // 이번 달의 날짜를 표시
   for (let i = 1; i <= lastDateOfMonth; i++) {
     // 오늘 날짜를 'active' 클래스로 표시
@@ -66,6 +72,7 @@ const renderCalendar = () => {
   // 달력 내용 업데이트
   dayTags.innerHTML = liTag;
 };
+
 // 처음에 달력 렌더링
 renderCalendar();
 
@@ -75,3 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = "calendar";
   });
 });
+
+
+// 달력 날짜 마우스 커서 올렸을 때 색상 변경 
+//let mouseEvent = document.getElementById("days");
+//mouseEvent.addEventListener("mouseover",function(event){ 
+//	event.target.style.color = "rgb(251, 211, 121)";
+//},false);
+
+//mouseEvent.addEventListener("mouseout",function(event){ 
+//	event.target.style.color = "";
+//},false);

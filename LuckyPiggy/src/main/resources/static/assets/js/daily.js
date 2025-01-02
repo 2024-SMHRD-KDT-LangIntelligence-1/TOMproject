@@ -302,4 +302,4 @@ function changeFn() {
       document.getElementById('mb_type2').setAttribute('name', 'mb_type');
       document.getElementById('mb_type2').setAttribute('required', 'required');
    }
-};
+};
