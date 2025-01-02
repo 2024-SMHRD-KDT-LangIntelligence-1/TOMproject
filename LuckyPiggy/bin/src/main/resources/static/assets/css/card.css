@@ -1,25 +1,39 @@
-body {
-  margin: 0; /* body의 기본 여백을 제거 */
-  height: 100vh; /* 화면 전체 높이 사용 */
-  display: flex;
-  flex-direction: column; /* 세로 배치 */
-  justify-content: center; /* 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
+/* 모든 페이지의 기본 스타일 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
 }
 
+body {
+	display: flex; /* 페이지 전체 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	justify-content: center; /* 가로 중앙 정렬 */
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
+}
+
+body::-webkit-scrollbar {
+	width: 0; /* 세로 */
+}
+
+.cover {
+	width: 500px;
+	display: flex; /* 자식 요소를 flex로 배치 */
+	flex-direction: column;
+	justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
+}
+/*-------------------------------------------------------------------------------------*/
 .card-box {
   width: 500px;
-  height: 675px;
   display: flex;
   flex-direction: column; /* 세로 배치 */
   justify-content: center; /* 중앙 정렬 */
   align-items: center; /* 수직 중앙 정렬 */
   background-color: white;
   border-radius: 10px; /* 둥글게 */
-}
-
-.logo {
-  margin-top: -120px; /* 로고 위로 올리기 */
+  margin-top: 50px;
 }
 
 h2 {
@@ -33,7 +47,6 @@ form {
    justify-content: center; /* 중앙 정렬 */
    align-items: center;
 }
-
 
 .input-group,
 .nickname {
@@ -62,6 +75,11 @@ form {
   outline: none; /* 선택시 테두리 제거*/
   border: none; /* 기본 테두리 제거 */
   border-radius: 8px;
+}
+
+#card_type {
+    width: 340px;
+    height: 35px;
 }
 
 .check-btn {

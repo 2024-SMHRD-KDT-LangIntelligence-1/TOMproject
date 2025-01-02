@@ -301,7 +301,7 @@ public class MainController {
 		if (cardsum == null) {
 			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
 		}
-		System.out.println(cardsum.get(0));
+//		System.out.println(cardsum.get(0));
 		return "main";
 	}
 
