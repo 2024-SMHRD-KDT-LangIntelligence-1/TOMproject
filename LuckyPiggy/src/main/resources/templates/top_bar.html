@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
@@ -38,7 +37,18 @@
 		<!-- 메뉴 선택시 페이지 이동 -->
 		<div class="menu" id="menu" style="display: none;">
 			<ul>
-				<a href="calendar" onclick="keepMenuVisible()">Calendar</a>
+			<script type="text/javascript">
+			var now = new Date();
+				var month = now.getMonth();
+				
+				$.ajax({
+					url: "calendar",
+					data: {month : (month+1)},
+					type: "GET",
+					
+				});
+				</script>
+				<a href="calendar" onclick="keepMenuVisible()" id = calendar>Calendar</a>
 			</ul>
 			<ul>
 				<a id="daily" onclick="keepMenuVisible()">Daily</a>
@@ -63,6 +73,11 @@
 	  // daily에 마우스 올릴 때 href 설정
 	  document.querySelector('#daily').addEventListener('mouseover', function() {
 			document.querySelector('#daily').setAttribute('href', 'daily?date='+dateString);
+		});
+	  
+	  // calendar에 마우스 올릴 때 calendar 설정
+	  document.querySelector('#calendar').addEventListener('mouseover', function() {
+			document.querySelector('#calendar').setAttribute('href', 'calendar?month='+(today.getMonth()+1));
 		});
 	  
 	  

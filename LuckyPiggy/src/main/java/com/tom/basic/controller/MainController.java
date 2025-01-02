@@ -85,11 +85,12 @@ public class MainController {
 	public String topbar() {
 		return "top_bar";
 	}
+	
 
 	// 월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
 	
-	@RequestMapping(value = "/calendar" , method= RequestMethod.GET)
-	public String calendar(HttpServletRequest request, Model model, @RequestParam(value = "month", required=false)String month) {
+	@GetMapping("/calendar")
+	public String calendar(HttpServletRequest request, Model model,@RequestParam("month") String month) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 		
@@ -114,14 +115,13 @@ public class MainController {
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
 		
+		
 		//달 입출금 표시
-
-		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month);
-		model.addAttribute("calist", calist);
+		System.out.println("내가보낸 달" + month);
+		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month,userid);
+		System.out.println(calist);
+		model.addAttribute("calist",calist);
 		
-		//System.out.println(calist.get(1));
-		
-
 		return "calendar";
 	}
 

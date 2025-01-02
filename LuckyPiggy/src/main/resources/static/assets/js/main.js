@@ -69,10 +69,14 @@ const renderCalendar = () => {
 // 처음에 달력 렌더링
 renderCalendar();
 
+var now = new Date();
+var real = now.getMonth();
+console.log('for real'+real)
+
 // 달력 선택시 캘린더 페이지로 이동
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('calendar').addEventListener('click', function() {
-    window.location.href = "calendar";
+    window.location.href = `calendar?month=${parseInt(real)+1}`;
   });
 });
 
