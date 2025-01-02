@@ -1,22 +1,22 @@
 
 // 상태바 설정
 // 상태바 진행 상태를 업데이트하는 함수
-function updateProgress(percentage) {
-  const progressLine = document.querySelector(".line-progress");
-  progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
+//function updateProgress(percentage) {
+  //const progressLine = document.querySelector(".line-progress");
+  //progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
   // 각 단계 마커의 상태를 업데이트
-  const steps = document.querySelectorAll(".step");
-  steps.forEach((step) => {
-    const progress = parseFloat(step.getAttribute("data-progress"));
-    if (progress <= percentage) {
-      step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
-    } else {
-      step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
-    }
-  });
-}
+  //const steps = document.querySelectorAll(".step");
+  //steps.forEach((step) => {
+    //const progress = parseFloat(step.getAttribute("data-progress"));
+    //if (progress <= percentage) {
+      //step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
+    //} else {
+     // step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
+    //}
+  //});
+//}
 // 상태 업데이트
-updateProgress(100);
+//updateProgress(50);
 //----------------------------------------------------------------------------------
 // 달력
 const currentDate = document.querySelector(".month-name"), // 월 이름을 표시할 요소

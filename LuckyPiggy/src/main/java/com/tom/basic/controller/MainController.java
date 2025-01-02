@@ -70,6 +70,8 @@ public class MainController {
     BudgetRepo brepo ;
     @Autowired
     CardsumRepo cardsumRepo;
+    @Autowired
+    BudgetRepo budgetrepo;
 
 
     private final MoneybookRepo moneybookRepository;
@@ -302,6 +304,9 @@ public class MainController {
 			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
 		}
 		System.out.println(cardsum.get(0));
+
+		
+			
 		return "main";
 	}
 

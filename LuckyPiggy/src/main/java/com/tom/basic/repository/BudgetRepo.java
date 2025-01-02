@@ -13,8 +13,9 @@ import com.tom.basic.model.BudgetVO;
 
 @Repository
 public interface BudgetRepo extends JpaRepository<TbBudget, Long>{
-
 	TbBudget findByUserId(String userid);
+	
+	//List<BudgetVO>findByUserIdAndMonthStd(String userId);
 
 }
 

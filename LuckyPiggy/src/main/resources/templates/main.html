@@ -42,7 +42,7 @@
 						<li>Mon</li>
 						<li>Tue</li>
 						<li>Wed</li>
-						<li>Thu</li>
+						<li>Thu<
 						<li>Fri</li>
 						<li>Sat</li>
 					</ul>
@@ -79,6 +79,28 @@
 
 
 	<script th:inline="javascript">
+	
+	// 상태바 설정
+	// 상태바 진행 상태를 업데이트하는 함수	
+	function updateProgress(percentage) {		
+	 const progressLine = document.querySelector(".line-progress");
+	  progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
+	  // 각 단계 마커의 상태를 업데이트
+	  const steps = document.querySelectorAll(".step");
+	  steps.forEach((step) => {
+	  const progress = parseFloat(step.getAttribute("data-progress"));
+	   	if (progress <= percentage) {
+	     step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
+	    } else {
+	      step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
+	    }
+	  });
+	}
+	
+	// 상태 업데이트
+	updateProgress(100);
+	
+	
 // 기존 데이터 (카테고리, sum, goal 포함)
 let chartdata = /*[[${eat}]]*/;
 let chartdata2 = /*[[${cardsum}]]*/;
@@ -136,9 +158,9 @@ function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benef
                 ctx.textBaseline = "middle";
 
                 // 부족한 금액을 중앙에 표시
-                ctx.fillText(method_nm, centerX-20, centerY -45);
-                ctx.fillText(`필요금액`, centerX-25, centerY -15);
-                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX-20, centerY );  // 부족한 금액을 표시
+                ctx.fillText(method_nm, centerX+20, centerY -5);
+                ctx.fillText(`필요금액`, centerX+25, centerY +20);
+                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX+25, centerY +45);  // 부족한 금액을 표시
             }
         }
     };
@@ -238,5 +260,6 @@ chartdata2.forEach(item => {
         });
     </script>
 	<script src="assets/js/main.js"></script>
+	
 </body>
 </html>
