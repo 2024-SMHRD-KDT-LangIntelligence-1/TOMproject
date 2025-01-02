@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,13 +8,17 @@
 <script src="assets/js/daily.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
 </head>
 <body>
+ 
+
 	<div class="cover">
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
 		<input type="hidden" id="user_id" name="user_id"
-						th:value="${session.user.userId}" />
+			th:value="${session.user.userId}"
+		/>
 		<div id="dailyPage">
 			<div class="weekend">
 				<h3>12월</h3>
@@ -29,68 +32,66 @@
 				</ul>
 				<button class="next-btn" id="next-btn">▼</button>
 			</div>
-
-			<div class="details">
-				<div class="income">
-					<h2>수입</h2>
-					<table>
-						<tr>
-							<th>카테고리</th>
-							<th>금액</th>
-						</tr>
-						<tr th:each="moneybook : ${moneybook}">
-							<th th:text="${moneybook.mbType}"></th>
-							<th th:text="${moneybook.mbIc}"></th>
-						</tr>
-					</table>
-				</div>
-				<div class="incometotal-box">
-					<div class="total-cash">현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원</div>
-					<div class="total-income">총 수입:</div>
-				</div>
+			<div class="income-container">
+				<h2>
+					수입<a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
+				</h2>
+				<table class="income-table">
+				
+					<tr th:each="pmoneybook, stat: ${list1}"
+						onclick="openModal('modal2')"
+					>
+						<td th:text="${stat.index + 1}"></td>
+						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
+						<td th:text="${pmoneybook.mbType}"></td>
+						<td th:text="${pmoneybook.mbIc}"></td>
+					</tr>
+				</table>
 			</div>
-			<div class="details">
-				<div class="expense">
-					<h2>지출</h2>
-					<table>
-						<tr>
-							<th>카테고리</th>
-							<th>상점명</th>
-							<th>금액</th>
-						</tr>
-						<tr th:each="moneybook : ${moneybook}">
-							<th th:text="${moneybook.mbType}"></th>
-							<th th:text="${moneybook.shopNm}"></th>
-							<th th:text="${moneybook.mbAmount}"></th>
-						</tr>
-					</table>
+			<div class="incometotal-box">
+				<div class="total-cash">
+					현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원
 				</div>
-
-				<div class="expensetotal-box">
-					<div class="total-cash">현금:</div>
-					<div class="total-card">카드:</div>
-					<div class="total-expense">총 지출:</div>
-				</div>
+				<div class="total-income">총 수입:</div>
 			</div>
-			<!-- 추가 버튼 -->
-			<button class="add-btn" id="add-btn" onclick="openPopup()">+</button>
+			<div class="expense-container">
+				<h2 >
+					지출 <a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
+				</h2>
+				<table class="expense-table">
+					<tr th:each="pmoneybook, stat : ${list1}"
+						onclick="openModal('modal3')"
+					>
+						<td th:text="${stat.index + 1}"></td>
+						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
+						<td th:text="${pmoneybook.shopNm}"></td>
+						<td th:text="${pmoneybook.mbMethod}"></td>
+						<td th:text="${pmoneybook.mbAmount}"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="expensetotal-box">
+				<div class="total-cash">현금:</div>
+				<div class="total-card">카드:</div>
+				<div class="total-expense">총 지출:</div>
+			</div>
 		</div>
 		<!-- ------------------------------------------------------------------------------------ -->
 		<!-- 모달팝업 (추가하는 부분) -->
-		<!-- 모달팝업 (추가하는 부분) -->
-		<div class="addModal" id="addModal">
+		<div class="modal" id="modal1">
 			<div class="addModal_popup">
-				<form action="dmoneybook.do" method="post">
-					<div>
-						<button onclick="window.location.reload()">X</button>
-					</div>
+				<form action="moneybook.do" method="post">
+				<div>
+				<button class="addclosebtn" onclick="closeModal('modal1')">&times;</button>
+				</div>
 					<input type="hidden" id="user_id" name="user_id"
-						th:value="${session.user.userId}" /> <input type="date"
-						id="myDate" name="paid_at" style="display: none;" required />
+						th:value="${session.user.userId}"
+					/>
 					<div>
-
-						<input type="text" placeholder="금액을 입력해주세요" id="money"
-							name="money" required />
+						<input
+						type="text" placeholder="금액을 입력하세요" id="money" name="money"
+						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+						required />
 					</div>
 					<div class="statements">
 						<button type="button" class="income-btn">입금</button>
@@ -101,52 +102,63 @@
 						<button class="debit-btn" type="button">체크카드</button>
 						<button class="credit-btn" type="button">신용카드</button>
 					</div>
-					<!-- <div class="diteil">
-					 <div class="card-category" method="post">
-						<select id="method_nm" name="method_nm" th:object="${debit_cardlist}", "${credit_cardlist}" required>
-							<option selected disabled hidden value="">카드선택</option>
-							<option hidden class="debit_cardlist" th:each="debit_cardlist: ${debit_cardlist}"
-								th:value="${debit_cardlist['cardNm']}" th:text="${debit_cardlist['cardNm']}"></option>
-							<option hidden class="credit_cardlist" th:each="credit_cardlist: ${credit_cardlist}"
-								th:value="${credit_cardlist['cardNm']}" th:text="${credit_cardlist['cardNm']}"></option>
-						</select>
+						<div class="diteil">
+						<div class="card-category" method="post">
+							<select id="method_nm" name="method_nm"
+								th:object="${debit_cardlist}" , "${credit_cardlist}" required>
+								<option selected disabled hidden value="">카드선택</option>
+								<option hidden class="debit_cardlist"
+									th:each="debit_cardlist: ${debit_cardlist}"
+									th:value="${debit_cardlist['cardNm']}"
+									th:text="${debit_cardlist['cardNm']}"
+								></option>
+								<option hidden class="credit_cardlist"
+									th:each="credit_cardlist: ${credit_cardlist}"
+									th:value="${credit_cardlist['cardNm']}"
+									th:text="${credit_cardlist['cardNm']}"
+								></option>
+							</select>
+						</div>
 					</div>
-				</div>-->
-					<!--<div class="category">
-					<select id="mb_type" name="mb_type" onchange="changeFn()" th:object="${mb_type_list}" required>
-						<option selected disabled hidden value="">사용내역</option>
-						<option class="mb_type_list" th:each="mb_type_list: ${mb_type_list}"
-								th:value="${mb_type_list}" th:text="${mb_type_list}"></option>
-						<option id="write" value="write">직접입력</option>
-					</select>
-					<input type="text" id="mb_type2" hidden/>
-				</div>-->
+						<div class="category">
+						<select id="mb_type" name="mb_type" onchange="changeFn()"
+							th:object="${mb_type_list}" required>
+							<option selected disabled hidden value="">사용내역</option>
+							<option class="mb_type_list"
+								th:each="mb_type_list: ${mb_type_list}"
+								th:value="${mb_type_list}" th:text="${mb_type_list}"
+							></option>
+							<option id="write" value="write">직접입력</option>
+						</select> <input type="text" id="mb_type2" hidden />
+					</div>
 					<div class="memo">
 						<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
-							name="shop_nm" /> <input type="text" placeholder="메모를 입력하세요"
-							id="memo" name="mb_memo" />
+							name="shop_nm"
+						/> <input type="text" placeholder="메모를 입력하세요" id="memo"
+							name="mb_memo"
+						/>
 					</div>
 					<div class="save-btn">
-						<button id="save" type="submit">저장</button>
 						<button id="reset" type="reset" onclick="resetForm()">초기화</button>
+						<button id="save" type="submit">저장</button>
 					</div>
 				</form>
 			</div>
 		</div>
 		<script>
-    // 현재 URL로부터 정보 가져오기
-    const url = new URL(window.location.href);
-    const urlParams = url.searchParams;
+    	// 현재 URL로부터 정보 가져오기
+   	 	const url = new URL(window.location.href);
+    	const urlParams = url.searchParams;
     
-    // 예시로 date라는 파라미터를 가져와서 적용
-    const dateValue = urlParams.get('date'); 
+    	// 예시로 date라는 파라미터를 가져와서 적용
+    	const dateValue = urlParams.get('date'); 
     
-    // date 파라미터가 존재한다면 input value로 설정
-    if (dateValue) {
-      document.getElementById('myDate').value = dateValue;
-    }
-    window.addEventListener('load', () => {
-        const dateInput = document.getElementById('myDate');
+    	// date 파라미터가 존재한다면 input value로 설정
+    	if (dateValue) {
+      		document.getElementById('myDate').value = dateValue;
+   		 }
+    	window.addEventListener('load', () => {
+        	const dateInput = document.getElementById('myDate');
 
         // 이미 URL이나 다른 방법으로 값이 설정되어 있다면, 덮어쓰지 않도록 조건 처리
         if (!dateInput.value) {
@@ -159,149 +171,100 @@
           dateInput.value = `${year}-${month}-${day}`;
         }
       });
-  </script>
-
+  		</script>
 		<!-- ---------------------------------------------------------------------------------- -->
-		<!-- 모달 팝업 (입금 상세 내역을 보여주는 부분) -->
-		<div class="indetailModal" id="indetailModal" style="display: none;">
+		<!-- 입금 상세내역 보여주는 팝업창 -->
+		<div class="modal" id="modal2">
 			<div class="indetailModal_popup">
-				<div class="modal-header">
-					<span id="modalDate"></span>
-					<!-- 선택된 날짜 표시 -->
-				</div>
-				<div class="modal-category">
-					<strong>카테고리:</strong> <span id="modalCategory"></span>
-					<!-- 카테고리 표시 -->
-				</div>
-				<div class="modal-amount">
-					<strong>금액:</strong> <span id="modalAmount"></span> 원
-					<!-- 금액 표시 -->
-				</div>
-				<div class="modal-item">
-					<strong>내역:</strong> <span id="modalItem"></span>
-					<!-- 내역 표시 -->
-				</div>
-				<div class="modal-memo">
-					<strong>메모:</strong> <span id="modalMemo"></span>
-					<!-- 메모 표시 -->
+				<div>
+					<table class="modal-income">
+						<tbody>
+							<tr>
+								<th>날짜</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.paidAt}"
+								></td>
+							</tr>
+							<tr>
+								<th>카테고리</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbType}"
+								></td>
+							</tr>
+							<tr>
+								<th>입금금액</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbIc}"
+								></td>
+							</tr>
+							<tr>
+								<th>메모</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbMemo}"
+								></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="finish-btn">
-					<button type="button" onclick="editItem()">수정</button>
-					<button type="button" onclick="closePopup()">닫기</button>
+					<button class="retouch" type="button">수정</button>
+					<button class="close" type="button" onclick="closeModal('modal2')">닫기</button>
 				</div>
 			</div>
 		</div>
-		<!-- ------------------------------------------------------------------------------------------------------- -->
-		<script th:inline="javascript">
-       // Thymeleaf에서 전달된 데이터를 JavaScript 변수로 설정
-       const income = /*[[${income}]]*/ [];  // 서버에서 전달된 `income` 객체
 
-       // 모달을 여는 함수
-       function openModal(income) {
-           const modal = document.getElementById('indetailModal');
-        // 모달에 표시할 내용을 동적으로 생성하여 설정
-        document.getElementById('money').value = income.amount;  // 금액 입력란에 금액을 설정
-        document.getElementById('shop_nm').value = income.shopName || '';  // 상점명 입력란에 값 설정 (optional)
-        document.getElementById('memo').value = income.memo || '';  // 메모 입력란에 값 설정 (optional)
-        
-        modal.style.display = 'flex';  // 모달 보이기
-       }
-
-       // 모달을 닫는 함수
-       function closeModal() {
-           const modal = document.getElementById('indetailModal');
-           modal.style.display = 'none';  // 모달 숨기기
-       }
-
-       // 동적으로 li 요소 생성 및 클릭 이벤트 처리
-       window.onload = function() {
-           const incomeItems = document.getElementById('incomeItems');
-        
-             expenses.forEach(income => {
-               // li 요소 생성
-               const li = document.createElement('li');
-               li.textContent = income.itemName + ' - ' + income.amount + '원';
-            
-               // li 클릭 시 모달을 여는 이벤트 리스너 추가
-               li.addEventListener('click', function() {
-                   openModal(income);  // 모달 열 때 해당 항목 정보를 넘겨줌
-               });
-
-               // ul에 li 추가
-               listContainer.appendChild(li);
-           });
-       };
-      </script>
 		<!-- ------------------------------------------------------------------------------- -->
 		<!-- 모달 팝업 (출금 상세 내역을 보여주는 부분) -->
-		<div class="exdetailModal" id="exdetailModal">
-			<div class="exdetaiiModal_popup">
-				<div class="modal-header">
-					<span id="modalDate"></span>
-					<!-- 선택된 날짜 표시 -->
-				</div>
-				<div class="modal-category">
-					<strong>카테고리:</strong> <span id="modalCategory"></span>
-				</div>
-				<div class="modal-amount">
-					<strong>금액:</strong> <span id="modalAmount"></span> 원
-				</div>
-				<div class="modal-item">
-					<strong>내역:</strong> <span id="modalItem"></span>
-				</div>
-				<div class="modal-payment">
-					<strong>결제수단:</strong> <span id="modalPayment"></span>
-				</div>
-				<div class="modal-memo">
-					<strong>메모:</strong> <span id="modalMemo"></span>
+		<div class="modal" id="modal3">
+			<div class="exdetailModal_popup">
+				<div>
+					<table class="modal-expense">
+						<tbody>
+							<tr>
+								<th>날짜</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.paidAt}"
+								></td>
+							</tr>
+							<tr>
+								<th>카테고리</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbType}"
+								></td>
+							</tr>
+							<tr>
+								<th>상점명</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.shopNm}"
+								></td>
+							</tr>
+							<tr>
+								<th>결제수단</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbMethod + ' ' + moneybook.methodNm}"
+								></td>
+							</tr>
+							<tr>
+								<th>사용금액</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbAmount}"
+								></td>
+							</tr>
+							<tr>
+								<th>메모</th>
+								<td th:each="moneybook : ${moneybook}"
+									th:text="${moneybook.mbMemo}"
+								></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="finish-btn">
-					<button type="button" onclick="editItem()">수정</button>
-					<button type="button" onclick="closePopup()">닫기</button>
+					<button class="retouch" type="button">수정</button>
+					<button class="close" type="button" onclick="closeModal('modal3')">닫기</button>
 				</div>
 			</div>
 		</div>
-		<!-- --------------------------------------------------------------------------------------- -->
-		<script th:inline="javascript">
-       // Thymeleaf에서 전달된 데이터를 JavaScript 변수로 설정
-       const expenses = /*[[${expenses}]]*/ [];  // 서버에서 전달된 `expenses` 객체
-
-       // 모달을 여는 함수
-       function openModal(expense) {
-           const modal = document.getElementById('indetailModal');
-        // 모달에 표시할 내용을 동적으로 생성하여 설정
-        document.getElementById('money').value = expense.amount;  // 금액 입력란에 금액을 설정
-        document.getElementById('shop_nm').value = expense.shopName || '';  // 상점명 입력란에 값 설정 (optional)
-        document.getElementById('memo').value = expense.memo || '';  // 메모 입력란에 값 설정 (optional)
-        
-        modal.style.display = 'flex';  // 모달 보이기
-       }
-
-       // 모달을 닫는 함수
-       function closeModal() {
-           const modal = document.getElementById('indetailModal');
-           modal.style.display = 'none';  // 모달 숨기기
-       }
-
-       // 동적으로 li 요소 생성 및 클릭 이벤트 처리
-       window.onload = function() {
-           const expenseItems = document.getElementById('expenseItems');
-        
-             expenses.forEach(expense => {
-               // li 요소 생성
-               const li = document.createElement('li');
-               li.textContent = expense.itemName + ' - ' + expense.amount + '원';
-            
-               // li 클릭 시 모달을 여는 이벤트 리스너 추가
-               li.addEventListener('click', function() {
-                   openModal(expense);  // 모달 열 때 해당 항목 정보를 넘겨줌
-               });
-
-               // ul에 li 추가
-               listContainer.appendChild(li);
-           });
-       };
-       </script>
 	</div>
 	<script src="assets/js/daily.js"></script>
 </body>
