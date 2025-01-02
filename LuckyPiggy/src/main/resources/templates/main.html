@@ -4,10 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main</title>
-<<<<<<< HEAD
+
 <canvas id="mylienchart"></canvas>
-=======
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
+
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
@@ -56,11 +55,11 @@
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
 					<div id="recentList"></div>
-					
+
 					<div id="recent7" th:object="${moneybook_list7}">
-							<p class="recent7" th:each="moneybook_list7: ${moneybook_list7}"
-								th:text="|${moneybook_list7['shopNm']} ${moneybook_list7['mbAmount']} ${moneybook_list7['paidAt']}|"></p>
-								</div>	
+						<p class="recent7" th:each="moneybook_list7: ${moneybook_list7}"
+							th:text="|${moneybook_list7['shopNm']} ${moneybook_list7['mbAmount']} ${moneybook_list7['paidAt']}|"></p>
+					</div>
 				</div>
 			</div>
 
@@ -82,7 +81,7 @@
 
 	<script th:inline="javascript">
 // 기존 데이터 (카테고리, sum, goal 포함)
-let chartdata = /*[[${eat}]]*/;
+let chartdata = /*[[${eat}]]*/
 
 // 도넛 차트를 생성하는 함수
 function createDoughnutChartForCategory(containerId, category, sum, goal) {
@@ -211,8 +210,8 @@ chartdata.forEach(item => {
 
 
 	<!-- 최근소비내역 7개 -->
-	
-	
+
+
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');
