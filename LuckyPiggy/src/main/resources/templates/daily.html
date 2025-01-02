@@ -90,7 +90,7 @@
 					<div>
 						<input
 						type="text" placeholder="금액을 입력하세요" id="money" name="money"
-						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+					
 						required />
 					</div>
 					<div class="statements">
@@ -102,8 +102,8 @@
 						<button class="debit-btn" type="button">체크카드</button>
 						<button class="credit-btn" type="button">신용카드</button>
 					</div>
-						<div class="diteil">
-						<div class="card-category" method="post">
+						<!--<div class="diteil">
+						 <div class="card-category" method="post">
 							<select id="method_nm" name="method_nm"
 								th:object="${debit_cardlist}" , "${credit_cardlist}" required>
 								<option selected disabled hidden value="">카드선택</option>
@@ -118,9 +118,9 @@
 									th:text="${credit_cardlist['cardNm']}"
 								></option>
 							</select>
-						</div>
-					</div>
-						<div class="category">
+						</div> 
+					</div>-->
+					<!--	<div class="category">
 						<select id="mb_type" name="mb_type" onchange="changeFn()"
 							th:object="${mb_type_list}" required>
 							<option selected disabled hidden value="">사용내역</option>
@@ -130,7 +130,7 @@
 							></option>
 							<option id="write" value="write">직접입력</option>
 						</select> <input type="text" id="mb_type2" hidden />
-					</div>
+					</div>-->
 					<div class="memo">
 						<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
 							name="shop_nm"

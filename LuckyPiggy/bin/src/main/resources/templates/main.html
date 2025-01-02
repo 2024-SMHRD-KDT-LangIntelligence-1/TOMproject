@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<canvas id="mylienchart"></canvas>
+
 <title>Main</title>
-<canvas id="myChart"></canvas>
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-></script>
 </head>
 <body>
 	<div class="cover">
@@ -32,6 +31,7 @@
 			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
+
 			<!-- 달력/최근소비내역 -->
 			<div class="double" id="double">
 				<!-- 달력 -->
@@ -46,13 +46,20 @@
 						<li>Fri</li>
 						<li>Sat</li>
 					</ul>
-					<ul class="days"></ul>
+					<ul id="days" class="days"></ul>
 					<!-- 날짜가 동적으로 추가될 영역 -->
 				</div>
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
-					<div id="recentList"></div>
+
+					<table class="recent-table">
+						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
+							<td th:text="${moneybook_list7['shopNm']}" ></td>
+							<td th:text="${moneybook_list7['mbAmount']}"></td>
+						</tr>
+					</table>
+
 				</div>
 			</div>
 
@@ -63,7 +70,7 @@
 			<!-- 라인 차트 -->
 			<div class="bar-container" id="bar-container"></div>
 			<!-- 라인 차트가 동적으로 추가될 영역 -->
-			
+
 			<div id="lineChartsContainer">
 				<canvas id="lineChart" width="400px" height="300px"></canvas>
 			</div>
@@ -74,9 +81,10 @@
 	<script th:inline="javascript">
 // 기존 데이터 (카테고리, sum, goal 포함)
 let chartdata = /*[[${eat}]]*/;
+let chartdata2 = /*[[${cardsum}]]*/;
 
 // 도넛 차트를 생성하는 함수
-function createDoughnutChartForCategory(containerId, category, sum, goal) {
+function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
     // 동적으로 캔버스를 감싸는 div 생성
     const canvasWrapper = document.createElement('div');
     canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
@@ -91,8 +99,8 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
     
     const ctx = canvas.getContext("2d");
 
-    const fillRatio = sum / goal;  // 목표 대비 실제 값 비율
-    const shortage = goal - sum;   // 부족한 금액 계산
+    const fillRatio = mb_amount / benefit_std;  // 목표 대비 실제 값 비율
+    const shortage = benefit_std - mb_amount;   // 부족한 금액 계산
 
     const data = {
         datasets: [{
@@ -128,8 +136,9 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
                 ctx.textBaseline = "middle";
 
                 // 부족한 금액을 중앙에 표시
-                ctx.fillText(`필요금액`, centerX, centerY - 10);
-                ctx.fillText(`${shortage.toFixed(2)} units`, centerX, centerY + 10);  // 부족한 금액을 표시
+                ctx.fillText(method_nm, centerX-20, centerY -45);
+                ctx.fillText(`필요금액`, centerX-25, centerY -15);
+                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX-20, centerY );  // 부족한 금액을 표시
             }
         }
     };
@@ -146,15 +155,10 @@ function createDoughnutChartForCategory(containerId, category, sum, goal) {
 const donutChartsContainer = document.getElementById('donutChartsContainer');
 
 // 각 카테고리별로 도넛 차트 생성
-chartdata.forEach(item => {
-    createDoughnutChartForCategory(donutChartsContainer, item.category, item.sum, item.goal);
+chartdata2.forEach(item => {
+    createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std);
 });
 	</script>
-
-
-
-
-
 
 
 	<!-- 바 차트 js -->
@@ -203,16 +207,8 @@ chartdata.forEach(item => {
 	    	  }
 	      }
 	  });	  
+
 	</script>
-
-
-
-
-	<!-- 최근소비내역 7개 -->
-
-
-
-
 
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">

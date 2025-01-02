@@ -1,0 +1,85 @@
+/* 모든 페이지의 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 모든 요소에 border와 padding이 포함된 크기를 적용 */
+}
+body {
+  display: flex; /* 페이지 전체 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
+}
+body::-webkit-scrollbar {
+  width: 0; /* 세로 */
+}
+.cover {
+  width: 500px;
+  display: flex; /* 자식 요소를 flex로 배치 */
+  flex-direction: column;
+  justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
+}
+/*-------------------------------------------------------------------------------------*/
+.search-container {
+  width: 430px;
+  height: auto;
+  background-color: #f5f5f7;
+  margin-top: 15px;
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-bottom: 15px;
+  border-radius: 10px; /* 테두리 둥글게 */
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  text-align: left; /* 제목 중앙 정렬 */
+}
+
+/* 테이블 스타일 */
+.search-table {
+  width: 400px;
+  margin-top: 30px;
+  margin-left: 15px;
+  margin-bottom: 30px;
+}
+
+.search-table th,
+.search-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-table th {
+  font-weight: bold;
+}
+/* 표의 번호 열 스타일 */
+.search-table td:first-child {
+  font-size: 13px;
+  width: 14%;
+  text-align: center;
+}
+/* 카테고리, 상점명 열 스타일 */
+.search-table td:nth-child(2) {
+  font-size: 13px;
+  width: 24%;
+}
+.search-table td:nth-child(3) {
+  font-size: 13px;
+  width: 40%;
+}
+.search-table td:nth-child(4) {
+  font-size: 12px;
+  width: 40%;
+}
+/* 동적으로 생성되는 tr 요소들에 hover 효과 추가 */
+.search-detail:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
