@@ -22,7 +22,6 @@ body::-webkit-scrollbar {
   justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
 }
 /*-------------------------------------------------------------------------------------*/
-/* 달력 컨테이너*/
 .search-container {
   width: 430px;
   height: auto;

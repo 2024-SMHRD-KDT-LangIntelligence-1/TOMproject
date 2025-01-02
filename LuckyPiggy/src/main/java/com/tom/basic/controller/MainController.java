@@ -1,9 +1,12 @@
 package com.tom.basic.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +57,12 @@ public class MainController {
 	CalenderRepo calrepo;
     @Autowired
     BudgetRepo brepo ;
+    private final MoneybookRepo moneybookRepository;
+
+    @Autowired
+    public MainController(MoneybookRepo moneybookRepository) {
+        this.moneybookRepository = moneybookRepository;}
+    
 
 
 	@GetMapping("/index")
@@ -127,7 +136,9 @@ public class MainController {
 
 
 	@GetMapping("/daily")
-	public String daily(HttpServletRequest request, Model model) {
+	public String daily(HttpServletRequest request, Model model,
+			 @RequestParam(value = "date", required = false) 
+    @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 
@@ -138,9 +149,24 @@ public class MainController {
 		List<TbMoneybook> list  = moneybook_repo.finddaily(userid);
 		
 		 TbBudget bud = brepo.findByUserId(userid);
-	      model.addAttribute("budget", bud);
+	     model.addAttribute("budget", bud);
 		
 		model.addAttribute("moneybook",list);
+		
+		  // 1) 필요한 DB 조회
+        //    (예: list1, moneybook 등 필요한 데이터)
+        List<TbMoneybook> list1 = moneybookRepository.findByPaidAtAndUserId(date,userid); // 가정 예시
+        // 혹은 date가 있으면 date에 맞는 데이터만 조회
+        // List<Moneybook> list1 = moneybookRepository.findByPaidAt(date);
+
+        // 2) Model에 데이터 담기
+        model.addAttribute("list1", list1);
+        // model.addAttribute("moneybook", someOtherListOrSingleObject);
+
+
+		
+		
+		
 		return "daily";
 	}
 
@@ -278,9 +304,6 @@ public class MainController {
 	}
 
 	// 데일리
-
-
-
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
 		
@@ -291,5 +314,7 @@ public class MainController {
 
 		return "redirect:/daily";
 	}
-
+	
+	
+	 
 }

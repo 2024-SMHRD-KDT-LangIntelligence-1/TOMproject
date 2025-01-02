@@ -111,28 +111,32 @@ document.addEventListener("DOMContentLoaded", () => {
 	updateWeeklyCalendar();
 	
 	// 새로고침 시 날짜가 오늘로 돌아가게 설정
-	/*if (urlParams.has('date')) {
-	    const currentUrl = new URL(window.location.href);
-	    currentUrl.searchParams.delete('date');  // 'date' 파라미터 삭제
-	    window.history.replaceState(null, '', currentUrl);  // URL에서 'date' 파라미터 제거
-	}*/
-});
+	//if (urlParams.has('date')) {
+	    //const currentUrl = new URL(window.location.href);
+	    //currentUrl.searchParams.delete('date');  // 'date' 파라미터 삭제
+	    //window.history.replaceState(null, '', currentUrl);  // URL에서 'date' 파라미터 제거
+	//}
 //----------------------------------------------------------------------------------------------------
+// 모달 팝업 열기
+function openModal(modalId) {
+    // 모든 모달을 닫음
+    var modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+        modal.style.display = 'none';
+    });
 
-// 팝업 열기
-function openPopup() {
-	document.getElementById("addModal").style.display = "block";
-	document.getElementById("indetailModal").style.display = "block";
-	document.getElementById("exdetailModal").style.display = "block";
-	document.getElementById("daily").style.pointerEvents = 'none'; // 데일리 클릭 비활성화
+    // 선택한 모달만 열기
+    var modalToOpen = document.getElementById(modalId);
+    modalToOpen.style.display = 'block';
+
 }
 
-// 팝업 닫기
-function closePopup() {
-	document.getElementById("addModal").style.display = "none";
-	document.getElementById("indetailModal").style.display = "none";
-	document.getElementById("exdetailModal").style.display = "none";
-	document.getElementById("daily").style.pointerEvents = 'auto'; // 데일리 클릭 활성화
+// 모달 팝업 닫기
+function closeModal(modalId) {
+    var modalToClose = document.getElementById(modalId);
+    if (modalToClose) {
+        modalToClose.style.display = 'none';  // 해당 모달 닫기
+    }
 }
 //----------------------------------------------------------------------------------------------------
 // 추가 팝업
@@ -154,14 +158,14 @@ function handleButtonClick(selectedButton) {
 document.querySelector('.income-btn').addEventListener('click', function() {
 	handleButtonClick(this); // 클릭된 버튼만 활성화
 	showCashOnly(); // 입금 클릭 시 현금만 보이게
-	document.querySelector('#money').setAttribute('name', 'mb_ic');
+	document.querySelector('#money').setAttribute('name','mb_ic');
 });
 
 // 출금 버튼 클릭 이벤트
 document.querySelector('.expense-btn').addEventListener('click', function() {
 	handleButtonClick(this); // 클릭된 버튼만 활성화
 	showAllPayments(); // 출금 클릭 시 모든 결제 방식 버튼 보이게
-	document.querySelector('#money').setAttribute('name', 'mb_amount');
+	document.querySelector('#money').setAttribute('name','mb_amount');
 });
 
 // 저장 버튼 클릭 시 초기화
@@ -250,50 +254,10 @@ document.querySelector('.credit-btn').addEventListener('click', function() {
 	handlePaymentButtonClick(this); // 신용카드 클릭 시만 활성화
 });
 
-//----------------------------------------------------------------------------------------------------
-// 상세내역 팝업 수정하기 버튼
-// 수정 버튼을 클릭했을 때 동작
-function editItem() {
-    const result = confirm("수정하시겠습니까?");
-    
-    if (result) {
-        // 수정 상태로 바꾸기
-        switchToEditMode();
-    } else {
-        // 취소 시 초기화
-        resetForm();
-    }
-}
 
-// 수정 상태로 전환하는 함수
-function switchToEditMode() {
-    // 각 항목을 입력 필드로 바꿔줍니다.
-    document.getElementById("modalCategory").innerHTML = `<input type="text" id="editCategory" value="${currentData.category}">`;
-    document.getElementById("modalAmount").innerHTML = `<input type="number" id="editAmount" value="${currentData.amount}">`;
-    document.getElementById("modalItem").innerHTML = `<input type="text" id="editItemText" value="${currentData.item}">`;
-    document.getElementById("modalMemo").innerHTML = `<textarea id="editMemo">${currentData.memo}</textarea>`;
 
-	// 수정 버튼을 저장으로 변경
-	const editItem = document.getElementById("editItem");
-	editItem.textContent = "저장"; // 버튼 텍스트 변경
-	editItem.setAttribute('onclick', 'saveItem()'); // 클릭 시 저장 함수 호출
-}
 
-// 저장 버튼 클릭 시 실행되는 함수
-function saveItem() {
-    const updatedData = {
-        category: document.getElementById("editCategory").value,
-        amount: document.getElementById("editAmount").value,
-        item: document.getElementById("editItemText").value,
-        memo: document.getElementById("editMemo").value
-    };
+})
 
-    // 저장 처리 (예: 서버로 데이터 전송)
-    console.log("저장된 데이터:", updatedData);
 
-    // 저장 후, 모달을 닫고 초기화
-    alert("저장되었습니다.");
-    closePopup();
-    resetForm(); // 내용 초기화
-}
 

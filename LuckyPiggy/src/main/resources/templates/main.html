@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Main</title>
 
 <canvas id="mylienchart"></canvas>
 
+
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="cover">
@@ -54,12 +54,14 @@
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
-					<div id="recentList"></div>
 
-					<div id="recent7" th:object="${moneybook_list7}">
-						<p class="recent7" th:each="moneybook_list7: ${moneybook_list7}"
-							th:text="|${moneybook_list7['shopNm']} ${moneybook_list7['mbAmount']} ${moneybook_list7['paidAt']}|"></p>
-					</div>
+					<table class="recent-table">
+						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
+							<td th:text="${moneybook_list7['shopNm']}" ></td>
+							<td th:text="${moneybook_list7['mbAmount']}"></td>
+						</tr>
+					</table>
+
 				</div>
 			</div>
 
@@ -67,7 +69,6 @@
 			<div id="barChartsContainer">
 				<canvas id="barChart" width="400px" height="300px"></canvas>
 			</div>
-
 			<!-- 라인 차트 -->
 			<div class="bar-container" id="bar-container"></div>
 			<!-- 라인 차트가 동적으로 추가될 영역 -->
@@ -206,11 +207,8 @@ chartdata.forEach(item => {
 	    	  }
 	      }
 	  });	  
+
 	</script>
-
-
-	<!-- 최근소비내역 7개 -->
-
 
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
