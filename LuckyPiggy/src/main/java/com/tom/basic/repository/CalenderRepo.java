@@ -14,9 +14,11 @@ public interface CalenderRepo extends JpaRepository<TbMoneybook, Long>{
 	@Query(value = 
 			"SELECT * " +
 			"FROM tb_moneybook mb "+
-			"WHERE MONTH(mb.paid_at) = ':month'"
+			"WHERE MONTH(mb.paid_at) = :month " +
+			"AND user_id = :userid " +
+			"ORDER BY mb.paid_at asc"
 			, nativeQuery = true)
-	List<TbMoneybook> findEntriesInDecember2024(String month);
+	List<TbMoneybook> findEntriesInDecember2024(String month, String userid);
 	
 	
 }

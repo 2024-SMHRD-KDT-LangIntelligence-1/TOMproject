@@ -1,16 +1,11 @@
 package com.tom.basic.controller;
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
-
 import java.util.ArrayList;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbBudget;
 import com.tom.basic.entity.TbCardsum;
@@ -28,7 +22,6 @@ import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
-
 import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.CreditcardVO;
@@ -46,7 +39,6 @@ import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.MoneybookRepo;
 import com.tom.basic.repository.SearchRepo;
 import com.tom.basic.repository.UserRepo;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -110,12 +102,13 @@ public class MainController {
 	public String topbar() {
 		return "top_bar";
 	}
+	
 
 	// 월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
+	
+	@GetMapping("/calendar")
+	public String calendar(HttpServletRequest request, Model model,@RequestParam("month") String month) {
 
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
-	public String calendar(HttpServletRequest request, Model model,
-			@RequestParam(value = "month", required = false) String month) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 
@@ -138,14 +131,14 @@ public class MainController {
 
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
-
-		// 달 입출금 표시
-
-		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month);
-		model.addAttribute("calist", calist);
-
-		// System.out.println(calist.get(1));
-
+		
+		
+		//달 입출금 표시
+		System.out.println("내가보낸 달" + month);
+		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month,userid);
+		System.out.println(calist);
+		model.addAttribute("calist",calist);
+		
 		return "calendar";
 	}
 

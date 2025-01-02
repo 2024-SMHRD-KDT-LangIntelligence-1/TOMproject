@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Main</title>
 <canvas id="mylienchart"></canvas>
 
-<title>Main</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="cover">
@@ -31,31 +33,36 @@
 			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
-
 			<!-- 달력/최근소비내역 -->
 			<div class="double" id="double">
 				<!-- 달력 -->
-				<div class="calendar" id="calendar">
-					<!-- 요일 표시 -->
-					<ul class="weeks">
-						<li>Sun</li>
-						<li>Mon</li>
-						<li>Tue</li>
-						<li>Wed</li>
-						<li>Thu<
-						<li>Fri</li>
-						<li>Sat</li>
-					</ul>
-					<ul id="days" class="days"></ul>
-					<!-- 날짜가 동적으로 추가될 영역 -->
+				<div id="calclick">
+					<div class="calendar">
+						<script>
+				</script>
+						<!-- 요일 표시 -->
+						<ul class="weeks">
+							<li>Sun</li>
+							<li>Mon</li>
+							<li>Tue</li>
+							<li>Wed</li>
+							<li>Thu</li>
+							<li>Fri</li>
+							<li>Sat</li>
+						</ul>
+						<ul id="days" class="days"></ul>
+						<!-- 날짜가 동적으로 추가될 영역 -->
+					</div>
 				</div>
+				
+
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
 
 					<table class="recent-table">
 						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
-							<td th:text="${moneybook_list7['shopNm']}" ></td>
+							<td th:text="${moneybook_list7['shopNm']}"></td>
 							<td th:text="${moneybook_list7['mbAmount']}"></td>
 						</tr>
 					</table>
@@ -232,6 +239,7 @@ chartdata2.forEach(item => {
 
 	</script>
 
+
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');
@@ -260,6 +268,5 @@ chartdata2.forEach(item => {
         });
     </script>
 	<script src="assets/js/main.js"></script>
-	
 </body>
 </html>
