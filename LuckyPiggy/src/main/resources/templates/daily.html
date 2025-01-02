@@ -80,7 +80,7 @@
 		<!-- 모달팝업 (추가하는 부분) -->
 		<div class="modal" id="modal1">
 			<div class="addModal_popup">
-				<form action="moneybook.do" method="post">
+				<form action="dmoneybook.do" method="post">
 				<div>
 				<button class="addclosebtn" onclick="closeModal('modal1')">&times;</button>
 				</div>
@@ -105,7 +105,7 @@
 						<div class="diteil">
 						<div class="card-category" method="post">
 							<select id="method_nm" name="method_nm"
-								th:object="${debit_cardlist}" , "${credit_cardlist}" required>
+								th:object="${debit_cardlist}" , "${credit_cardlist}">
 								<option selected disabled hidden value="">카드선택</option>
 								<option hidden class="debit_cardlist"
 									th:each="debit_cardlist: ${debit_cardlist}"

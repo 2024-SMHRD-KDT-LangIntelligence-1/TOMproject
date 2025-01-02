@@ -1,10 +1,7 @@
 package com.tom.basic.controller;
 
-
-import java.util.ArrayList;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +52,14 @@ public class MainController {
 	SearchRepo srepo;
 	@Autowired
 	CalenderRepo calrepo;
-    @Autowired
-    BudgetRepo brepo ;
-    private final MoneybookRepo moneybookRepository;
+	@Autowired
+	BudgetRepo brepo;
+	private final MoneybookRepo moneybookRepository;
 
-    @Autowired
-    public MainController(MoneybookRepo moneybookRepository) {
-        this.moneybookRepository = moneybookRepository;}
-    
+	@Autowired
+	public MainController(MoneybookRepo moneybookRepository) {
+		this.moneybookRepository = moneybookRepository;
+	}
 
 	@GetMapping("/index")
 	public String index() {
@@ -134,8 +131,7 @@ public class MainController {
 
 	@GetMapping("/daily")
 	public String daily(HttpServletRequest request, Model model,
-			 @RequestParam(value = "date", required = false) 
-    @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+			@RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
 
@@ -160,16 +156,16 @@ public class MainController {
 
 		model.addAttribute("budget", bud);
 		model.addAttribute("moneybook", list);
-		
-		// 1) 필요한 DB 조회
-        //    (예: list1, moneybook 등 필요한 데이터)
-        List<TbMoneybook> list1 = moneybookRepository.findByPaidAtAndUserId(date,userid); // 가정 예시
-        // 혹은 date가 있으면 date에 맞는 데이터만 조회
-        // List<Moneybook> list1 = moneybookRepository.findByPaidAt(date);
 
-        // 2) Model에 데이터 담기
-        model.addAttribute("list1", list1);
-        // model.addAttribute("moneybook", someOtherListOrSingleObject);
+		// 1) 필요한 DB 조회
+		// (예: list1, moneybook 등 필요한 데이터)
+		List<TbMoneybook> list1 = moneybookRepository.findByPaidAtAndUserId(date, userid); // 가정 예시
+		// 혹은 date가 있으면 date에 맞는 데이터만 조회
+		// List<Moneybook> list1 = moneybookRepository.findByPaidAt(date);
+
+		// 2) Model에 데이터 담기
+		model.addAttribute("list1", list1);
+		// model.addAttribute("moneybook", someOtherListOrSingleObject);
 
 		return "daily";
 	}
@@ -295,6 +291,15 @@ public class MainController {
 		return "redirect:/calendar";
 	}
 
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
+
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+
+		return "redirect:/daily";
+	}
+
 	// 검색 기능
 	@GetMapping("/search")
 	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
@@ -309,13 +314,5 @@ public class MainController {
 
 		return "search";
 	}
-	
-	@PostMapping("/dmoneybook.do")
-	public String dmoneybook(MoneybookVO vo) {
 
-		TbMoneybook en = new TbMoneybook(vo);
-		moneybook_repo.save(en);
-
-		return "redirect:/daily";
-	}
 }
