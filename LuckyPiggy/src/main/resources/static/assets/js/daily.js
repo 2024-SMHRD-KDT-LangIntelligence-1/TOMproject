@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	    //currentUrl.searchParams.delete('date');  // 'date' 파라미터 삭제
 	    //window.history.replaceState(null, '', currentUrl);  // URL에서 'date' 파라미터 제거
 	//}
-});
 //----------------------------------------------------------------------------------------------------
 // 모달 팝업 열기
 function openModal(modalId) {

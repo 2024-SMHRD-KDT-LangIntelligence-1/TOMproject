@@ -1,5 +1,6 @@
 package com.tom.basic.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbBudget;
@@ -23,6 +26,7 @@ import com.tom.basic.model.UserVO;
 import com.tom.basic.model.postVO;
 import com.tom.basic.repository.AccountRepo;
 import com.tom.basic.repository.BudgetRepo;
+import com.tom.basic.repository.CalenderRepo;
 import com.tom.basic.repository.CreditcardRepo;
 import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.MoneybookRepo;
@@ -46,7 +50,8 @@ public class MainController {
 	MoneybookRepo moneybook_repo;
 	@Autowired
 	SearchRepo srepo;
-
+	@Autowired
+	CalenderRepo calrepo;
     @Autowired
     BudgetRepo brepo ;
 
@@ -82,11 +87,12 @@ public class MainController {
 	}
 
 	// 월요일 아침에 가계부 신용/체크 따라서 가져오는 db 다르게 설정하기 구현
-	@GetMapping("/calendar")
-	public String calendar(HttpServletRequest request, Model model) {
+	
+	@RequestMapping(value = "/calendar" , method= RequestMethod.GET)
+	public String calendar(HttpServletRequest request, Model model, @RequestParam(value = "month", required=false)String month) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");
-
+		
 		String userid = uid.getUserId();
 		session.setAttribute("userid", userid);
 		System.out.println("카드리스트 유저 아이디는:" + userid);
@@ -107,6 +113,14 @@ public class MainController {
 
 		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
 		model.addAttribute("mb_type_list", mb_type_list);
+		
+		//달 입출금 표시
+
+		List<TbMoneybook> calist = calrepo.findEntriesInDecember2024(month);
+		model.addAttribute("calist", calist);
+		
+		//System.out.println(calist.get(1));
+		
 
 		return "calendar";
 	}
@@ -119,6 +133,7 @@ public class MainController {
 
 		String userid = uid.getUserId();
 		session.setAttribute("userid", userid);
+
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 		List<TbMoneybook> list  = moneybook_repo.finddaily(userid);
 		
@@ -226,7 +241,7 @@ public class MainController {
 		System.out.println("저장된 유저아이디 가져오기" + userid);
 		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
 
-		System.out.println("가져온 것은");
+
 		model.addAttribute("eat", graphlist);
 
 		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
@@ -248,7 +263,7 @@ public class MainController {
 	}
 
 	// 검색 기능
-	@RequestMapping("/search")
+	@GetMapping("/search")
 	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
 		HttpSession session = request.getSession();
 		TbUser uid = (TbUser) session.getAttribute("user");

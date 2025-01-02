@@ -6,9 +6,6 @@
 <title>Main</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-></script>
 </head>
 <body>
 	<div class="cover">
@@ -31,6 +28,7 @@
 			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
+
 			<!-- 달력/최근소비내역 -->
 			<div class="double" id="double">
 				<!-- 달력 -->
@@ -156,11 +154,6 @@ chartdata.forEach(item => {
 	</script>
 
 
-
-
-
-
-
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
 	
@@ -208,7 +201,6 @@ chartdata.forEach(item => {
 	      }
 	  });	  
 	</script>
-
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');
