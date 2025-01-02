@@ -1,5 +1,6 @@
 package com.tom.basic.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tom.basic.entity.TbAccount;
 import com.tom.basic.entity.TbBudget;
+import com.tom.basic.entity.TbCardsum;
 import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
 import com.tom.basic.model.BudgetVO;
+import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
 import com.tom.basic.model.UserVO;
@@ -27,6 +30,7 @@ import com.tom.basic.model.postVO;
 import com.tom.basic.repository.AccountRepo;
 import com.tom.basic.repository.BudgetRepo;
 import com.tom.basic.repository.CalenderRepo;
+import com.tom.basic.repository.CardsumRepo;
 import com.tom.basic.repository.CreditcardRepo;
 import com.tom.basic.repository.GraphRepo;
 import com.tom.basic.repository.MoneybookRepo;
@@ -54,6 +58,8 @@ public class MainController {
 	CalenderRepo calrepo;
     @Autowired
     BudgetRepo brepo ;
+    @Autowired
+    CardsumRepo cardsumRepo;
 
 
 	@GetMapping("/index")
@@ -239,9 +245,8 @@ public class MainController {
 		String userid = uid.getUserId();
 		session.setAttribute("userid", userid);
 		System.out.println("저장된 유저아이디 가져오기" + userid);
+		
 		List<postVO> graphlist = graphRepo.findGroupBYReportWithNativeQuery(userid);
-
-
 		model.addAttribute("eat", graphlist);
 
 		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
@@ -249,6 +254,13 @@ public class MainController {
 		
 		System.out.println(moneybook_list7);
 		
+		List<CardsumVO> cardsum = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
+		model.addAttribute("cardsum", cardsum);
+		if (cardsum == null) {
+			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
+		}
+		System.out.println(cardsum.get(0));
+				
 		return "main";
 	}
 
