@@ -12,6 +12,8 @@
 ></script>
 </head>
 <body>
+ 
+
 	<div class="cover">
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
 		<input type="hidden" id="user_id" name="user_id"
@@ -35,13 +37,14 @@
 					수입<a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
 				</h2>
 				<table class="income-table">
-					<tr th:each="moneybook, stat: ${moneybook}"
+				
+					<tr th:each="pmoneybook, stat: ${list1}"
 						onclick="openModal('modal2')"
 					>
 						<td th:text="${stat.index + 1}"></td>
 						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
-						<td th:text="${moneybook.mbType}"></td>
-						<td th:text="${moneybook.mbIc}"></td>
+						<td th:text="${pmoneybook.mbType}"></td>
+						<td th:text="${pmoneybook.mbIc}"></td>
 					</tr>
 				</table>
 			</div>
@@ -52,18 +55,18 @@
 				<div class="total-income">총 수입:</div>
 			</div>
 			<div class="expense-container">
-				<h2>
-					지출<a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
+				<h2 >
+					지출 <a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
 				</h2>
 				<table class="expense-table">
-					<tr th:each="moneybook, stat : ${moneybook}"
+					<tr th:each="pmoneybook, stat : ${list1}"
 						onclick="openModal('modal3')"
 					>
 						<td th:text="${stat.index + 1}"></td>
 						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
-						<td th:text="${moneybook.shopNm}"></td>
-						<td th:text="${moneybook.mbMethod}"></td>
-						<td th:text="${moneybook.mbAmount}"></td>
+						<td th:text="${pmoneybook.shopNm}"></td>
+						<td th:text="${pmoneybook.mbMethod}"></td>
+						<td th:text="${pmoneybook.mbAmount}"></td>
 					</tr>
 				</table>
 			</div>
@@ -169,7 +172,6 @@
         }
       });
   		</script>
-
 		<!-- ---------------------------------------------------------------------------------- -->
 		<!-- 입금 상세내역 보여주는 팝업창 -->
 		<div class="modal" id="modal2">

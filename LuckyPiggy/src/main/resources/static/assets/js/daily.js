@@ -161,14 +161,14 @@ function handleButtonClick(selectedButton) {
 document.querySelector('.income-btn').addEventListener('click', function() {
 	handleButtonClick(this); // 클릭된 버튼만 활성화
 	showCashOnly(); // 입금 클릭 시 현금만 보이게
-	document.querySelector('#money').setAttribute('name', 'mb_ic');
+	document.querySelector('#money').setAttribute('name','mb_ic');
 });
 
 // 출금 버튼 클릭 이벤트
 document.querySelector('.expense-btn').addEventListener('click', function() {
 	handleButtonClick(this); // 클릭된 버튼만 활성화
 	showAllPayments(); // 출금 클릭 시 모든 결제 방식 버튼 보이게
-	document.querySelector('#money').setAttribute('name', 'mb_amount');
+	document.querySelector('#money').setAttribute('name','mb_amount');
 });
 
 // 저장 버튼 클릭 시 초기화
@@ -308,3 +308,4 @@ function changeFn() {
 		document.getElementById('mb_type2').setAttribute('required', 'required');
 	}
 };
+
