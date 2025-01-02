@@ -20,4 +20,9 @@ public interface GraphRepo extends JpaRepository<TbMoneybook, Long>{
 					"GROUP BY mb_type"
 			, nativeQuery = true)
 	List<postVO> findGroupBYReportWithNativeQuery(@Param("userid") String userid);
+	
+
 }
+
+
+
