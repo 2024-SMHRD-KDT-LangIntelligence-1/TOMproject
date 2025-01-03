@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // 현재 URL에서 파라미터 가져오기
     const url = new URL(window.location.href);
     const urlParams = url.searchParams;
-	
 
    let currentDate = urlParams.has('date') ? new Date(urlParams.get('date')) : today;
     let selectedDate = new Date(currentDate);  // 선택된 날짜는 currentDate로 초기화
@@ -132,8 +131,27 @@ function openModal(modalId) {
     // 선택한 모달만 열기
     var modalToOpen = document.getElementById(modalId);
     modalToOpen.style.display = 'block';
-
 }
+
+
+// 현재 브라우저 URL 가져오기
+const currentUrl = window.location.href;
+// URLSearchParams로 쿼리 파라미터 파싱
+const params = new URLSearchParams(window.location.search);
+// 'date' 값 가져오기
+const date = params.get('date');
+// console.log(date); // 쿼리 파라미터에 따라 값이 출력됨
+
+
+// 팝업 열기
+function openPopup() {
+   resetForm();
+   document.getElementById("paid_at").setAttribute('value', date);
+   document.getElementById("modal1").style.display = "block";
+   document.getElementById("cover").style.pointerEvents = 'none'; // 페이지 클릭 비활성화
+}
+
+
 
 // 모달 팝업 닫기
 function closeModal(modalId) {
@@ -142,6 +160,14 @@ function closeModal(modalId) {
         modalToClose.style.display = 'none';  // 해당 모달 닫기
     }
 }
+
+
+function closePopup() {
+   resetForm();
+   document.getElementById("modal1").style.display = "none";
+   document.getElementById("cover").style.pointerEvents = 'auto'; // 페이지 클릭 활성화
+}
+
 //----------------------------------------------------------------------------------------------------
 // 추가 팝업
 // 버튼 클릭 시 'active' 클래스를 추가하고 나머지 버튼 비활성화
@@ -192,69 +218,49 @@ function confirmSave() {
 
 // 입력 필드와 버튼 초기화 함수
 function resetForm() {
-    // 금액과 메모 입력 필드 초기화
-    const moneyInput = document.getElementById("money");
-    if (moneyInput) moneyInput.value = ""; // 존재할 경우에만 초기화
+   // 금액과 메모 입력 필드 초기화
+   document.getElementById("money").value = "";  // 금액 필드 초기화
+   document.getElementById("memo").value = "";   // 메모 필드 초기화
 
-    const memoInput = document.getElementById("memo");
-    if (memoInput) memoInput.value = "";
+   // 버튼 초기화 (active 클래스 제거)
+   const allButtons = document.querySelectorAll('button');
+   allButtons.forEach((button) => {
+      button.classList.remove('active');  // 모든 버튼에서 active 클래스 제거
+      button.classList.remove('disabled');  // 모든 버튼에서 disabled 클래스 제거
+      button.style.pointerEvents = 'auto';  // 버튼을 다시 클릭할 수 있게 만듬
 
-    // 버튼 초기화 (active 클래스 제거)
-    const allButtons = document.querySelectorAll("button");
-    allButtons.forEach((button) => {
-        button.classList.remove("active"); // 모든 버튼에서 active 클래스 제거
-        button.classList.remove("disabled"); // 모든 버튼에서 disabled 클래스 제거
-        button.style.pointerEvents = "auto"; // 버튼을 다시 클릭할 수 있게 만듬
-    });
+      // payment 초기화
+      document.getElementById('payment').value = "";
 
-    // 결제 방식 초기화
-    const paymentInput = document.getElementById("payment");
-    if (paymentInput) paymentInput.value = "";
+      // select 태그 초기화
+      document.getElementById('method_nm').value = "";
+      document.querySelector('#method_nm').removeAttribute('disabled');
+      let a = document.querySelectorAll('.debit_cardlist');
+      for (var i = 0; i < a.length; i++) {
+         a[i].setAttribute('hidden', true);
+      }
+      let b = document.querySelectorAll('.credit_cardlist');
+      for (var i = 0; i < b.length; i++) {
+         b[i].setAttribute('hidden', true);
+      }
 
-    // select 태그 초기화
-    const methodNmInput = document.getElementById("method_nm");
-    if (methodNmInput) {
-        methodNmInput.value = "";
-        methodNmInput.removeAttribute("disabled");
-    }
+      document.getElementById('mb_type').value = "";
+      document.getElementById('mb_type').setAttribute('name', 'mb_type');
+      document.getElementById('mb_type').removeAttribute('hidden');
+      document.getElementById('mb_type2').setAttribute('hidden', true);
+      document.getElementById('mb_type2').removeAttribute('name');
+      document.getElementById('mb_type2').removeAttribute('required');
 
-    // 리스트 초기화
-    const debitCardList = document.querySelectorAll(".debit_cardlist");
-    debitCardList.forEach((item) => item.setAttribute("hidden", true));
+   });
 
-    const creditCardList = document.querySelectorAll(".credit_cardlist");
-    creditCardList.forEach((item) => item.setAttribute("hidden", true));
+   // 결제 방식 버튼 초기화 (숨겨둔 버튼을 다시 보이게)
+   document.querySelector('.debit-btn').classList.remove('hidden');
+   document.querySelector('.credit-btn').classList.remove('hidden');
+   document.querySelector('.cash-btn').classList.remove('hidden');
 
-    const mbType = document.getElementById("mb_type");
-    if (mbType) {
-        mbType.value = "";
-        mbType.setAttribute("name", "mb_type");
-        mbType.removeAttribute("hidden");
-    }
-
-    const mbType2 = document.getElementById("mb_type2");
-    if (mbType2) {
-        mbType2.setAttribute("hidden", true);
-        mbType2.removeAttribute("name");
-        mbType2.removeAttribute("required");
-    }
-
-    // 결제 방식 버튼 초기화 (숨겨둔 버튼을 다시 보이게)
-    const debitBtn = document.querySelector(".debit-btn");
-    if (debitBtn) debitBtn.classList.remove("hidden");
-
-    const creditBtn = document.querySelector(".credit-btn");
-    if (creditBtn) creditBtn.classList.remove("hidden");
-
-    const cashBtn = document.querySelector(".cash-btn");
-    if (cashBtn) cashBtn.classList.remove("hidden");
-
-    // 입금/출금 상태 초기화
-    const incomeBtn = document.querySelector(".income-btn");
-    if (incomeBtn) incomeBtn.classList.remove("active");
-
-    const expenseBtn = document.querySelector(".expense-btn");
-    if (expenseBtn) expenseBtn.classList.remove("active");
+   // 입금/출금 상태 초기화
+   document.querySelector('.income-btn').classList.remove('active');
+   document.querySelector('.expense-btn').classList.remove('active');
 }
 
 
@@ -323,4 +329,4 @@ function changeFn() {
       document.getElementById('mb_type2').setAttribute('name', 'mb_type');
       document.getElementById('mb_type2').setAttribute('required', 'required');
    }
-};
+};

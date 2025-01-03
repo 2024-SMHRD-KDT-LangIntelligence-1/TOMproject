@@ -252,6 +252,7 @@ public class MainController {
 		// 회원가입정보저장
 		TbUser en = new TbUser(userVO);
 		userRepo.save(en);
+		
 		// 카드정보저장
 		TbCreditcard cen = new TbCreditcard(creditcardVO);
 		creditcard_repo.save(cen);
@@ -402,7 +403,5 @@ public class MainController {
 
 		return "redirect:/daily";
 	}
-
-
 
 }
