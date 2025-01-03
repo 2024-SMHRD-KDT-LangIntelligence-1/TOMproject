@@ -171,13 +171,12 @@ public class MainController {
 			list = new ArrayList<>(); // 빈 리스트로 초기화
 		}
 
-		TbBudget bud = brepo.findByUserId(userid);
-		if (bud == null) {
-			bud = new TbBudget(); // 빈 예산 객체로 초기화
-		}
-
-		model.addAttribute("budget", bud);
-		model.addAttribute("moneybook", list);
+		/*
+		 * TbBudget bud = brepo.findByUserId(userid); if (bud == null) { bud = new
+		 * TbBudget(); // 빈 예산 객체로 초기화 }
+		 * 
+		 * model.addAttribute("budget", bud); model.addAttribute("moneybook", list);
+		 */
 
 		// 1) 필요한 DB 조회
 		// (예: list1, moneybook 등 필요한 데이터)
@@ -232,11 +231,11 @@ public class MainController {
 		// 카드정보저장
 		TbCreditcard cen = new TbCreditcard(creditcardVO);
 		creditcard_repo.save(cen);
-		
+
 		// 계좌정보저장
 		TbAccount aen = new TbAccount(accountVO);
 		account_repo.save(aen);
-		
+
 		// 예산정보저장
 		TbBudget ben = new TbBudget(budgetVO);
 		System.out.println(ben.getBudgetIdx());
@@ -318,7 +317,7 @@ public class MainController {
 		if (cardsum == null) {
 			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
 		}
-		System.out.println(cardsum.get(0));
+//		System.out.println(cardsum.get(0));
 		return "main";
 	}
 
@@ -330,15 +329,6 @@ public class MainController {
 		moneybook_repo.save(en);
 
 		return "redirect:/calendar";
-	}
-
-	@PostMapping("/dmoneybook.do")
-	public String dmoneybook(MoneybookVO vo) {
-
-		TbMoneybook en = new TbMoneybook(vo);
-		moneybook_repo.save(en);
-
-		return "redirect:/daily";
 	}
 
 	// 검색 기능
@@ -356,5 +346,13 @@ public class MainController {
 		return "search";
 	}
 
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
+
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+
+		return "redirect:/daily";
+	}
 }
 
