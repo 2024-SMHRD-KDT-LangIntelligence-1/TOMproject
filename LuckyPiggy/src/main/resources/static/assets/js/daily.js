@@ -131,8 +131,27 @@ function openModal(modalId) {
     // 선택한 모달만 열기
     var modalToOpen = document.getElementById(modalId);
     modalToOpen.style.display = 'block';
-
 }
+
+
+// 현재 브라우저 URL 가져오기
+const currentUrl = window.location.href;
+// URLSearchParams로 쿼리 파라미터 파싱
+const params = new URLSearchParams(window.location.search);
+// 'date' 값 가져오기
+const date = params.get('date');
+// console.log(date); // 쿼리 파라미터에 따라 값이 출력됨
+
+
+// 팝업 열기
+function openPopup() {
+   resetForm();
+   document.getElementById("paid_at").setAttribute('value', date);
+   document.getElementById("modal1").style.display = "block";
+   document.getElementById("cover").style.pointerEvents = 'none'; // 페이지 클릭 비활성화
+}
+
+
 
 // 모달 팝업 닫기
 function closeModal(modalId) {
@@ -141,6 +160,14 @@ function closeModal(modalId) {
         modalToClose.style.display = 'none';  // 해당 모달 닫기
     }
 }
+
+
+function closePopup() {
+   resetForm();
+   document.getElementById("modal1").style.display = "none";
+   document.getElementById("cover").style.pointerEvents = 'auto'; // 페이지 클릭 활성화
+}
+
 //----------------------------------------------------------------------------------------------------
 // 추가 팝업
 // 버튼 클릭 시 'active' 클래스를 추가하고 나머지 버튼 비활성화

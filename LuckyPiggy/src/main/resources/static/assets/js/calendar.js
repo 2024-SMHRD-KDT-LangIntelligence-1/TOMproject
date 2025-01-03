@@ -207,7 +207,6 @@ preNextBtn.forEach((btn) => {
    });
 });
 
-
 // 팝업 열기
 function openPopup() {
    resetForm();
