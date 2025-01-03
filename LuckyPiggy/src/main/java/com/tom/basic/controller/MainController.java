@@ -170,13 +170,12 @@ public class MainController<BudgetVO> {
 			list = new ArrayList<>(); // 빈 리스트로 초기화
 		}
 
-		TbBudget bud = brepo.findByUserId(userid);
-		if (bud == null) {
-			bud = new TbBudget(); // 빈 예산 객체로 초기화
-		}
-
-		model.addAttribute("budget", bud);
-		model.addAttribute("moneybook", list);
+		/*
+		 * TbBudget bud = brepo.findByUserId(userid); if (bud == null) { bud = new
+		 * TbBudget(); // 빈 예산 객체로 초기화 }
+		 * 
+		 * model.addAttribute("budget", bud); model.addAttribute("moneybook", list);
+		 */
 
 		// 1) 필요한 DB 조회
 		// (예: list1, moneybook 등 필요한 데이터)
