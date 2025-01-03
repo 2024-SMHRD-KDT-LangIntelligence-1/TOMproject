@@ -171,10 +171,10 @@
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
 	
-	let labels = chartdata.map(item => item.category);
-	let values = chartdata.map(item => item.sum);
+	let labels = chartdata.map(item =>item.category);
+	let values = chartdata.map(item =>item.sum);
 	let barCt = document.getElementById('barChart');
-	
+	console.log(values);
 	  let barChart = new Chart(barCt, {
 	      type: 'bar',
 	      data: {
