@@ -227,14 +227,15 @@ public class MainController<BudgetVO> {
 		// 회원가입정보저장
 		TbUser en = new TbUser(userVO);
 		userRepo.save(en);
+		
 		// 카드정보저장
 		TbCreditcard cen = new TbCreditcard(creditcardVO);
-
 		creditcard_repo.save(cen);
+		
 		// 계좌정보저장
 		TbAccount aen = new TbAccount(accountVO);
-
 		account_repo.save(aen);
+		
 		// 예산정보저장
 		TbBudget ben = new TbBudget((com.tom.basic.model.BudgetVO) budgetVO);
 		brepo.save(ben);
