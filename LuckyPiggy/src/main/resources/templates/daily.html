@@ -32,7 +32,7 @@
 			</div>
 			<div class="income-container">
 				<h2>
-					수입<a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
+					수입<a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
 				</h2>
 				<table class="income-table">
 
@@ -52,8 +52,9 @@
 				<div class="total-income">총 수입:</div>
 			</div>
 			<div class="expense-container">
-				<h2>
-					지출 <a class="add-btn" id="add-btn" onclick="openModal('modal1')">+</a>
+
+				<h2 >
+					지출 <a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
 				</h2>
 				<table class="expense-table">
 					<tr th:each="pmoneybook, stat : ${list1}"
@@ -73,7 +74,80 @@
 		</div>
 		<!-- ------------------------------------------------------------------------------------ -->
 		<!-- 모달팝업 (추가하는 부분) -->
-		<div class="modal" id="modal1">
+		
+		
+		
+		
+		   <div class="modal" id="modal1">
+
+      <div class="modal_popup">
+         <div id="close_btn">
+            <button id="close_button" onclick="closePopup()">×</button>
+         </div>
+         <form action="moneybook.do.daily" method="post">
+            <input type="hidden" id="user_id" name="user_id"
+               th:value="${session.user.userId}" />
+            <div>
+               <input type="date" id="paid_at" name="paid_at" required readonly="readonly"/> <input
+                  type="text" placeholder="금액을 입력하세요" id="money" name="money"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+                  required />
+            </div>
+            <div class="statements">
+               <button type="button" class="income-btn">입금</button>
+               <button type="button" class="expense-btn">출금</button>
+            </div>
+            <div class="payment">
+               <input type="hidden" id="payment" name="mb_method" />
+               <button type="button" class="cash-btn">현금</button>
+               <button type="button" class="debit-btn">체크카드</button>
+               <button type="button" class="credit-btn">신용카드</button>
+            </div>
+            <div class="diteil">
+               <div class="card-category" method="post">
+                  <select id="method_nm" name="method_nm"
+                     th:object="${debit_cardlist}" , "${credit_cardlist}" required>
+                     <option selected disabled hidden value="">카드선택</option>
+                     <option hidden class="debit_cardlist"
+                        th:each="debit_cardlist: ${debit_cardlist}"
+                        th:value="${debit_cardlist['cardNm']}"
+                        th:text="${debit_cardlist['cardNm']}"></option>
+                     <option hidden class="credit_cardlist"
+                        th:each="credit_cardlist: ${credit_cardlist}"
+                        th:value="${credit_cardlist['cardNm']}"
+                        th:text="${credit_cardlist['cardNm']}"></option>
+                  </select>
+               </div>
+            </div>
+            <div class="category">
+               <select id="mb_type" name="mb_type" onchange="changeFn()"
+                  th:object="${mb_type_list}" required>
+                  <option selected disabled hidden value="">사용내역</option>
+                  <option class="mb_type_list"
+                     th:each="mb_type_list: ${mb_type_list}"
+                     th:value="${mb_type_list}" th:text="${mb_type_list}"></option>
+                  <option id="write" value="write">직접입력</option>
+               </select> <input type="text" id="mb_type2" hidden />
+            </div>
+            <div class="memo">
+               <input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
+                  name="shop_nm" /> <input type="text" placeholder="메모를 입력하세요"
+                  id="memo" name="mb_memo" />
+            </div>
+            <div class="save-btn">
+               <button id="save" type="submit">저장</button>
+               <button id="reset" type="reset" onclick="resetForm()">초기화</button>
+            </div>
+            
+         </form>
+      </div>
+    </div>
+			
+		
+		
+		
+		
+		<!-- <div class="modal" id="modal1">
 			<div class="addModal_popup">
 				<form action="dmoneybook.do" method="post">
 					<div>
@@ -96,8 +170,9 @@
 						<button class="debit-btn" type="button">체크카드</button>
 						<button class="credit-btn" type="button">신용카드</button>
 					</div>
-					<div class="diteil">
-						<div class="card-category" method="post">
+
+						<div class="diteil">
+						 <div class="card-category" method="post">
 							<select id="method_nm" name="method_nm"
 								th:object="${debit_cardlist}", "${credit_cardlist}">
 								<option selected disabled hidden value="">카드선택</option>
@@ -110,9 +185,10 @@
 									th:value="${credit_cardlist['cardNm']}"
 									th:text="${credit_cardlist['cardNm']}"></option>
 							</select>
-						</div>
+
+						</div> 
 					</div>
-					<div class="category">
+						<div class="category">
 						<select id="mb_type" name="mb_type" onchange="changeFn()"
 							th:object="${mb_type_list}">
 							<option selected disabled hidden value="">사용내역</option>
@@ -164,11 +240,11 @@
           // yyyy-mm-dd 형태로 값 설정
           dateInput.value = `${year}-${month}-${day}`;
         }
-      }); */
-  		</script>
+
+      });
+  		</script> -->
   		
-
-
+		<!-- ---------------------------------------------------------------------------------- -->
 		<!-- 입금 상세내역 보여주는 팝업창 -->
 		<div class="modal" id="modal2">
 			<div class="indetailModal_popup">

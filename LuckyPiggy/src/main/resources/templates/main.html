@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<!-- 도넛 차트 -->
-			<div id="donutChartsContainer" >
+			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
 			<!-- 달력/최근소비내역 -->
@@ -50,7 +50,7 @@
 						<!-- 날짜가 동적으로 추가될 영역 -->
 					</div>
 				</div>
-				
+
 
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
@@ -179,24 +179,30 @@
 	      data: {
 	          labels: labels,
 	          datasets: [{
+	        	  label:'',
+	        	  fill:false,
 	              data: values,
 	              
-	              backgroundColor: [
-		              'rgba(255, 99, 132, 0.2)',
-		              'rgba(255, 159, 64, 0.2)',
-		              'rgba(255, 205, 86, 0.2)',
-		              'rgba(75, 192, 192, 0.2)',
-		              'rgba(54, 162, 235, 0.2)',
-		              'rgba(153, 102, 255, 0.2)',
-		              'rgba(201, 203, 207, 0.2)'],
-		          borderColor: [
-		               'rgb(255, 99, 132)',
-		               'rgb(255, 159, 64)',
-		               'rgb(255, 205, 86)',
-		               'rgb(75, 192, 192)',
-		               'rgb(54, 162, 235)',
-		               'rgb(153, 102, 255)',
-		               'rgb(201, 203, 207)'],
+	              backgroundColor: [ 'rgba(255, 99, 132, 0.2)',
+	            	  'rgba(255, 159, 64, 0.2)',
+	            	  'rgba(255, 205, 86, 0.2)',
+	            	  'rgba(75, 192, 192, 0.2)',
+	            	  'rgba(54, 162, 235, 0.2)',
+	            	  'rgba(153, 102, 255, 0.2)',
+	            	  'rgba(201, 203, 207, 0.2)',
+	            	  'rgba(255, 99, 132, 0.2)',
+	            	  'rgba(255, 159, 64, 0.2)',
+	            	  'rgba(255, 205, 86, 0.2)' ],
+	            	  borderColor: [ 'rgb(255, 99, 132)',
+	            		  'rgb(255, 159, 64)',
+	            		  'rgb(255, 205, 86)',
+	            		  'rgb(75, 192, 192)',
+	            		  'rgb(54, 162, 235)',
+	            		  'rgb(153, 102, 255)',
+	            		  'rgb(201, 203, 207)',
+	            		  'rgb(255, 99, 132)', 
+	            		  'rgb(255, 159, 64)', 
+	            		  'rgb(255, 205, 86)' ],
 		          borderWidth: 1
 	          }],
 	          
@@ -204,6 +210,13 @@
 	      },
 	      options:{
 	    	  responsive: true,
+	    	  legend: {
+	    		  display: false
+	    	  },
+	    	  title: {
+          		text: '항목별 소비 차트',
+          		display : true
+          	}, 
 	    	  scales : {
 	    		  yAxes : [{
 	    			  ticks: {
@@ -219,22 +232,76 @@
 	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
+		
+		let chartdata3 = /*[[${linetotal}]]*/;
+		chartdata3.sort((a,b)=> new Date(a.paidAt) - new Date(b.paidAt));
+		console.log(chartdata3);
+		
+		let dailyTotal = chartdata3.reduce((acc, item) => {
+			if(!acc[item.paidAt]) {
+				acc[item.paidAt] = {dailyEs:0, dailyIc:0};
+			}
+			acc[item.paidAt].dailyEs += parseFloat(item.totalAmount);
+			acc[item.paidAt].dailyIc += parseFloat(item.totalIc);
+			return acc;
+		}, {});
+		console.log(dailyTotal);
+		let cumulativeEsSum = 0; let cumulativeIcSum = 0;
+		
+		let cumulativeTotal = {};
+			chartdata3.forEach(item => {
+				if(!cumulativeTotal[item.paidAt]) {
+					cumulativeTotal[item.paidAt] = 
+					{cumulativeEs:0, cumulativeIc:0 };
+				}
+				cumulativeEsSum += parseFloat(item.totalAmount);
+				cumulativeIcSum += parseFloat(item.totalIc);
+				cumulativeTotal[item.paidAt].cumulativeEs = cumulativeEsSum;
+				cumulativeTotal[item.paidAt].cumulativeIc = cumulativeIcSum;
+			});
+			
+		console.log(cumulativeTotal);
+		
+		let lineL = Object.keys(cumulativeTotal);
+		let lineV1 = Object.keys(cumulativeTotal).map(date => cumulativeTotal[date].cumulativeEs);
+		let lineV2 = Object.keys(cumulativeTotal).map(date => cumulativeTotal[date].cumulativeIc);
+		
         let lineCt = document.getElementById('lineChart');
+        
+        
 
         let lineChart = new Chart(lineCt, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: lineL,
                 datasets: [{
-                    data: values,
+                	label : '입금',
+                    data: lineV2,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1,
                     borderWidth: 2
+                },
+                {label : '출금',
+                    data: lineV1,
+                    fill: false,
+                    borderColor: 'rgb(792, 75, 75)',
+                    tension: 0.1,
+                    borderWidth: 2
+                	
                 }]
             },
             options: {
+            	legend: {
+            		display : true,
+            		labels : { color : 'rgb(150,100,130)}'}
+            	},
+            	title: {
+            		text: '이번달 입출금',
+            		display : true
+            	},
                 scales: {
+                	
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
