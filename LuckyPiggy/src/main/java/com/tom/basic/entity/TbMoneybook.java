@@ -29,6 +29,7 @@ public class TbMoneybook {
 		mbNum = vo.getMb_num();
 		shopNm = vo.getShop_nm();
 		mbMemo = vo.getMb_memo();
+		mbIcType = vo.getMb_ic_type();
 	}
 
 	// 사용 식별자
@@ -65,5 +66,8 @@ public class TbMoneybook {
 
 	// 입금 금액
 	private String mbIc;
+	
+	// 입금카테고리
+	private String mbIcType;
 
 }

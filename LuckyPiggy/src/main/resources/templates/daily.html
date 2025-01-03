@@ -17,7 +17,7 @@
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
 		<input type="hidden" id="user_id" name="user_id"
 			th:value="${session.user.userId}"/>
-			 <input type="hidden" id="myDate" name="date" />
+			 
 		<div id="dailyPage">
 			<div class="weekend">
 				<h3>12월</h3>
@@ -86,13 +86,14 @@
 					<input type="hidden" id="user_id" name="user_id"
 						th:value="${session.user.userId}"
 					/>
-					 <input type="hidden" id="myDate" name="date" />
+					 <input type="hidden" id="myDate" name="date"  value=""/>
+					 <input type="hidden" id="payment" name="payment" value="">
 					
 					<div>
 						<input
 						type="text" placeholder="금액을 입력하세요" id="money" name="money"
 					
-						required />
+						hidden />
 					</div>
 					<div class="statements">
 						<button type="button" class="income-btn">입금</button>
@@ -103,7 +104,7 @@
 						<button class="debit-btn" type="button">체크카드</button>
 						<button class="credit-btn" type="button">신용카드</button>
 					</div>
-						<!--<div class="diteil">
+						<div class="diteil">
 						 <div class="card-category" method="post">
 							<select id="method_nm" name="method_nm"
 								th:object="${debit_cardlist}" , "${credit_cardlist}">
@@ -120,8 +121,8 @@
 								></option>
 							</select>
 						</div> 
-					</div>-->
-					<!--	<div class="category">
+					</div>
+						<div class="category">
 						<select id="mb_type" name="mb_type" onchange="changeFn()"
 							th:object="${mb_type_list}">
 							<option selected disabled hidden value="">사용내역</option>
@@ -132,7 +133,7 @@
 							<option id="write" value="write">직접입력</option>
 						</select>
 						<input type="text" id="mb_type2" hidden />
-					</div>-->
+					</div>
 				
 
 					<div class="memo">
@@ -272,6 +273,6 @@
 			</div>
 		</div>
 	</div>
-
+<script src="assets/js/daily.js" defer></script>
 </body>
 </html>
