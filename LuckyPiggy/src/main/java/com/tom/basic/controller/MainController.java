@@ -1,7 +1,9 @@
 package com.tom.basic.controller;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,7 +189,24 @@ public class MainController {
 		// 2) Model에 데이터 담기
 		model.addAttribute("list1", list1);
 		// model.addAttribute("moneybook", someOtherListOrSingleObject);
+		
+		
+		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "체크");
+		model.addAttribute("debit_cardlist", debit_cardlist);
 
+		// System.out.println(debit_cardlist);
+
+		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "신용");
+		model.addAttribute("credit_cardlist", credit_cardlist);
+
+		// System.out.println(credit_cardlist);
+
+//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
+//		model.addAttribute("moneybook_list", moneybook_list);
+
+		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
+		model.addAttribute("mb_type_list", mb_type_list);
+		
 		return "daily";
 	}
 
@@ -317,7 +336,7 @@ public class MainController {
 		if (cardsum == null) {
 			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
 		}
-//		System.out.println(cardsum.get(0));
+
 		return "main";
 	}
 
@@ -327,9 +346,28 @@ public class MainController {
 
 		TbMoneybook en = new TbMoneybook(vo);
 		moneybook_repo.save(en);
-
-		return "redirect:/calendar";
+		
+        Date date = vo.getPaid_at();    
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH) + 1;
+                
+       	String redirectUrl = "/calendar?month=" + month;
+		
+		return "redirect:" + redirectUrl;
 	}
+	
+	@PostMapping("/moneybook.do.daily")
+	public String moneybookdaily(MoneybookVO vo) {
+
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+		
+		String redirectUrl = "/daily?date=" + vo.getPaid_at();
+		
+		return "redirect:" + redirectUrl;
+	}
+	
 
 	// 검색 기능
 	@GetMapping("/search")
@@ -345,7 +383,7 @@ public class MainController {
 
 		return "search";
 	}
-
+	
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
 
@@ -355,4 +393,3 @@ public class MainController {
 		return "redirect:/daily";
 	}
 }
-
