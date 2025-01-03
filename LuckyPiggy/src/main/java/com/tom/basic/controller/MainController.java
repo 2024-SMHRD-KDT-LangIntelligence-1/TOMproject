@@ -57,13 +57,6 @@ public class MainController<BudgetVO> {
 	@Autowired
 	CardsumRepo cardsumRepo;
 
-	private final MoneybookRepo moneybookRepository;
-
-	@Autowired
-	public MainController(MoneybookRepo moneybookRepository) {
-		this.moneybookRepository = moneybookRepository;
-	}
-
 	@GetMapping("/benefit")
 	public String benefit(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
@@ -161,21 +154,21 @@ public class MainController<BudgetVO> {
 
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 		List<TbMoneybook> list = moneybook_repo.finddaily(userid);
-		if (list == null) {
-			list = new ArrayList<>(); // 빈 리스트로 초기화
-		}
-
-		TbBudget bud = brepo.findByUserId(userid);
-		if (bud == null) {
-			bud = new TbBudget(); // 빈 예산 객체로 초기화
-		}
-
-		model.addAttribute("budget", bud);
+		
+		/*
+		 * if (list == null) { list = new ArrayList<>(); // 빈 리스트로 초기화 }
+		 * 
+		 * TbBudget bud = brepo.findByUserId(userid); if (bud == null) { bud = new
+		 * TbBudget(); // 빈 예산 객체로 초기화 }
+		 * 
+		 * model.addAttribute("budget", bud);
+		 */
+		
 		model.addAttribute("moneybook", list);
 
 		// 1) 필요한 DB 조회
 		// (예: list1, moneybook 등 필요한 데이터)
-		List<TbMoneybook> list1 = moneybookRepository.findByPaidAtAndUserId(date, userid); // 가정 예시
+		List<TbMoneybook> list1 = moneybook_repo.findByPaidAtAndUserId(date, userid); // 가정 예시
 		// 혹은 date가 있으면 date에 맞는 데이터만 조회
 		// List<Moneybook> list1 = moneybookRepository.findByPaidAt(date);
 
@@ -231,7 +224,7 @@ public class MainController<BudgetVO> {
 
 		account_repo.save(aen);
 		// 예산정보저장
-		TbBudget ben = new TbBudget((com.tom.basic.model.BudgetVO) budgetVO);
+		TbBudget ben = new TbBudget(budgetVO);
 		brepo.save(ben);
 
 		return "redirect:/";

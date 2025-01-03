@@ -25,6 +25,7 @@ public class TbBudget {
 		budgetBalance = budgetVO.getBudget_balance();
 	}
 
+
 	// 예산 식별자
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
