@@ -23,67 +23,83 @@
 			<div class="input-group">
 				<input type="text" id="user_id" name="user_id"
 					placeholder="아이디를 입력하세요" required
+					onkeydown="moveFocus(event, document.getElementById('user_pw'))"
 				/>
-				<!-- 중복확인 버튼 -->
-				<button type="button" class="check-btn">중복확인</button>
 				<br /> <input type="password" id="user_pw" name="user_pw"
 					placeholder="비밀번호를 입력하세요" required
+					onkeydown="moveFocus(event, document.getElementById('user_nick'))"
 				/>
 			</div>
 			<!-- 닉네임임 입력창 -->
 			<div class="user_nick">
 				<input type="text" id="user_nick" name="user_nick"
 					placeholder="닉네임을 입력하세요"
+					onkeydown="moveFocus(event, document.getElementById('card_nm'))"
 				/>
-				<!-- 중복확인 버튼 -->
-				<button type="button" class="check-btn">중복확인</button>
 			</div>
 	
-	<div class="card-box">
-		<h3>카드등록</h3>
-		<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
-		<div class="input-group">
-			<input type="hidden" id="user_id" name="user_id"
-				th:value="${session.user.userId}"
-			/> <input type="text" id="card_nm" name="card_nm" placeholder="별칭"
-				required
-			/> <select id="card_type" name="card_type">
-				<option value="체크">체크카드</option>
-				<option value="신용">신용카드</option>
-			</select> <input type="text" id="card_com" name="card_com" placeholder="카드사"
-				required
-			/> <input type="text"
-				oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
-				id="card_num" name="card_num" placeholder="카드번호" required
-			/> <input type="text"
-				oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-				id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"
-			/> <input type="text" id="benefit_content" name="benefit_content"
-				placeholder="카드혜택"
-			/>
-		</div>
-	</div>
-	<div class="account-box">
-		<h3>계좌등록</h3>
-
-		<!-- 별칭, 은행, 계좌번호, 예금주 입력창 -->
-		<div class="input-group">
-			<input type="hidden" id="user_id" name="user_id"
-				th:value="${session.user.userId}"
-			/> <input type="text" id="acc_nm" name="acc_nm" placeholder="별칭"
-				required
-			/> <input type="text" id="bank_nm" name="bank_nm" placeholder="은행"
-				required
-			/> <input type="text"
-				oninput="this.value=this.value.replace(/[^-0-9]/g,'');" id="acc_num"
-				name="acc_num" placeholder="계좌번호" required
-			/>
-		</div>
-		<!-- 회원가입 버튼 -->
-		<button type="submit" id="join-btn" class="join-btn">회원가입</button>
-		</div>
+			<div class="card-box">
+				<h3>카드등록</h3>
+				<!-- 별칭, 카드사, 카드번호, 실적 입력창 -->
+				<div class="input-group">
+					<!-- <input type="hidden" id="user_id" name="user_id"
+						th:value="${session.user.userId}"
+					/>--> <input type="text" id="card_nm" name="card_nm" placeholder="별칭"
+						required
+						onkeydown="moveFocus(event, document.getElementById('card_com'))"
+					/> <select id="card_type" name="card_type">
+						<option value="체크">체크카드</option>
+						<option value="신용">신용카드</option>
+					</select> <input type="text" id="card_com" name="card_com" placeholder="카드사"
+						required
+						onkeydown="moveFocus(event, document.getElementById('card_num'))"
+					/> <input type="text"
+						oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
+						id="card_num" name="card_num" placeholder="카드번호" required
+						onkeydown="moveFocus(event, document.getElementById('benefit_std'))"
+					/> <input type="text"
+						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+						id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"
+						onkeydown="moveFocus(event, document.getElementById('benefit_content'))"
+					/> <input type="text" id="benefit_content" name="benefit_content"
+						placeholder="카드혜택"
+					/>
+				</div>
+			</div>
+			<div class="account-box">
+				<h3>계좌등록</h3>
+		
+				<!-- 별칭, 은행, 계좌번호, 예금주 입력창 -->
+				<div class="input-group">
+					<!--<input type="hidden" id="user_id" name="user_id"
+						th:value="${session.user.userId}"
+					/>--> <input type="text" id="acc_nm" name="acc_nm" placeholder="별칭"
+						required
+						onkeydown="moveFocus(event, document.getElementById('acc_num'))"
+					/> <input type="text" id="bank_nm" name="bank_nm" placeholder="은행"
+						required
+					/> <input type="text"
+						oninput="this.value=this.value.replace(/[^-0-9]/g,'');" id="acc_num"
+						name="acc_num" placeholder="계좌번호" required
+						onkeydown="moveFocus(event, document.getElementById('bg_num'))"
+					/> <input type="text"
+						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" id="bg_num"
+						name="bg_num" placeholder="예산" required
+					/>
+				</div>
+			</div>
+			<!-- 회원가입 버튼 -->
+			<button type="submit" id="join-btn" class="join-btn">회원가입</button>
 		</form>
 	</div>
-	<script type="text/javascript"></script>
+	<script type="text/javascript">
+	  // Enter 키를 눌렀을 때 다음 input으로 포커스 이동
+	  function moveFocus(event, nextElement) {
+	    if (event.key === 'Enter') {
+	      event.preventDefault();  // 기본 동작 방지 (폼 제출)
+	      nextElement.focus();     // 다음 input으로 포커스 이동
+	    }
+	  }
+	</script>
 </body>
 </html>

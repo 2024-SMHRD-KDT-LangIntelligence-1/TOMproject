@@ -88,6 +88,11 @@ public class MainController<BudgetVO> {
 		return "start_page";
 	}
 
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
+
 	@GetMapping("/startpage")
 	public String startPage() {
 		return "start_page";
