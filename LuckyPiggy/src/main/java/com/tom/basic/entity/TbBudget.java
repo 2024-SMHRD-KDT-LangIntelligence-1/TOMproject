@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.tom.basic.model.BudgetVO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,24 +18,29 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TbBudget {    
-    
-	// 예산 식별자 
+public class TbBudget {
+
+	public TbBudget(BudgetVO budgetVO) {
+		userId = budgetVO.getUser_id();
+		budgetBalance = budgetVO.getBudget_balance();
+	}
+
+	// 예산 식별자
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long budgetIdx;
+	private long budgetIdx;
 
-    // 기준 월 
-    private Timestamp monthStd;
+	// 기준 월
+	private Timestamp monthStd;
 
-    // 예산 금액 
-    private String budgetBalance;
+	// 예산 금액
+	private String budgetBalance;
 
-    // 등록 일자 
-    @CreationTimestamp
-    private Timestamp createdAt;
+	// 등록 일자
+	@CreationTimestamp
+	private Timestamp createdAt;
 
-    // 사용자 아이디 
-    private String userId;    
-    
+	// 사용자 아이디
+	private String userId;
+
 }

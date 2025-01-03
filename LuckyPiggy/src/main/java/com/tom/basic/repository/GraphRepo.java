@@ -16,13 +16,11 @@ import com.tom.basic.model.postVO;
 public interface GraphRepo extends JpaRepository<TbMoneybook, Long>{
 	@Query(value =
 			"SELECT " +
-					" mb.mb_type, SUM(mb.mb_amount) as sum " +
+					" mb.mb_type, SUM(REPLACE(mb.mb_amount,',','')) as sum " +
 					"FROM tb_moneybook mb " +
 					"Where mb.user_id = :userid " + 
-					"GROUP BY mb_type"
+					"GROUP BY mb_type " +
+					"ORDER BY sum DESC"
 			, nativeQuery = true)
 	List<postVO> findGroupBYReportWithNativeQuery(@Param("userid") String userid);
 }
-
-
-
