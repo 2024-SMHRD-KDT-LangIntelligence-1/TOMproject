@@ -12,7 +12,6 @@
 ></script>
 </head>
 <body>
-
  
 
    <div class="cover">
@@ -53,7 +52,7 @@
             <div class="total-cash">
                <!-- 현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원 -->
             </div>
-            <div class="total-income">총 수입:<span th:text="${totalIncome}"></span>원</div>
+            <div class="total-income">총 수입:</div>
          </div>
          <div class="expense-container">
             <h2 >
@@ -61,7 +60,7 @@
             </h2>
             <table class="expense-table">
                <tr th:each="pmoneybook, stat : ${list1}"th:if="${pmoneybook.mbAmount != 0 and pmoneybook.mbAmount != '0' and pmoneybook.mbAmount != null}"
-                 th:with="totalExpense=${totalExpense + pmoneybook.mbAmount}" onclick="openModal('modal3')"
+                  onclick="openModal('modal3')"
                >
                   <td th:text="${stat.index + 1}"></td>
                   <!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
@@ -74,7 +73,7 @@
          <div class="expensetotal-box">
             <div class="total-cash">현금:</div>
             <div class="total-card">카드:</div>
-            <div class="total-expense">총 지출:<span th:text="${totalExpense}"></span>원</div>
+            <div class="total-expense">총 지출:</div>
          </div>
       </div>
       <!-- ------------------------------------------------------------------------------------ -->
