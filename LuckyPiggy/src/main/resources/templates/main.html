@@ -141,13 +141,13 @@
                 ctx.textBaseline = "middle";
 
                 // 부족한 금액을 중앙에 표시
-                ctx.fillText(`필요금액`, centerX -25, centerY -45);
-                ctx.fillText(`₩ ${shortage.toLocaleString()}`, centerX -25, centerY -20);  // 부족한 금액을 표시
-                ctx.fillText(method_nm, centerX -23, centerY +65);
-		            }
-		        }
-		    };
-		
+                ctx.fillText(method_nm, centerX+20, centerY -10);
+                ctx.fillText(`필요금액`, centerX+25, centerY +20);
+                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX+25, centerY +45);  // 부족한 금액을 표시
+            }
+        }
+    };
+
 		    // 차트 생성
 		    new Chart(ctx, {
 		        type: "doughnut",
@@ -165,8 +165,7 @@
 		});
 
 		</script>
-
-	<!-- --------------------------------------------------------------------------------------------------------- -->
+	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
 	
@@ -312,6 +311,5 @@
         });
     </script>
 	<script src="assets/js/main.js"></script>
-
 </body>
 </html>

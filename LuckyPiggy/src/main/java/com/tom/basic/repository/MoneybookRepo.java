@@ -20,10 +20,11 @@ public interface MoneybookRepo extends JpaRepository<TbMoneybook, Long>{
 	@Query(value = "select * from tb_moneybook where user_id=:user_id order by paid_at desc limit 7", nativeQuery = true)
 	List<TbMoneybook> findAllByUserId7(String user_id);
 	
-
 	@Query(value = "select * from tb_moneybook where user_id=:user_id", nativeQuery = true)
 	List<TbMoneybook> finddaily(String user_id);
 	
 	
 	List<TbMoneybook> findByPaidAtAndUserId(LocalDate paid_at, String user_Id);
+
+	
 }

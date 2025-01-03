@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
    let currentDate = urlParams.has('date') ? new Date(urlParams.get('date')) : today;
     let selectedDate = new Date(currentDate);  // 선택된 날짜는 currentDate로 초기화
    
+	
+	
    /*
    // 오늘 날짜
    let currentDate = new Date();
@@ -329,4 +331,4 @@ function changeFn() {
       document.getElementById('mb_type2').setAttribute('name', 'mb_type');
       document.getElementById('mb_type2').setAttribute('required', 'required');
    }
-};
+};

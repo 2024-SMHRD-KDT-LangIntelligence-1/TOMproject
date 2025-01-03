@@ -44,5 +44,6 @@ public class MoneybookVO {
 
 	// 입금 금액
 	private String mb_ic;
-
+	// 입금 카테고리
+	private String mb_ic_type;
 }
