@@ -229,12 +229,12 @@ public class MainController {
 		userRepo.save(en);
 		// 카드정보저장
 		TbCreditcard cen = new TbCreditcard(creditcardVO);
-
 		creditcard_repo.save(cen);
+
 		// 계좌정보저장
 		TbAccount aen = new TbAccount(accountVO);
-
 		account_repo.save(aen);
+
 		// 예산정보저장
 		TbBudget ben = new TbBudget(budgetVO);
 		System.out.println(ben.getBudgetIdx());
@@ -310,7 +310,7 @@ public class MainController {
 		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
 		model.addAttribute("moneybook_list7", moneybook_list7);
 		System.out.println(moneybook_list7);
-		
+
 		List<CardsumVO> cardsum = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
 		model.addAttribute("cardsum", cardsum);
 		if (cardsum == null) {
@@ -344,7 +344,7 @@ public class MainController {
 
 		return "search";
 	}
-	
+
 	@PostMapping("/dmoneybook.do")
 	public String dmoneybook(MoneybookVO vo) {
 
