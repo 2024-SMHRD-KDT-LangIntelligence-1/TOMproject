@@ -60,9 +60,7 @@
 					/> <input type="text"
 						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
 						id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"
-						onkeydown="moveFocus(event, document.getElementById('benefit_content'))"
-					/> <input type="text" id="benefit_content" name="benefit_content"
-						placeholder="카드혜택"
+						onkeydown="moveFocus(event, document.getElementById('acc_nm'))"
 					/>
 				</div>
 			</div>
@@ -83,8 +81,8 @@
 						name="acc_num" placeholder="계좌번호" required
 						onkeydown="moveFocus(event, document.getElementById('bg_num'))"
 					/> <input type="text"
-						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" id="bg_num"
-						name="bg_num" placeholder="예산" required
+						oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="bg_num"
+						name="budget_balance" placeholder="예산" required
 					/>
 				</div>
 			</div>

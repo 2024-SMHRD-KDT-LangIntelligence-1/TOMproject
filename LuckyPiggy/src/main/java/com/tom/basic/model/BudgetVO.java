@@ -1,6 +1,6 @@
 package com.tom.basic.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,19 +12,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BudgetVO {
 
-    // 예산 식별자 
-    private long budget_idx;
+	// 예산 식별자
+	private long budget_idx;
 
-    // 기준 월 
-    private Timestamp month_std;
+	// 기준 월
+	private LocalDateTime month_std;
 
-    // 예산 금액 
-    private String budget_balance;
+	// 예산 금액
+	private String budget_balance;
 
-    // 등록 일자 
-    private Timestamp created_at;
+	// 등록 일자
+	private LocalDateTime created_at;
 
-    // 사용자 아이디 
-    private String user_id;
-    
+	// 사용자 아이디
+	private String user_id;
+
 }

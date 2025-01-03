@@ -1,7 +1,9 @@
 package com.tom.basic.controller;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
+import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
@@ -37,28 +40,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MainController<BudgetVO> {
-   @Autowired
-   UserRepo userRepo;
-   @Autowired
-   CreditcardRepo creditcard_repo;
-   @Autowired
-   AccountRepo account_repo;
-   @Autowired
-   GraphRepo graphRepo;
-   @Autowired
-   MoneybookRepo moneybook_repo;
-   @Autowired
-   SearchRepo srepo;
-   @Autowired
-   CalenderRepo calrepo;
-   @Autowired
-   BudgetRepo brepo;
-   @Autowired
-   CardsumRepo cardsumRepo;
+
+public class MainController {
+	@Autowired
+	UserRepo userRepo;
+	@Autowired
+	CreditcardRepo creditcard_repo;
+	@Autowired
+	AccountRepo account_repo;
+	@Autowired
+	GraphRepo graphRepo;
+	@Autowired
+	MoneybookRepo moneybook_repo;
+	@Autowired
+	SearchRepo srepo;
+	@Autowired
+	CalenderRepo calrepo;
+	@Autowired
+	BudgetRepo brepo;
+	@Autowired
+	CardsumRepo cardsumRepo;
 
    private final MoneybookRepo moneybookRepository;
-
    @Autowired
    public MainController(MoneybookRepo moneybookRepository) {
       this.moneybookRepository = moneybookRepository;
@@ -170,13 +173,13 @@ public class MainController<BudgetVO> {
          list = new ArrayList<>(); // 빈 리스트로 초기화
       }
 
-      TbBudget bud = brepo.findByUserId(userid);
-      if (bud == null) {
-         bud = new TbBudget(); // 빈 예산 객체로 초기화
-      }
+		/*
+		 * TbBudget bud = brepo.findByUserId(userid); if (bud == null) { bud = new
+		 * TbBudget(); // 빈 예산 객체로 초기화 }
+		 * 
+		 * model.addAttribute("budget", bud); model.addAttribute("moneybook", list);
+		 */
 
-      model.addAttribute("budget", bud);
-      model.addAttribute("moneybook", list);
 
       // 1) 필요한 DB 조회
       // (예: list1, moneybook 등 필요한 데이터)
@@ -184,12 +187,33 @@ public class MainController<BudgetVO> {
       // 혹은 date가 있으면 date에 맞는 데이터만 조회
       // List<Moneybook> list1 = moneybookRepository.findByPaidAt(date);
 
-      // 2) Model에 데이터 담기
-      model.addAttribute("list1", list1);
-      // model.addAttribute("moneybook", someOtherListOrSingleObject);
 
-      return "daily";
-   }
+		// 2) Model에 데이터 담기
+		model.addAttribute("list1", list1);
+		// model.addAttribute("moneybook", someOtherListOrSingleObject);
+		
+		
+		List<TbCreditcard> debit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "체크");
+		model.addAttribute("debit_cardlist", debit_cardlist);
+
+
+
+		// System.out.println(debit_cardlist);
+
+		List<TbCreditcard> credit_cardlist = creditcard_repo.findAllByUserIdAndCardType(userid, "신용");
+		model.addAttribute("credit_cardlist", credit_cardlist);
+
+		// System.out.println(credit_cardlist);
+
+//		List<TbMoneybook> moneybook_list = moneybook_repo.findAllByUserId(userid);
+//		model.addAttribute("moneybook_list", moneybook_list);
+
+		List<String> mb_type_list = moneybook_repo.findDistinctMbTypeByUserId(userid);
+		model.addAttribute("mb_type_list", mb_type_list);
+		
+		return "daily";
+	}
+
 
    @GetMapping("/mypage")
    public String mypage() {
@@ -221,23 +245,27 @@ public class MainController<BudgetVO> {
       return "account";
    }
 
-   // 회원가입 기능
-   @PostMapping("/join.do")
-   public String join(UserVO userVO, CreditcardVO creditcardVO, AccountVO accountVO, BudgetVO budgetVO) {
-      // 회원가입정보저장
-      TbUser en = new TbUser(userVO);
-      userRepo.save(en);
-      // 카드정보저장
-      TbCreditcard cen = new TbCreditcard(creditcardVO);
 
-      creditcard_repo.save(cen);
-      // 계좌정보저장
-      TbAccount aen = new TbAccount(accountVO);
+	// 회원가입 기능
+	@PostMapping("/join.do")
+	public String join(UserVO userVO, CreditcardVO creditcardVO, AccountVO accountVO, BudgetVO budgetVO) {
+		// 회원가입정보저장
+		TbUser en = new TbUser(userVO);
+		userRepo.save(en);
+		// 카드정보저장
+		TbCreditcard cen = new TbCreditcard(creditcardVO);
+		creditcard_repo.save(cen);
 
-      account_repo.save(aen);
-      // 예산정보저장
-      TbBudget ben = new TbBudget((com.tom.basic.model.BudgetVO) budgetVO);
-      brepo.save(ben);
+		// 계좌정보저장
+		TbAccount aen = new TbAccount(accountVO);
+		account_repo.save(aen);
+
+		// 예산정보저장
+		TbBudget ben = new TbBudget(budgetVO);
+		System.out.println(ben.getBudgetIdx());
+		System.out.println(ben.getBudgetBalance());
+		brepo.save(ben);
+
 
       return "redirect:/";
    }
@@ -309,47 +337,72 @@ public class MainController<BudgetVO> {
       model.addAttribute("moneybook_list7", moneybook_list7);
       System.out.println(moneybook_list7);
 
-      List<CardsumVO> cardsum = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
-      model.addAttribute("cardsum", cardsum);
-      if (cardsum == null) {
-         cardsum = new ArrayList<>(); // 빈 리스트로 초기화
-      }
-      System.out.println(cardsum.get(0));
-      return "main";
-   }
 
-   // 가계부 등록 기능
-   @PostMapping("/moneybook.do")
-   public String moneybook(MoneybookVO vo) {
+		List<CardsumVO> cardsum = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
+		model.addAttribute("cardsum", cardsum);
+		if (cardsum == null) {
+			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
+		}
 
-      TbMoneybook en = new TbMoneybook(vo);
-      moneybook_repo.save(en);
 
-      return "redirect:/calendar";
-   }
+		return "main";
+	}
 
-   @PostMapping("/dmoneybook.do")
-   public String dmoneybook(MoneybookVO vo) {
+	// 가계부 등록 기능
+	@PostMapping("/moneybook.do")
+	public String moneybook(MoneybookVO vo) {
 
-      TbMoneybook en = new TbMoneybook(vo);
-      moneybook_repo.save(en);
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+		
+        Date date = vo.getPaid_at();    
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int month = calendar.get(Calendar.MONTH) + 1;
+                
+       	String redirectUrl = "/calendar?month=" + month;
+		
+		return "redirect:" + redirectUrl;
+	}
+	
+	@PostMapping("/moneybook.do.daily")
+	public String moneybookdaily(MoneybookVO vo) {
 
-      return "redirect:/daily";
-   }
 
-   // 검색 기능
-   @GetMapping("/search")
-   public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
-      HttpSession session = request.getSession();
-      TbUser uid = (TbUser) session.getAttribute("user");
-      String userid = uid.getUserId();
 
-      List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
-      System.out.println(searchlist);
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+		
+		String redirectUrl = "/daily?date=" + vo.getPaid_at();
+		
+		return "redirect:" + redirectUrl;
+	}
+	
 
-      model.addAttribute("searchlist", searchlist);
+	// 검색 기능
+	@GetMapping("/search")
+	public String search(HttpServletRequest request, Model model, @RequestParam("searchValue") String keyword) {
+		HttpSession session = request.getSession();
+		TbUser uid = (TbUser) session.getAttribute("user");
+		String userid = uid.getUserId();
 
-      return "search";
-   }
+		List<TbMoneybook> searchlist = srepo.searchquery(keyword, userid);
+		System.out.println(searchlist);
+
+		model.addAttribute("searchlist", searchlist);
+
+		return "search";
+	}
+	
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
+
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+
+		return "redirect:/daily";
+	}
+
+
 
 }

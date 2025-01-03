@@ -61,6 +61,7 @@
             <button id="close_button" onclick="closePopup()">×</button>
          </div>
          <form action="moneybook.do" method="post">
+         	<input type="hidden" id="user_id" name="url_month"/>
             <input type="hidden" id="user_id" name="user_id"
                th:value="${session.user.userId}" />
             <div>
