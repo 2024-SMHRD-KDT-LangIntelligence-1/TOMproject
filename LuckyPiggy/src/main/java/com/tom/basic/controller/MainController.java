@@ -18,6 +18,7 @@ import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
+import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
@@ -37,7 +38,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MainController<BudgetVO> {
+public class MainController {
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
@@ -79,6 +80,11 @@ public class MainController<BudgetVO> {
 	@GetMapping("/")
 	public String home() {
 		return "start_page";
+	}
+
+	@GetMapping("/index")
+	public String index() {
+		return "index";
 	}
 
 	@GetMapping("/startpage")
@@ -154,17 +160,17 @@ public class MainController<BudgetVO> {
 
 		System.out.println("카드리스트 유저 아이디는:" + userid);
 		List<TbMoneybook> list = moneybook_repo.finddaily(userid);
-		
+
+		if (list == null) {
+			list = new ArrayList<>(); // 빈 리스트로 초기화
+		}
 		/*
-		 * if (list == null) { list = new ArrayList<>(); // 빈 리스트로 초기화 }
-		 * 
 		 * TbBudget bud = brepo.findByUserId(userid); if (bud == null) { bud = new
 		 * TbBudget(); // 빈 예산 객체로 초기화 }
 		 * 
-		 * model.addAttribute("budget", bud);
+		 * model.addAttribute("budget", bud); 
+		 * model.addAttribute("moneybook", list);
 		 */
-		
-		model.addAttribute("moneybook", list);
 
 		// 1) 필요한 DB 조회
 		// (예: list1, moneybook 등 필요한 데이터)
@@ -225,6 +231,9 @@ public class MainController<BudgetVO> {
 		account_repo.save(aen);
 		// 예산정보저장
 		TbBudget ben = new TbBudget(budgetVO);
+
+		System.out.println(ben.getBudgetIdx());
+		System.out.println(ben.getBudgetBalance());
 		brepo.save(ben);
 
 		return "redirect:/";
@@ -296,13 +305,13 @@ public class MainController<BudgetVO> {
 		List<TbMoneybook> moneybook_list7 = moneybook_repo.findAllByUserId7(userid);
 		model.addAttribute("moneybook_list7", moneybook_list7);
 		System.out.println(moneybook_list7);
-
+		
 		List<CardsumVO> cardsum = cardsumRepo.findGroupBYReportWithNativeQuery1(userid);
 		model.addAttribute("cardsum", cardsum);
 		if (cardsum == null) {
 			cardsum = new ArrayList<>(); // 빈 리스트로 초기화
 		}
-		System.out.println(cardsum.get(0));
+//		System.out.println(cardsum.get(0));
 		return "main";
 	}
 
@@ -314,15 +323,6 @@ public class MainController<BudgetVO> {
 		moneybook_repo.save(en);
 
 		return "redirect:/calendar";
-	}
-
-	@PostMapping("/dmoneybook.do")
-	public String dmoneybook(MoneybookVO vo) {
-
-		TbMoneybook en = new TbMoneybook(vo);
-		moneybook_repo.save(en);
-
-		return "redirect:/daily";
 	}
 
 	// 검색 기능
@@ -339,5 +339,13 @@ public class MainController<BudgetVO> {
 
 		return "search";
 	}
+	
+	@PostMapping("/dmoneybook.do")
+	public String dmoneybook(MoneybookVO vo) {
 
+		TbMoneybook en = new TbMoneybook(vo);
+		moneybook_repo.save(en);
+
+		return "redirect:/daily";
+	}
 }

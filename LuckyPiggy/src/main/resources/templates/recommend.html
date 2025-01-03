@@ -11,30 +11,77 @@
 		<header class="top-bar" th:replace="~{/top_bar}"></header>
 		<div class="recommend-box">
 			<h3>추천카드</h3>
-			<table class="card-table">
-				<thead>
-					<tr>
-						<th>카드사</th>
-						<th>카드 이름</th>
-						<th>카드 혜택</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>카드사 A</td>
-						<td>카드 이름 1</td>
-						<td>
-							<ul>
-								<li>혜택 1: 1% 캐시백</li>
-								<li>혜택 2: 해외 사용 시 3% 할인</li>
-								<li>혜택 3: 연회비 50,000원</li>
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<!-- <form id="form" method="post" action="http://127.0.0.1:8083/process">
+			<input type="hidden" id="user_id" name="user_id" th:value="${session.user.userId}" />
+			<button type="submit">추천카드 확인하기</button>
+			<p id="response"></p> </form> -->
+			<form id="form" method="post" action="http://127.0.0.1:8083/process">
+				<input type="hidden" id="user_id" name="user_id"
+					th:value="${session.user.userId}" />
+				<button type="button" id="submitButton">추천카드 확인하기</button>
+				<table class="card-table">
+					<thead>
+						<tr>
+							<th>카드사</th>
+							<th>카드 이름</th>
+							<th>카드 혜택</th>
+						</tr>
+					</thead>
+					<tbody id="cards">
+					</tbody>
+				</table>
+			</form>
 		</div>
 	</div>
 </body>
 <script src="assets/js/common.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+
+document.getElementById('submitButton').addEventListener('click', function (e) {
+    e.preventDefault(); // 기본 폼 제출 동작 방지
+    const userId = document.getElementById('user_id').value;
+
+    // 서버로 데이터 전송
+    fetch('http://127.0.0.1:8083/process', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: userId }), // JSON 형식으로 전송
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 데이터를 HTML에 표시
+            displayCards(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+// 데이터를 HTML에 출력하는 함수
+function displayCards(cards) {
+    const cardsContainer = document.getElementById('cards');
+    cardsContainer.innerHTML = ''; // 기존 내용 초기화
+
+    cards.forEach(card => {
+        // 카드 정보를 HTML로 생성
+        const cardElement = document.createElement('tr');
+        cardElement.classList.add('card');
+        cardElement.innerHTML = `
+        	<td>${card.bank_nm}</td>
+            <td>${card.card_nm}</td>
+            <td>
+            <ul>
+                ${JSON.parse(card.card_desc).map(desc => `<li>${desc.type}: ${desc.dis}%</li>`).join('')}
+            </ul>
+        `;
+        cardsContainer.appendChild(cardElement);
+    });
+}
+
+/*]]>*/
+</script>
 </html>
