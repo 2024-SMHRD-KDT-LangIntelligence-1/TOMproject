@@ -34,7 +34,7 @@
          }
       </script>
 
-<<<<<<< HEAD
+
       <!-- 메뉴 아이콘을 올리면 토글메뉴 생성 -->
       <div class="menu-toggle" onmouseover="toggleMenu(true)"
          onmouseout="toggleMenu(false)"
@@ -44,52 +44,7 @@
       <!-- 메뉴 선택시 페이지 이동 -->
       <div class="menu" id="menu" style="display: none;">
          <ul>
-=======
-		<!-- 메뉴 아이콘을 올리면 토글메뉴 생성 -->
-		<div class="menu-toggle" onmouseover="toggleMenu(true)"
-			onmouseout="toggleMenu(false)"
-		>
-			<img src="/images/menu.png" width="30" height="30" />
-		</div>
-		<!-- 메뉴 선택시 페이지 이동 -->
-		<div class="menu" id="menu" style="display: none;">
-			<ul>
 
-
-			<script type="text/javascript">
-			var now = new Date();
-				var month = now.getMonth();
-				
-				$.ajax({
-					url: "calendar",
-					data: {month : (month+1)},
-					type: "GET",
-					
-				});
-				</script>
-				<a href="calendar" onclick="keepMenuVisible()" id ="calendar">Calendar</a>
-
-
-			</ul>
-			<ul>
-				<a href="daily" onclick="keepMenuVisible()" id = "daily">데일리</a>
-			</ul>
-			<ul>
-				<a href="recommend" onclick="keepMenuVisible()">카드추천</a>
-			</ul>
-			<ul>
-				<a href="card" onclick="keepMenuVisible()">카드등록</a>
-			</ul>
-			<ul>
-				<a href="account" onclick="keepMenuVisible()">계좌등록</a>
-			</ul>
-			<ul>
-				<a href="mypage" onclick="keepMenuVisible()">마이페이지</a>
-			</ul>
-			<ul>
-				<a href="/" onclick="keepMenuVisible()">로그아웃</a>
-			</ul>
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject.git
 
 
          <script type="text/javascript">

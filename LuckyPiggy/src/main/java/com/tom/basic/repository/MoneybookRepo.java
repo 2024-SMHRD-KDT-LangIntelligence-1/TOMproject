@@ -26,4 +26,6 @@ public interface MoneybookRepo extends JpaRepository<TbMoneybook, Long>{
 	
 	
 	List<TbMoneybook> findByPaidAtAndUserId(LocalDate paid_at, String user_Id);
+
+	
 }
