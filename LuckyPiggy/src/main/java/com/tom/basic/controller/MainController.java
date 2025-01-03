@@ -18,6 +18,7 @@ import com.tom.basic.entity.TbCreditcard;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.entity.TbUser;
 import com.tom.basic.model.AccountVO;
+import com.tom.basic.model.BudgetVO;
 import com.tom.basic.model.CardsumVO;
 import com.tom.basic.model.CreditcardVO;
 import com.tom.basic.model.MoneybookVO;
@@ -37,7 +38,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MainController<BudgetVO> {
+public class MainController {
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
@@ -236,7 +237,9 @@ public class MainController<BudgetVO> {
 
 		account_repo.save(aen);
 		// 예산정보저장
-		TbBudget ben = new TbBudget((com.tom.basic.model.BudgetVO) budgetVO);
+		TbBudget ben = new TbBudget(budgetVO);
+		System.out.println(ben.getBudgetIdx());
+		System.out.println(ben.getBudgetBalance());
 		brepo.save(ben);
 
 		return "redirect:/";
