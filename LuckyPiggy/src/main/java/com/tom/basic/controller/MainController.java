@@ -37,7 +37,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MainController {
+public class MainController<BudgetVO> {
 	@Autowired
 	UserRepo userRepo;
 	@Autowired
@@ -218,10 +218,21 @@ public class MainController {
 
 	// 회원가입 기능
 	@PostMapping("/join.do")
-	public String join(UserVO vo) {
-		TbUser en = new TbUser(vo);
-
+	public String join(UserVO userVO, CreditcardVO creditcardVO, AccountVO accountVO, BudgetVO budgetVO) {
+		// 회원가입정보저장
+		TbUser en = new TbUser(userVO);
 		userRepo.save(en);
+		// 카드정보저장
+		TbCreditcard cen = new TbCreditcard(creditcardVO);
+
+		creditcard_repo.save(cen);
+		// 계좌정보저장
+		TbAccount aen = new TbAccount(accountVO);
+
+		account_repo.save(aen);
+		// 예산정보저장
+		TbBudget ben = new TbBudget((com.tom.basic.model.BudgetVO) budgetVO);
+		brepo.save(ben);
 
 		return "redirect:/";
 	}
