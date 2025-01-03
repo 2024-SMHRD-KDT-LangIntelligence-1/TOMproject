@@ -1,6 +1,6 @@
 package com.tom.basic.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +16,13 @@ public class BudgetVO {
 	private long budget_idx;
 
 	// 기준 월
-	private Timestamp month_std;
+	private LocalDateTime month_std;
 
 	// 예산 금액
 	private String budget_balance;
 
 	// 등록 일자
-	private Timestamp created_at;
+	private LocalDateTime created_at;
 
 	// 사용자 아이디
 	private String user_id;

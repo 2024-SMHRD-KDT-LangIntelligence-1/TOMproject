@@ -1,6 +1,6 @@
 package com.tom.basic.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,14 +32,14 @@ public class TbBudget {
 	private long budgetIdx;
 
 	// 기준 월
-	private Timestamp monthStd;
+	private LocalDateTime monthStd;
 
 	// 예산 금액
 	private String budgetBalance;
 
 	// 등록 일자
 	@CreationTimestamp
-	private Timestamp createdAt;
+	private LocalDateTime createdAt;
 
 	// 사용자 아이디
 	private String userId;
