@@ -318,11 +318,10 @@ public class MainController {
 	// 가계부 등록 기능
 	@PostMapping("/moneybook.do")
 	public String moneybook(MoneybookVO vo) {
-
 		TbMoneybook en = new TbMoneybook(vo);
 		moneybook_repo.save(en);
 
-		return "redirect:/calendar";
+		return "calendar";
 	}
 
 	// 검색 기능
