@@ -37,12 +37,11 @@
             <h2>
                수입<a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
             </h2>
-            <table class="income-table">
+            <table class="income-table" id="incomeTable">
             
-               <tr th:each="pmoneybook, stat: ${list1}" th:if="${pmoneybook.mbIc != 0 and pmoneybook.mbIc != '0' and pmoneybook.mbIc != null}"
-                  onclick="openModal('modal2')"
+               <tr  th:each="pmoneybook : ${incomeList}" th:if="${pmoneybook.mbIc != null && pmoneybook.mbIc != '0'}"
                >
-                  <td th:text="${stat.index + 1}"></td>
+                   <td class="income-index"></td>
                   <!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
                   <td th:text="${pmoneybook.mbType}"></td>
                   <td th:text="${pmoneybook.mbIc}"></td>
@@ -59,17 +58,31 @@
             <h2 >
                지출 <a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
             </h2>
-            <table class="expense-table">
-               <tr th:each="pmoneybook, stat : ${list1}"th:if="${pmoneybook.mbAmount != 0 and pmoneybook.mbAmount != '0' and pmoneybook.mbAmount != null}"
-                 th:with="totalExpense=${totalExpense + pmoneybook.mbAmount}" onclick="openModal('modal3')"
+            <table class="expense-table" id="expenseTable">
+               <tr th:each="pmoneybook : ${expenseList}" th:if="${pmoneybook.mbAmount != null && pmoneybook.mbAmount != '0'}"
                >
-                  <td th:text="${stat.index + 1}"></td>
+                 <td class="expense-index"></td>
                   <!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
                   <td th:text="${pmoneybook.shopNm}"></td>
                   <td th:text="${pmoneybook.mbMethod}"></td>
                   <td th:text="${pmoneybook.mbAmount}"></td>
                </tr>
             </table>
+            <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 수입 테이블 인덱스 부여
+            const incomeRows = document.querySelectorAll("#incomeTable tr");
+            incomeRows.forEach((row, index) => {
+                row.querySelector(".income-index").textContent = index + 1;
+            });
+
+            // 지출 테이블 인덱스 부여
+            const expenseRows = document.querySelectorAll("#expenseTable tr");
+            expenseRows.forEach((row, index) => {
+                row.querySelector(".expense-index").textContent = index + 1;
+            });
+        });
+    </script>
          </div>
          <div class="expensetotal-box">
             <div class="total-cash">현금:</div>
@@ -260,25 +273,25 @@
                   <tbody>
                      <tr>
                         <th>날짜</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${incomeList}"
                            th:text="${moneybook.paidAt}"
                         ></td>
                      </tr>
                      <tr>
                         <th>카테고리</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${incomeList}"
                            th:text="${moneybook.mbType}"
                         ></td>
                      </tr>
                      <tr>
                         <th>입금금액</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${incomeList}"
                            th:text="${moneybook.mbIc}"
                         ></td>
                      </tr>
                      <tr>
                         <th>메모</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${incomeList}"
                            th:text="${moneybook.mbMemo}"
                         ></td>
                      </tr>
@@ -302,37 +315,37 @@
                   <tbody>
                      <tr>
                         <th>날짜</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.paidAt}"
                         ></td>
                      </tr>
                      <tr>
                         <th>카테고리</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.mbType}"
                         ></td>
                      </tr>
                      <tr>
                         <th>상점명</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.shopNm}"
                         ></td>
                      </tr>
                      <tr>
                         <th>결제수단</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.mbMethod + ' ' + moneybook.methodNm}"
                         ></td>
                      </tr>
                      <tr>
                         <th>사용금액</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.mbAmount}"
                         ></td>
                      </tr>
                      <tr>
                         <th>메모</th>
-                        <td th:each="moneybook : ${list1}"
+                        <td th:each="moneybook : ${expenseList}"
                            th:text="${moneybook.mbMemo}"
                         ></td>
                      </tr>
