@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>benefit</title>
+<link rel="stylesheet" href="assets/css/benefit.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
+</head>
+<body>
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<div id="donutChartsContainer1">
+			<!-- 도넛차트 들어갈 곳 -->
+		</div>
+		<div class="benefit-box">
+			<table class="card-table">
+				<thead>
+					<a href="recommend">
+						<button class="recommend-btn">카드추천받기</button>
+					</a>
+				</thead>
+				<tbody>
+					<tr>
+						<td>카드사 A</td>
+						<td>카드 이름 1</td>
+						<td>
+							<ul>
+								<li>혜택 1: 1% 캐시백</li>
+								<li>혜택 2: 해외 사용 시 3% 할인</li>
+								<li>혜택 3: 연회비 50,000원</li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script th:inline="javascript">
+    // 서버에서 전달된 데이터 가져오기
+    let chartdata = /*[[${cardsum}]]*/;
+
+    function createDoughnutChart(containerId, mb_amount, benefit_std) {
+        // 도넛 차트를 감싸는 div 생성
+        const canvasWrapper = document.createElement('div');
+        canvasWrapper.classList.add('doughnut');
+        containerId.appendChild(canvasWrapper);
+
+        const canvas = document.createElement('canvas');
+        canvasWrapper.appendChild(canvas);
+
+        // 캔버스 크기 설정
+        canvas.width = 250;
+        canvas.height = 250;
+
+        const ctx = canvas.getContext("2d");
+
+        // 실제 사용 금액과 목표 금액 계산
+        const fillRatio = mb_amount / benefit_std;
+        const shortage = benefit_std - mb_amount;
+
+        // 차트 데이터 설정
+        const data = {
+            datasets: [{
+                data: [fillRatio, 1 - fillRatio],
+                backgroundColor: [
+                    '#1F4529', // 사용 금액
+                    '#E8ECD7'  // 목표까지 부족한 금액
+                ],
+                borderWidth: 0
+            }],
+        };
+
+        // 차트 옵션 설정 (범례, 툴팁 비활성화)
+		const options = {
+		  responsive: true,
+		  plugins: {
+		    legend: { display: false },  // 범례 비활성화
+		    tooltip: { enabled: false },  // 툴팁 비활성화
+		  },
+		  interaction: {
+		    mode: null,  // 호버 모드 완전 비활성화 (차트 요소와의 상호작용을 없앰)
+		    intersect: false,  // 차트 요소와 겹치지 않아도 상호작용을 없앰
+		  },
+		  animation: {
+		    onComplete: function() {
+		      const centerX = ctx.canvas.width / 2.5;
+		      const centerY = ctx.canvas.height / 2.3;
+		
+		      // 차트 중앙 텍스트 설정
+		      ctx.font = "18px border";  // 폰트 스타일 지정
+		      ctx.fillStyle = "black";
+		      ctx.textAlign = "center";
+		      ctx.textBaseline = "middle";
+		      
+		      // 중앙 텍스트 표시
+		      ctx.fillText("필요금액", centerX, centerY - 20);
+		      ctx.fillText(`₩ ${shortage.toLocaleString()}`, centerX, centerY + 15);
+		    }
+		  }
+		};
+
+        // 도넛 차트 생성
+        new Chart(ctx, { type: "doughnut", data: data, options: options });
+    }
+
+    // 차트 생성 호출
+    const donutChartsContainer1 = document.getElementById('donutChartsContainer1');
+    const mbAmount = chartdata.mb_amount; // 사용 금액
+    const benefitStd = chartdata.benefit_std; // 목표 금액
+
+    createDoughnutChart(donutChartsContainer1, mbAmount, benefitStd);
+</script>
+
+</body>
+</html>

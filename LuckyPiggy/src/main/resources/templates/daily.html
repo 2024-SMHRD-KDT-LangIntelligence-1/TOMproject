@@ -107,7 +107,7 @@
 						<!--<div class="diteil">
 						 <div class="card-category" method="post">
 							<select id="method_nm" name="method_nm"
-								th:object="${debit_cardlist}" , "${credit_cardlist}" required>
+								th:object="${debit_cardlist}" , "${credit_cardlist}">
 								<option selected disabled hidden value="">카드선택</option>
 								<option hidden class="debit_cardlist"
 									th:each="debit_cardlist: ${debit_cardlist}"
@@ -124,15 +124,17 @@
 					</div>-->
 					<!--	<div class="category">
 						<select id="mb_type" name="mb_type" onchange="changeFn()"
-							th:object="${mb_type_list}" required>
+							th:object="${mb_type_list}">
 							<option selected disabled hidden value="">사용내역</option>
 							<option class="mb_type_list"
 								th:each="mb_type_list: ${mb_type_list}"
 								th:value="${mb_type_list}" th:text="${mb_type_list}"
 							></option>
 							<option id="write" value="write">직접입력</option>
-						</select> <input type="text" id="mb_type2" hidden />
-					</div>-->
+						</select>
+						<input type="text" id="mb_type2" hidden />
+					</div>
+
 					<div class="memo">
 						<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
 							name="shop_nm"

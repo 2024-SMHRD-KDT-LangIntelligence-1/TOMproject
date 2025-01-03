@@ -122,7 +122,7 @@ body::-webkit-scrollbar {
     box-sizing: border-box; /* padding 포함하여 크기 계산 */
     overflow-x: auto; /* 가로 스크롤을 활성화 */
 	margin-top: 15px;
-	margin-bottom: 25px;
+	margin-bottom: 5px;
 	margin-left: 35px;
 	margin-right: 35px;
 }
@@ -135,6 +135,7 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    cursor: pointer; /* 클릭 시 포인터 커서 */
 }
 /* 스크롤바 전체 */
 ::-webkit-scrollbar {

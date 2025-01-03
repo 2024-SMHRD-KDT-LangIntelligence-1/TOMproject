@@ -1,22 +1,6 @@
 
 // 상태바 설정
 // 상태바 진행 상태를 업데이트하는 함수
-<<<<<<< HEAD
-//function updateProgress(percentage) {
-  //const progressLine = document.querySelector(".line-progress");
-  //progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
-  // 각 단계 마커의 상태를 업데이트
-  //const steps = document.querySelectorAll(".step");
-  //steps.forEach((step) => {
-    //const progress = parseFloat(step.getAttribute("data-progress"));
-    //if (progress <= percentage) {
-      //step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
-    //} else {
-     // step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
-    //}
-  //});
-//}
-=======
 function updateProgress(percentage) {
 	const progressLine = document.querySelector(".line-progress");
 	progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
@@ -31,11 +15,16 @@ function updateProgress(percentage) {
 		}
 	});
 }
->>>>>>> branch 'master' of https://github.com/2024-SMHRD-KDT-LangIntelligence-1/TOMproject
 // 상태 업데이트
-//updateProgress(50);
+updateProgress(50);
 //----------------------------------------------------------------------------------
-
+//도넛 선택시 혜택 페이지로 이동
+document.addEventListener('DOMContentLoaded', function() {
+document.getElementById('donutChartsContainer').addEventListener('click', function() {
+  window.location.href = "benefit";
+});
+});
+//-------------------------------------------------------------------------------------
 // 달력
 const dayTags = document.querySelector(".days"); // 날짜를 표시할 요소
 

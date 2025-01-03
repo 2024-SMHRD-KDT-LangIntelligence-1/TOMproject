@@ -2,11 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Main</title>
-<canvas id="mylienchart"></canvas>
-
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
@@ -30,7 +27,7 @@
 				</div>
 			</div>
 			<!-- 도넛 차트 -->
-			<div id="donutChartsContainer">
+			<div id="donutChartsContainer" >
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
 			<!-- 달력/최근소비내역 -->
@@ -75,45 +72,20 @@
 				<canvas id="barChart" width="400px" height="300px"></canvas>
 			</div>
 			<!-- 라인 차트 -->
-			<div class="bar-container" id="bar-container"></div>
-			<!-- 라인 차트가 동적으로 추가될 영역 -->
-
 			<div id="lineChartsContainer">
 				<canvas id="lineChart" width="400px" height="300px"></canvas>
 			</div>
 		</div>
 	</div>
 
-
+	<!-- -------------------------------------------------------------------------------------------------- -->
 	<script th:inline="javascript">
+	// 기존 데이터 (카테고리, sum, goal 포함)
+	let chartdata = /*[[${eat}]]*/;
+	let chartdata2 = /*[[${cardsum}]]*/;
 	
-	// 상태바 설정
-	// 상태바 진행 상태를 업데이트하는 함수	
-	function updateProgress(percentage) {		
-	 const progressLine = document.querySelector(".line-progress");
-	  progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
-	  // 각 단계 마커의 상태를 업데이트
-	  const steps = document.querySelectorAll(".step");
-	  steps.forEach((step) => {
-	  const progress = parseFloat(step.getAttribute("data-progress"));
-	   	if (progress <= percentage) {
-	     step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
-	    } else {
-	      step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
-	    }
-	  });
-	}
-	
-	// 상태 업데이트
-	updateProgress(100);
-	
-	
-// 기존 데이터 (카테고리, sum, goal 포함)
-let chartdata = /*[[${eat}]]*/;
-let chartdata2 = /*[[${cardsum}]]*/;
-
-// 도넛 차트를 생성하는 함수
-function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
+	// 도넛 차트를 생성하는 함수
+	function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
     // 동적으로 캔버스를 감싸는 div 생성
     const canvasWrapper = document.createElement('div');
     canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
@@ -135,8 +107,8 @@ function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benef
         datasets: [{
             data: [fillRatio, 1 - fillRatio], // 비율에 맞게 두 부분으로 나눔
             backgroundColor: [
-                'rgba(75, 192, 192, 0.5)',  // 실제 값 부분 색상
-                'rgba(201, 203, 207, 0.5)', // 목표 값에 해당하는 부분 색상
+                '#1F4529', // 사용 금액
+                '#E8ECD7'  // 목표까지 부족한 금액
             ],
             borderWidth: 0, // 테두리 없애기
         }],
@@ -152,6 +124,11 @@ function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benef
                     enabled: false,  // 툴팁 비활성화
                 }
             },
+            layout: {
+                padding: {
+                  bottom: 30,  // 상단에 30px 만큼 여백을 추가하여 차트를 위로 올림
+                }
+              },
             
         // 도넛 차트 중앙에 텍스트 추가
         animation: {
@@ -159,8 +136,8 @@ function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benef
                 const centerX = ctx.canvas.width / 2;
                 const centerY = ctx.canvas.height / 2;
 
-                ctx.font = "18px";  // 폰트 스타일 지정
-                ctx.fillStyle = "#333"; // 텍스트 색상
+                ctx.font = "15px border";  // 폰트 스타일 지정
+                ctx.fillStyle = "black"; // 텍스트 색상
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
 
@@ -172,24 +149,24 @@ function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benef
         }
     };
 
-    // 차트 생성
-    new Chart(ctx, {
-        type: "doughnut",
-        data: data,
-        options: options,
-    });
-}
+		    // 차트 생성
+		    new Chart(ctx, {
+		        type: "doughnut",
+		        data: data,
+		        options: options,
+		    });
+		}
+		
+		// 모든 카테고리에 대해 도넛 차트 생성
+		const donutChartsContainer = document.getElementById('donutChartsContainer');
+		
+		// 각 카테고리별로 도넛 차트 생성
+		chartdata2.forEach(item => {
+		    createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std);
+		});
 
-// 모든 카테고리에 대해 도넛 차트 생성
-const donutChartsContainer = document.getElementById('donutChartsContainer');
-
-// 각 카테고리별로 도넛 차트 생성
-chartdata2.forEach(item => {
-    createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std);
-});
-	</script>
-
-
+		</script>
+	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
 	
@@ -239,7 +216,7 @@ chartdata2.forEach(item => {
 
 	</script>
 
-
+	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
         let lineCt = document.getElementById('lineChart');
