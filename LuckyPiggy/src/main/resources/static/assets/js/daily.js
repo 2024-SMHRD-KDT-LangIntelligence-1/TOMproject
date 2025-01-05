@@ -122,19 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
    }*/
 });
 //----------------------------------------------------------------------------------------------------
-// 모달 팝업 열기
-function openModal(modalId) {
-    // 모든 모달을 닫음
-    var modals = document.querySelectorAll('.modal');
-    modals.forEach(function(modal) {
-        modal.style.display = 'none';
-    });
-
-    // 선택한 모달만 열기
-    var modalToOpen = document.getElementById(modalId);
-    modalToOpen.style.display = 'block';
-}
-
 
 // 현재 브라우저 URL 가져오기
 const currentUrl = window.location.href;
@@ -144,25 +131,17 @@ const params = new URLSearchParams(window.location.search);
 const date = params.get('date');
 // console.log(date); // 쿼리 파라미터에 따라 값이 출력됨
 
-
 // 팝업 열기
 function openPopup() {
-   resetForm();
-   document.getElementById("paid_at").setAttribute('value', date);
-   document.getElementById("modal1").style.display = "block";
-   document.getElementById("cover").style.pointerEvents = 'none'; // 페이지 클릭 비활성화
+	//모든 팝업 닫기
+	const modals = document.querySelectorAll('.modal');
+	modals.forEach(modal => {
+	   modal.style.display = 'none';
+	});
+	document.getElementById("modal1").style.display = 'block';
+	resetForm();
+	document.getElementById("paid_at").setAttribute('value', date);
 }
-
-
-
-// 모달 팝업 닫기
-function closeModal(modalId) {
-    var modalToClose = document.getElementById(modalId);
-    if (modalToClose) {
-        modalToClose.style.display = 'none';  // 해당 모달 닫기
-    }
-}
-
 
 function closePopup() {
    resetForm();
@@ -170,6 +149,20 @@ function closePopup() {
    document.getElementById("cover").style.pointerEvents = 'auto'; // 페이지 클릭 활성화
 }
 
+// 모달 열기
+function openModal(modalId) {
+   // 모든 모달 닫기
+         const modals = document.querySelectorAll('.modal');
+         modals.forEach(modal => {
+            modal.style.display = 'none';
+         });
+	document.getElementById(modalId).style.display = 'block';
+}
+
+// 모달 닫기
+function closeModal(modalId) {
+   document.getElementById(modalId).style.display = 'none';
+}
 //----------------------------------------------------------------------------------------------------
 // 추가 팝업
 // 버튼 클릭 시 'active' 클래스를 추가하고 나머지 버튼 비활성화
@@ -198,6 +191,18 @@ document.querySelector('.expense-btn').addEventListener('click', function() {
    handleButtonClick(this); // 클릭된 버튼만 활성화
    showAllPayments(); // 출금 클릭 시 모든 결제 방식 버튼 보이게
    document.querySelector('#money').setAttribute('name', 'mb_amount');
+});
+
+// a 태그 클릭 시 입금 버튼 클릭 이벤트 발생
+document.querySelector('#inadd-btn').addEventListener('click', function(event) {
+   event.preventDefault(); // 기본 a 태그 동작 방지
+   document.querySelector('.income-btn').click(); // 입금 버튼 클릭 이벤트 트리거
+});
+
+// a 태그 클릭 시 출금 버튼 클릭 이벤트 발생
+document.querySelector('#exadd-btn').addEventListener('click', function(event) {
+   event.preventDefault(); // 기본 a 태그 동작 방지
+   document.querySelector('.expense-btn').click(); // 출금 버튼 클릭 이벤트 트리거
 });
 
 // 저장 버튼 클릭 시 초기화

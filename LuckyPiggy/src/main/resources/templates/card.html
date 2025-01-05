@@ -26,12 +26,15 @@
 					oninput="this.value=this.value.replace(/[^-0-9]/g,'');"
 					id="card_num" name="card_num" placeholder="카드번호" required /> <input
 					type="text"
-					oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+					oninput="this.value = this.value.replace(/[^0-9]/g, '')"
 					id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액" /> <input
 					type="text" id="benefit_content" name="benefit_content"
 					placeholder="카드혜택" />
 			</div>
 
+			<!-- 등록완료 버튼 -->
+			<button type="submit" id="join-btn" class="join-btn">등록완료</button>
+		</form>
 
 			<!-- 등록된 카드 확인 버튼 -->
 			<div class="cardview">
@@ -41,23 +44,17 @@
 			<!--모달 팝업, 등록된 카드확인-->
 			<div class="modal">
 				<div class="modal_popup">
-					<h3>카드 목록</h3>
-					<p>
-						<span th:text="${session.userid}"></span>님의 카드 목록
+					<p class="card-list" >
+					<span th:text="${session.userid}"></span>님의 카드 목록
 					</p>
-
 					<!-- db에 있는 내 카드목록 가져옴 -->
 					<div th:each="cardlist : ${cardlist}">
 						<span th:text="${cardlist.cardNm}"></span>
 					</div>
-
 					<button type="button" class="close_btn">닫기</button>
 				</div>
 			</div>
 
-			<!-- 등록완료 버튼 -->
-			<button type="submit" id="join-btn" class="join-btn">등록완료</button>
-		</form>
 		</div>
 	</div>
 </body>

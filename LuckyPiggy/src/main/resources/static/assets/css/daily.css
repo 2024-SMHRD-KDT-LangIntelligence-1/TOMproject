@@ -41,7 +41,6 @@ body::-webkit-scrollbar {
 	margin-top: 15px;
 	margin-left: 50px;
 	margin-right: 35px;
-	margin-bottom: 50px;
 	border-radius: 10px; /* 테두리 둥글게 */
 }
 /* 왼쪽 날짜 전체 */
@@ -153,13 +152,13 @@ body::-webkit-scrollbar {
 	border-radius: 5px;
 }
 
-.income-table td:nth-child(2) {
+.income-table td:nth-child(3) {
 	font-size: 12px;
 	text-align: center;
 	border-radius: 5px;
 }
 
-.income-table td:nth-child(3) {
+.income-table td:nth-child(4) {
 	font-size: 12px;
 	width: 50%;
 	padding: 1px;
@@ -168,13 +167,13 @@ body::-webkit-scrollbar {
 	border-radius: 5px;
 }
 
-.expense-table td:nth-child(2) {
+.expense-table td:nth-child(3) {
 	font-size: 12px;
 	text-align: center;
 	border-radius: 5px;
 }
 
-.expense-table td:nth-child(3) {
+.expense-table td:nth-child(4) {
 	font-size: 12px;
 	width: 20%;
 	padding: 1px;
@@ -183,7 +182,7 @@ body::-webkit-scrollbar {
 	border-radius: 5px;
 }
 
-.expense-table td:nth-child(4) {
+.expense-table td:nth-child(6) {
 	font-size: 12px;
 	width: 30%;
 	padding: 1px;
@@ -200,24 +199,22 @@ body::-webkit-scrollbar {
 /* 총 잔액/지출 부분 */
 .incometotal-box {
 	width: 170px;
-	height: 55px;
+	height: 35px;
 	border-radius: 8px;
 	font-size: 15px;
-	white-space: nowrap;
 	margin-top: -240px;
 	margin-left: 245px;
 	margin-bottom: 30px;
-	line-height: 2; /* 줄 간격을 늘림 */
+	text-align: right;
 }
 
 .expensetotal-box {
 	width: 170px;
-	height: 75px;
+	height: 35px;
 	border-radius: 8px;
 	font-size: 15px;
-	white-space: nowrap;
-	margin-left: 240px;
-	line-height: 2; /* 줄 간격을 늘림 */
+	margin-left: 245px;
+	text-align: right;
 }
 /* 총 수입/지출 */
 .total-income, .total-expense {
@@ -238,16 +235,16 @@ body::-webkit-scrollbar {
 	position: fixed; /* 페이지 스크롤에 영향을 받지 않도록 고정 위치 */
 	top: 50%; /* 화면 중간 위치 */
 	left: 50%; /* 화면 가운데 */
-	transform: translate(-40%, -50%); /* 정확히 화면 중앙에 위치시킴 */
+	transform: translate(-40%, -49%); /* 정확히 화면 중앙에 위치시킴 */
 	width: 280px;
-	height: 450px;
+	height: 440px;
 	background-color: white;
 	border-radius: 10px;
-	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	box-shadow: 0 -2px 3px rgba(34, 36, 38, 0.15), /* 상단 그림자 */
+                0 2px 3px rgba(34, 36, 38, 0.15); /* 하단 그림자 */
 	/* padding-left: 30px; */
 	display: none; /* 기본적으로 숨김 */
 	z-index: 99999;
-	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	justify-content: center; /* 다른 요소들 위에 표시되도록 */
 }
 
@@ -273,7 +270,8 @@ body::-webkit-scrollbar {
   position: absolute;
   text-align: center;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  box-shadow: 0 -2px 3px rgba(34, 36, 38, 0.15), /* 상단 그림자 */
+              0 2px 3px rgba(34, 36, 38, 0.15); /* 하단 그림자 */
   transform: translateY(-50% -50%);
   background-color: white; /* 배경색 */
   z-index: 10; /* 맨앞으로 위치 */
@@ -305,7 +303,8 @@ body::-webkit-scrollbar {
 	color: black;
 	background-color: #f4f4f4;
 	font-size: 18px;
-	text-align: right;
+	text-align: left;
+	padding-left: 10px;
 	height: 70px;
 	margin-top: 0px;
 	border-radius: 3px; /* 테두리 둥글게 */
@@ -339,7 +338,8 @@ body::-webkit-scrollbar {
 #shop_nm, #memo {
    color: black;
    background-color: #f4f4f4;
-   text-align: right;
+   text-align: left;
+   padding-left: 10px;
    width:220px;
    height: 30px;
    margin-bottom: 10px;
@@ -408,7 +408,7 @@ button.disabled {
    width: 220px;
    height: 30px;
    margin-bottom: 10px;
-   text-align: right;
+   text-align: left;
 }
 /* 초기화버튼 */
 /* #reset {
@@ -488,6 +488,7 @@ button.disabled {
 /* 수입 상세내역 스타일 */
 .modal-income {
 	margin-top: 100px;
+	margin-left: 20px;
 }
 
 .modal-income th, 
@@ -510,8 +511,8 @@ button.disabled {
 /* 지출 상세내역 스타일 */
 .modal-expense {
 	margin-top: 100px;
+	margin-left: 35px;
 }
-
 .modal-expense th, 
 .modal-expense td {
 	font-size: 15px;
@@ -532,7 +533,7 @@ button.disabled {
 	color: white;
 	background-color: orange;
 	margin-top: 80px;
-	margin-left: 35px;
+	margin-left: 70px;
 	margin-bottom: 0;
 	width: 70px;
 	height: 30px;

@@ -28,7 +28,7 @@ body::-webkit-scrollbar {
 /* 달력 컨테이너*/
 .month-container {
    width: 430px;
-   height: 573px;
+   height: 560px;
    background-color: #F5F5F7;
    margin-top: 15px;
    margin-left: 35px;
@@ -197,24 +197,24 @@ body::-webkit-scrollbar {
    width: 25px; /* 너비 */
    border-radius: 8px;
    position: absolute;
-   bottom: 30px;
-   transform: translateX(760%); /* 오른쪽으로 이동 */
+   bottom: 40px;
+   transform: translateX(-300%); /* 오른쪽으로 이동 */
 }
 /*-------------------------------------------------------------------------------------*/
 /*  팝업창 스타일 */
-.modal {
+#modal {
   display: none; /* 기본적으로 모달 숨기기 */
   align-items: center; /* 세로 중앙 정렬 */
   justify-content: center; /* 가로 중앙 정렬 */
   width: 280px;
   height: 480px;
-  position: absolute;
   text-align: center;
   border-radius: 10px;
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  transform: translateY(-50% -50%);
   background-color: white; /* 배경색 */
   z-index: 10; /* 맨앞으로 위치 */
+  position: absolute;
+  bottom: 80px;
 }
 
 .close-btn {
@@ -241,6 +241,7 @@ body::-webkit-scrollbar {
    background-color: #f4f4f4;
    font-size: 18px;
    text-align: right;
+   padding-left: 10px;
    height: 70px;
    margin-top: 0px;
    border-radius: 3px; /* 테두리 둥글게 */
@@ -251,7 +252,8 @@ body::-webkit-scrollbar {
 #shop_nm, #memo {
    color: black;
    background-color: #f4f4f4;
-   text-align: right;
+   text-align: left;
+   padding-left: 10px;
    width:220px;
    height: 30px;
    margin-bottom: 10px;
@@ -259,7 +261,12 @@ body::-webkit-scrollbar {
    outline: none; /* 외곽선 제거 */
    border: none; /* 테두리 제거 */
 }
-
+#mb_type2 {
+   width: 220px;
+   height: 30px;
+   margin-bottom: 10px;
+   text-align: left;
+}
 /* 비활성화된 버튼 스타일 */
 button.disabled {
    color: black;
@@ -284,11 +291,13 @@ button.disabled {
 }
 
 /* 선택한 버튼 */
+/* 선택한 버튼 */
 .income-btn.active, .expense-btn.active, .cash-btn.active, .debit-btn.active,
-   .credit-btn.active {
-   color: white;
-   background-color: #007bff;
+	.credit-btn.active {
+	color: white;
+	background-color: #007bff;
 }
+
 
 /* 숨기기 위한 클래스 */
 .hidden {

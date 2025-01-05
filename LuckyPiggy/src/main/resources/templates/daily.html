@@ -8,150 +8,193 @@
 <script src="assets/js/daily.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
 ></script>
 </head>
 <body>
- 
+	<div class="cover">
+		<header class="top-bar" th:replace="~{/top_bar}"></header>
+		<input type="hidden" id="user_id" name="user_id"
+			th:value="${session.user.userId}"
+		/> <input type="hidden" id="myDate" name="date" />
+		<div id="dailyPage">
+			<div class="weekend">
+				<h3>12월</h3>
+				<button class="before-btn" id="before-btn">▲</button>
+				<ul class="weekdays">
 
-   <div class="cover">
-      <header class="top-bar" th:replace="~{/top_bar}"></header>
-      <input type="hidden" id="user_id" name="user_id"
-         th:value="${session.user.userId}"/>
-          <input type="hidden" id="myDate" name="date" />
-      <div id="dailyPage">
-         <div class="weekend">
-            <h3>12월</h3>
-            <button class="before-btn" id="before-btn">▲</button>
-            <ul class="weekdays">
+					<!-- 주간 날짜 동적으로 표시-->
+					<li class="amount"></li>
+					<!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
+					<!--날짜 표시 부분-->
+				</ul>
+				<button class="next-btn" id="next-btn">▼</button>
+			</div>
+			<div class="income-container">
+				<h2>
+					수입<a class="add-btn" id="inadd-btn" onclick="openPopup()">+</a>
+				</h2>
+				<table class="income-table" id="incomeTable">
+					<tr th:each="pmoneybook, stat : ${incomeList}"
+						th:if="${pmoneybook.mbIc != null && pmoneybook.mbIc != '0'}"
+						th:attr="id='list-in' + ${stat.index}"					
+        				onclick="openModalWithId(this)">
+						<td class="income-index"></td>
+						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
+						<td th:text="${pmoneybook.paidAt}" style="display: none;"></td>
+						<td th:text="${pmoneybook.mbType}"></td>
+						<td th:text="${pmoneybook.mbIc}"></td>
+						<td th:text="${pmoneybook.mbMemo}" style="display: none;"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="incometotal-box">
+				<div class="total-cash">
+					<!-- 현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원 -->
+				</div>
+				<div class="total-income">
+					총 수입: <span id="total-income" th:text="${totalIncome}"></span>원
+				</div>
+			</div>
+			<div class="expense-container">
+				<h2>
+					지출 <a class="add-btn" id="exadd-btn" onclick="openPopup()">+</a>
+				</h2>
+				<table class="expense-table" id="expenseTable">
+					<tr th:each="pmoneybook, stat : ${expenseList}"
+						th:if="${pmoneybook.mbAmount != null && pmoneybook.mbAmount != '0'}"
+						th:attr="id='list-ex' + ${stat.index}"
+						onclick="openModalWithId(this)"
+					>
+						<td class="expense-index"></td>
+						<!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
+						<td th:text="${pmoneybook.paidAt}" style="display: none;"></td>
+						<td th:text="${pmoneybook.shopNm}"></td>
+						<td th:text="${pmoneybook.mbType}"></td>
+						<td th:text="${pmoneybook.mbMethod + ' ' + pmoneybook.methodNm}" style="display: none;"></td>
+						<td th:text="${pmoneybook.mbAmount}"></td>
+						<td th:text="${pmoneybook.mbMemo}" style="display: none;"></td>
+					</tr>
+				</table>
+				<script>
+		        document.addEventListener("DOMContentLoaded", () => {
+		            // 수입 테이블 인덱스 부여
+		            const incomeRows = document.querySelectorAll("#incomeTable tr");
+		            incomeRows.forEach((row, index) => {
+		                row.querySelector(".income-index").textContent = index + 1;
+		            });
+		
+		            // 지출 테이블 인덱스 부여
+		            const expenseRows = document.querySelectorAll("#expenseTable tr");
+		            expenseRows.forEach((row, index) => {
+		                row.querySelector(".expense-index").textContent = index + 1;
+		            });
+		        });
+		    </script>
+			</div>
+			<div class="expensetotal-box">
+				<!-- <div class="total-cash">현금:</div>
+            <div class="total-card">카드:</div> -->
+				<div class="total-expense">
+					총 지출: <span id="total-expense" th:text="${totalExpense}"></span>원
+				</div>
+			</div>
+		</div>
+		<script>
+        // totalIncome 값을 가져와서 쉼표 추가
+        const totalIncome = document.querySelector('#total-income').textContent;
+        const formattedIncome = Number(totalIncome).toLocaleString();
+        // 쉼표가 추가된 값을 다시 span에 설정
+        document.querySelector('#total-income').textContent = formattedIncome;
+        
+        // totalExpense 값을 가져와서 쉼표 추가
+        const totalExpense = document.querySelector('#total-expense').textContent;
+        const formattedExpense = Number(totalExpense).toLocaleString();
+        // 쉼표가 추가된 값을 다시 span에 설정
+        document.querySelector('#total-expense').textContent = formattedExpense;
+		</script>
+		<!-- ------------------------------------------------------------------------------------ -->
+		<!-- 모달팝업 (추가하는 부분) -->
+		<div class="modal" id="modal1">
 
-               <!-- 주간 날짜 동적으로 표시-->
-               <li class="amount"></li>
-               <!-- 해당 날짜 수입 지출 금액을 동적으로 표시할 영역 -->
-               <!--날짜 표시 부분-->
-            </ul>
-            <button class="next-btn" id="next-btn">▼</button>
-         </div>
-         <div class="income-container">
-            <h2>
-               수입<a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
-            </h2>
-            <table class="income-table">
-            
-               <tr th:each="pmoneybook, stat: ${list1}" th:if="${pmoneybook.mbIc != 0 and pmoneybook.mbIc != '0' and pmoneybook.mbIc != null}"
-                  onclick="openModal('modal2')"
-               >
-                  <td th:text="${stat.index + 1}"></td>
-                  <!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
-                  <td th:text="${pmoneybook.mbType}"></td>
-                  <td th:text="${pmoneybook.mbIc}"></td>
-               </tr>
-            </table>
-         </div>
-         <div class="incometotal-box">
-            <div class="total-cash">
-               <!-- 현금 잔액: <span th:text="${budget.budgetBalance}">0</span>원 -->
-            </div>
-            <div class="total-income">총 수입:</div>
-         </div>
-         <div class="expense-container">
-            <h2 >
-               지출 <a class="add-btn" id="add-btn" onclick="openPopup()">+</a>
-            </h2>
-            <table class="expense-table">
-               <tr th:each="pmoneybook, stat : ${list1}"th:if="${pmoneybook.mbAmount != 0 and pmoneybook.mbAmount != '0' and pmoneybook.mbAmount != null}"
-                  onclick="openModal('modal3')"
-               >
-                  <td th:text="${stat.index + 1}"></td>
-                  <!-- 번호 추가 (index는 0부터 시작하므로 1을 더함) -->
-                  <td th:text="${pmoneybook.shopNm}"></td>
-                  <td th:text="${pmoneybook.mbMethod}"></td>
-                  <td th:text="${pmoneybook.mbAmount}"></td>
-               </tr>
-            </table>
-         </div>
-         <div class="expensetotal-box">
-            <div class="total-cash">현금:</div>
-            <div class="total-card">카드:</div>
-            <div class="total-expense">총 지출:</div>
-         </div>
-      </div>
-      <!-- ------------------------------------------------------------------------------------ -->
-      <!-- 모달팝업 (추가하는 부분) -->
-      
-      
-      
-      
-         <div class="modal" id="modal1">
+			<div class="modal_popup">
+				<div id="close_btn">
+					<button id="close_button" onclick="closePopup()">×</button>
+				</div>
+				<form action="moneybook.do.daily" method="post">
+					<input type="hidden" id="user_id" name="user_id"
+						th:value="${session.user.userId}"
+					/>
+					<div>
+						<input type="date" id="paid_at" name="paid_at" required
+							readonly="readonly"
+						/> <input type="text" placeholder="금액을 입력하세요" id="money"
+							name="money"
+							oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+							required
+						/>
+					</div>
+					<div class="statements">
+						<button type="button" class="income-btn">입금</button>
+						<button type="button" class="expense-btn">출금</button>
+					</div>
+					<div class="payment">
+						<input type="hidden" id="payment" name="mb_method" />
+						<button type="button" class="cash-btn">현금</button>
+						<button type="button" class="debit-btn">체크카드</button>
+						<button type="button" class="credit-btn">신용카드</button>
+					</div>
+					<div class="diteil">
+						<div class="card-category" method="post">
+							<select id="method_nm" name="method_nm"
+								th:object="${debit_cardlist}" , "${credit_cardlist}" required
+							>
+								<option selected disabled hidden value="">카드선택</option>
+								<option hidden class="debit_cardlist"
+									th:each="debit_cardlist: ${debit_cardlist}"
+									th:value="${debit_cardlist['cardNm']}"
+									th:text="${debit_cardlist['cardNm']}"
+								></option>
+								<option hidden class="credit_cardlist"
+									th:each="credit_cardlist: ${credit_cardlist}"
+									th:value="${credit_cardlist['cardNm']}"
+									th:text="${credit_cardlist['cardNm']}"
+								></option>
+							</select>
+						</div>
+					</div>
+					<div class="category">
+						<select id="mb_type" name="mb_type" onchange="changeFn()"
+							th:object="${mb_type_list}" required
+						>
+							<option selected disabled hidden value="">사용내역</option>
+							<option class="mb_type_list"
+								th:each="mb_type_list: ${mb_type_list}"
+								th:value="${mb_type_list}" th:text="${mb_type_list}"
+							></option>
+							<option id="write" value="write">직접입력</option>
+						</select> <input type="text" id="mb_type2" hidden />
+					</div>
+					<div class="memo">
+						<input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
+							name="shop_nm"
+						/> <input type="text" placeholder="메모를 입력하세요" id="memo"
+							name="mb_memo"
+						/>
+					</div>
+					<div class="save-btn">
+						<button id="save" type="submit">저장</button>
+						<button id="reset" type="reset" onclick="resetForm()">초기화</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-      <div class="modal_popup">
-         <div id="close_btn">
-            <button id="close_button" onclick="closePopup()">×</button>
-         </div>
-         <form action="moneybook.do.daily" method="post">
-            <input type="hidden" id="user_id" name="user_id"
-               th:value="${session.user.userId}" />
-            <div>
-               <input type="date" id="paid_at" name="paid_at" required readonly="readonly"/> <input
-                  type="text" placeholder="금액을 입력하세요" id="money" name="money"
-                  oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
-                  required />
-            </div>
-            <div class="statements">
-               <button type="button" class="income-btn">입금</button>
-               <button type="button" class="expense-btn">출금</button>
-            </div>
-            <div class="payment">
-               <input type="hidden" id="payment" name="mb_method" />
-               <button type="button" class="cash-btn">현금</button>
-               <button type="button" class="debit-btn">체크카드</button>
-               <button type="button" class="credit-btn">신용카드</button>
-            </div>
-            <div class="diteil">
-               <div class="card-category" method="post">
-                  <select id="method_nm" name="method_nm"
-                     th:object="${debit_cardlist}" , "${credit_cardlist}" required>
-                     <option selected disabled hidden value="">카드선택</option>
-                     <option hidden class="debit_cardlist"
-                        th:each="debit_cardlist: ${debit_cardlist}"
-                        th:value="${debit_cardlist['cardNm']}"
-                        th:text="${debit_cardlist['cardNm']}"></option>
-                     <option hidden class="credit_cardlist"
-                        th:each="credit_cardlist: ${credit_cardlist}"
-                        th:value="${credit_cardlist['cardNm']}"
-                        th:text="${credit_cardlist['cardNm']}"></option>
-                  </select>
-               </div>
-            </div>
-            <div class="category">
-               <select id="mb_type" name="mb_type" onchange="changeFn()"
-                  th:object="${mb_type_list}" required>
-                  <option selected disabled hidden value="">사용내역</option>
-                  <option class="mb_type_list"
-                     th:each="mb_type_list: ${mb_type_list}"
-                     th:value="${mb_type_list}" th:text="${mb_type_list}"></option>
-                  <option id="write" value="write">직접입력</option>
-               </select> <input type="text" id="mb_type2" hidden />
-            </div>
-            <div class="memo">
-               <input type="text" placeholder="상점 이름을 입력하세요" id="shop_nm"
-                  name="shop_nm" /> <input type="text" placeholder="메모를 입력하세요"
-                  id="memo" name="mb_memo" />
-            </div>
-            <div class="save-btn">
-               <button id="save" type="submit">저장</button>
-               <button id="reset" type="reset" onclick="resetForm()">초기화</button>
-            </div>
-            
-         </form>
-      </div>
-    </div>
-         
-      
-      
-      
-      
-      <!-- <div class="modal" id="modal1">
+
+
+
+
+		<!-- <div class="modal" id="modal1">
          <div class="addModal_popup">
             <form action="dmoneybook.do" method="post">
             <div>
@@ -249,102 +292,135 @@
         }
       });
         </script> -->
-        
-      <!-- ---------------------------------------------------------------------------------- -->
-      <!-- 입금 상세내역 보여주는 팝업창 -->
-      <div class="modal" id="modal2">
-         <div class="indetailModal_popup">
-            <div>
-               <table class="modal-income">
-                  <tbody>
-                     <tr>
-                        <th>날짜</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.paidAt}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>카테고리</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbType}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>입금금액</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbIc}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>메모</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbMemo}"
-                        ></td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-            <div class="finish-btn">
-               <button class="retouch" type="button">
-               수정</button>
-               <button class="close" type="button" onclick="closeModal('modal2')">닫기</button>
-            </div>
-         </div>
-      </div>
 
-      <!-- ------------------------------------------------------------------------------- -->
-      <!-- 모달 팝업 (출금 상세 내역을 보여주는 부분) -->
-      <div class="modal" id="modal3">
-         <div class="exdetailModal_popup">
-            <div>
-               <table class="modal-expense">
-                  <tbody>
-                     <tr>
-                        <th>날짜</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.paidAt}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>카테고리</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbType}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>상점명</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.shopNm}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>결제수단</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbMethod + ' ' + moneybook.methodNm}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>사용금액</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbAmount}"
-                        ></td>
-                     </tr>
-                     <tr>
-                        <th>메모</th>
-                        <td th:each="moneybook : ${list1}"
-                           th:text="${moneybook.mbMemo}"
-                        ></td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-            <div class="finish-btn">
-               <button class="retouch" type="button">수정</button>
-               <button class="close" type="button" onclick="closeModal('modal3')">닫기</button>
-            </div>
-         </div>
-      </div>
-   </div>
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- 입금 상세내역 보여주는 팝업창 -->
+		<div class="modal" id="modal2">
+			<div class="indetailModal_popup">
+				<div>
+					<table class="modal-income">
+						<tbody>
+							<tr>
+								<th>날짜</th>
+								<td id="modal-income-paidAt"></td>
+							</tr>
+							<tr>
+								<th>카테고리</th>
+								<td id="modal-income-mbType"></td>
+							</tr>
+							<tr>
+								<th>입금금액</th>
+								<td id="modal-income-mbIc"></td>
+							</tr>
+							<tr>
+								<th>메모</th>
+								<td id="modal-income-mbMemo"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="finish-btn">
+					<button class="retouch" type="button">수정</button>
+					<button class="close" type="button" onclick="closeModal('modal2')">닫기</button>
+				</div>
+			</div>
+		</div>
+		<!-- ------------------------------------------------------------------------------- -->
+		<!-- 모달 팝업 (출금 상세 내역을 보여주는 부분) -->
+		<div class="modal" id="modal3">
+			<div class="exdetailModal_popup">
+				<div>
+					<table class="modal-expense">
+						<tbody>
+							<tr>
+								<th>날짜</th>
+								<td id="modal-expense-paidAt"></td> 
+							</tr>
+							<tr>
+								<th>카테고리</th>
+								<td id="modal-expense-mbType"></td>
+							</tr>
+							<tr>
+								<th>상점명</th>
+								<td id="modal-expense-shopNm"></td>
+							</tr>
+							<tr>
+								<th>결제수단</th>
+								<td id="modal-expense-mbMethod"></td>
+							</tr>
+							<tr>
+								<th>사용금액</th>
+								<td id="modal-expense-mbAmount"></td>
+							</tr>
+							<tr>
+								<th>메모</th>
+								<td id="modal-expense-mbMemo"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="finish-btn">
+					<button class="retouch" type="button">수정</button>
+					<button class="close" type="button" onclick="closeModal('modal3')">닫기</button>
+				</div>
+			</div>
+		</div>
+		<script>
+		function openModalWithId(element) {
+		    const id = element.id; // 클릭된 tr의 id 값 가져옴
+		    console.log("Clicked row ID:", id); // 확인용
 
+		    // 수입 목록인지 지출 목록인지 확인
+		    let modalId = '';
+		    let paidAt, mbType, mbIc, mbMemo, shopNm, mbMethod, mbAmount;
+
+		    if (id.startsWith('list-in')) { // 수입 목록
+		        modalId = 'modal2'; // 수입 모달
+		        const clickedRow = element;
+		        paidAt = clickedRow.querySelector('td:nth-child(2)').innerText;
+		        mbType = clickedRow.querySelector('td:nth-child(3)').innerText;
+		        mbIc = clickedRow.querySelector('td:nth-child(4)').innerText;
+		        mbMemo = clickedRow.querySelector('td:nth-child(5)').innerText;
+
+		        // 수입 모달에 데이터 설정
+		        document.getElementById('modal-income-paidAt').innerText = paidAt;
+		        document.getElementById('modal-income-mbType').innerText = mbType;
+		        document.getElementById('modal-income-mbIc').innerText = mbIc;
+		        document.getElementById('modal-income-mbMemo').innerText = mbMemo;
+
+		    } else if (id.startsWith('list-ex')) { // 지출 목록
+		        modalId = 'modal3'; // 지출 모달
+		        const clickedRow = element;
+		        paidAt = clickedRow.querySelector('td:nth-child(2)').innerText;
+		        shopNm = clickedRow.querySelector('td:nth-child(3)').innerText;
+		        mbType = clickedRow.querySelector('td:nth-child(4)').innerText;
+		        mbMethod = clickedRow.querySelector('td:nth-child(5)').innerText;
+		        mbAmount = clickedRow.querySelector('td:nth-child(6)').innerText;
+		        mbMemo = clickedRow.querySelector('td:nth-child(7)').innerText;
+
+		        // 지출 모달에 데이터 설정
+		        document.getElementById('modal-expense-paidAt').innerText = paidAt;
+		        document.getElementById('modal-expense-shopNm').innerText = shopNm;
+		        document.getElementById('modal-expense-mbType').innerText = mbType;
+		        document.getElementById('modal-expense-mbMethod').innerText = mbMethod;
+		        document.getElementById('modal-expense-mbAmount').innerText = mbAmount;
+		        document.getElementById('modal-expense-mbMemo').innerText = mbMemo;
+		    }
+
+		    // 해당 모달 열기
+		    openModal(modalId);
+		}
+		
+	    // 모달 열기 함수 정의
+	    function openModal(modalId) {
+	        const modal = document.getElementById(modalId);
+	        if (modal) {
+	            modal.style.display = 'block'; // 모달 열기
+	        } else {
+	            console.error("Modal not found:", modalId);
+	        }
+	    }
+	</script>
+	</div>
 </body>
 </html>

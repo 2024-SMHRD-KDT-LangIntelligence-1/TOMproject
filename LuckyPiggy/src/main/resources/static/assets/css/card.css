@@ -152,10 +152,16 @@ h2{
     padding: 20px;
     background: #ffffff;
     border-radius: 20px;
+    line-height: 1.8;   
+}
+.card-list{
+	font-weight: bold; /* 텍스트를 굵게 설정 */
 }
 .modal .modal_popup .close_btn {
     display: block;
     padding: 10px 20px;
+    margin-top: 20px;
+    margin-left: 35px;
     background-color: rgb(116, 0, 0);
     border: none;
     border-radius: 5px;

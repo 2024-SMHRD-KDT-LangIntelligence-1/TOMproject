@@ -1,29 +1,26 @@
+// 상태바 이동
+let currentProgress = 0; // 초기 진행 상태
+const progressLine = document.querySelector(".line-progress");
+const steps = document.querySelectorAll(".step");
 
-// 상태바 설정
-// 상태바 진행 상태를 업데이트하는 함수
 function updateProgress(percentage) {
-	const progressLine = document.querySelector(".line-progress");
-	progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
-	// 각 단계 마커의 상태를 업데이트
-	const steps = document.querySelectorAll(".step");
-	steps.forEach((step) => {
-		const progress = parseFloat(step.getAttribute("data-progress"));
-		if (progress <= percentage) {
-			step.classList.add("completed"); // 진행된 마커는 초록색으로 표시
-		} else {
-			step.classList.remove("completed"); // 진행되지 않은 마커는 기본색으로 표시
-		}
-	});
+  progressLine.style.width = percentage + "%"; // 진행 상태 업데이트
+  steps.forEach((step) => {
+    const progress = parseFloat(step.getAttribute("data-progress"));
+    if (progress <= percentage) {
+      step.classList.add("completed");
+    } else {
+      step.classList.remove("completed");
+    }
+  });
 }
-// 상태 업데이트
-updateProgress(50);
-//----------------------------------------------------------------------------------
-//도넛 선택시 혜택 페이지로 이동
-document.addEventListener('DOMContentLoaded', function() {
-document.getElementById('donutChartsContainer').addEventListener('click', function() {
-  window.location.href = "benefit";
-});
-});
+
+// 30초마다 진행 상태 업데이트
+setInterval(() => {
+  currentProgress += 25; // 25%씩 증가
+  if (currentProgress > 100) currentProgress = 0; // 100%를 초과하면 초기화
+  updateProgress(currentProgress);
+}, 30000); // 30초 간격으로 수정
 //-------------------------------------------------------------------------------------
 // 달력
 const dayTags = document.querySelector(".days"); // 날짜를 표시할 요소

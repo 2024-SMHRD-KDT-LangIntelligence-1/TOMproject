@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="assets/css/main.css" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
 </head>
 <body>
 	<div class="cover">
@@ -27,7 +28,7 @@
 				</div>
 			</div>
 			<!-- 도넛 차트 -->
-			<div id="donutChartsContainer" >
+			<div id="donutChartsContainer">
 				<!-- 각 도넛 차트를 위한 캔버스를 동적으로 추가할 곳 -->
 			</div>
 			<!-- 달력/최근소비내역 -->
@@ -35,8 +36,7 @@
 				<!-- 달력 -->
 				<div id="calclick">
 					<div class="calendar">
-						<script>
-				</script>
+						<!-- <p class="month-name" name="month-name" id="month-name">January</p>-->
 						<!-- 요일 표시 -->
 						<ul class="weeks">
 							<li>Sun</li>
@@ -51,14 +51,16 @@
 						<!-- 날짜가 동적으로 추가될 영역 -->
 					</div>
 				</div>
-				
+
 
 				<!-- 최근 소비 내역 -->
 				<div class="recent-container">
 					<h3>최근 소비 내역</h3>
 
 					<table class="recent-table">
-						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}">
+						<tr id="recent7" th:each="moneybook_list7: ${moneybook_list7}"
+							th:if="${moneybook_list7.mbAmount != null && moneybook_list7.mbAmount != '0'}"
+						>
 							<td th:text="${moneybook_list7['shopNm']}"></td>
 							<td th:text="${moneybook_list7['mbAmount']}"></td>
 						</tr>
@@ -80,41 +82,48 @@
 
 	<!-- -------------------------------------------------------------------------------------------------- -->
 	<script th:inline="javascript">
-	// 기존 데이터 (카테고리, sum, goal 포함)
-	let chartdata = /*[[${eat}]]*/;
-	let chartdata2 = /*[[${cardsum}]]*/;
-	
-	// 도넛 차트를 생성하는 함수
-	function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std) {
-    // 동적으로 캔버스를 감싸는 div 생성
-    const canvasWrapper = document.createElement('div');
-    canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
-    containerId.appendChild(canvasWrapper); // 지정된 컨테이너에 캔버스 추가
+    // 기존 데이터 (카테고리, sum, goal 포함)
+    let chartdata = /*[[${eat}]]*/;
+    let chartdata2 = /*[[${cardsum}]]*/;
 
-    const canvas = document.createElement('canvas');
-    canvasWrapper.appendChild(canvas); // 캔버스를 도넛 div에 추가
+    // 색상 배열 (5개의 색상을 각 차트마다 다르게 지정)
+    const colors = [
+        ['#80C4E9', '#4335A7'], // 첫 번째 차트 색상
+        ['#FF7F3E', '#FFF6E9'], // 두 번째 차트 색상
+        ['#69247C', '#DA498D'], // 세 번째 차트 색상
+        ['#FAC67A', '#F9E6CF'], // 네 번째 차트 색상
+        ['#2C7865', '#90D26D']  // 다섯 번째 차트 색상
+    ];
 
-    // canvas 크기 명시적으로 설정 (doughnut div의 크기 맞추기)
-    canvas.width = 205;  // .doughnut의 width 값
-    canvas.height = 205; // .doughnut의 height 값
-    
-    const ctx = canvas.getContext("2d");
+    // 도넛 차트를 생성하는 함수
+    function createDoughnutChartForCategory(containerId, method_nm, mb_amount, benefit_std, chartIndex, chart_color) {
+        // 동적으로 캔버스를 감싸는 div 생성
+        const canvasWrapper = document.createElement('div');
+        canvasWrapper.classList.add('doughnut'); // 도넛 차트를 감싸는 div에 클래스 추가
+        containerId.appendChild(canvasWrapper); // 지정된 컨테이너에 캔버스 추가
 
-    const fillRatio = mb_amount / benefit_std;  // 목표 대비 실제 값 비율
-    const shortage = benefit_std - mb_amount;   // 부족한 금액 계산
+        const canvas = document.createElement('canvas');
+        canvasWrapper.appendChild(canvas); // 캔버스를 도넛 div에 추가
 
-    const data = {
-        datasets: [{
-            data: [fillRatio, 1 - fillRatio], // 비율에 맞게 두 부분으로 나눔
-            backgroundColor: [
-                '#1F4529', // 사용 금액
-                '#E8ECD7'  // 목표까지 부족한 금액
-            ],
-            borderWidth: 0, // 테두리 없애기
-        }],
-    };
+        // canvas 크기 명시적으로 설정 (doughnut div의 크기 맞추기)
+        canvas.width = 215;  // .doughnut의 width 값
+        canvas.height = 215; // .doughnut의 height 값
 
-    const options = {
+        const ctx = canvas.getContext("2d");
+
+        const fillRatio = mb_amount / benefit_std;  // 목표 대비 실제 값 비율
+        const shortage = benefit_std - mb_amount;   // 부족한 금액 계산
+        
+        // 데이터 설정 (각 차트마다 색상 배열을 다르게 적용)
+        const data = {
+            datasets: [{
+                data: [fillRatio, 1 - fillRatio], // 비율에 맞게 두 부분으로 나눔
+                backgroundColor: chart_color ? chart_color : colors[chartIndex % colors.length], // 색상 배열을 사용하거나 쿼리 파라미터에서 받은 색상 사용
+                borderWidth: 0, // 테두리 없애기
+            }],
+        };
+
+        const options = {
             responsive: true,
             plugins: {
                 legend: {
@@ -126,46 +135,65 @@
             },
             layout: {
                 padding: {
-                  bottom: 30,  // 상단에 30px 만큼 여백을 추가하여 차트를 위로 올림
+                    bottom: 30,  // 상단에 30px 만큼 여백을 추가하여 차트를 위로 올림
                 }
-              },
-            
-        // 도넛 차트 중앙에 텍스트 추가
-        animation: {
-            onComplete: function() {
-                const centerX = ctx.canvas.width / 2;
-                const centerY = ctx.canvas.height / 2;
+            },
 
-                ctx.font = "15px border";  // 폰트 스타일 지정
-                ctx.fillStyle = "black"; // 텍스트 색상
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
+            // 도넛 차트 중앙에 텍스트 추가
+            animation: {
+                onComplete: function() {
+                    const centerX = ctx.canvas.width / 3.2;
+                    const centerY = ctx.canvas.height / 3.8;
 
-                // 부족한 금액을 중앙에 표시
-                ctx.fillText(method_nm, centerX+20, centerY -10);
-                ctx.fillText(`필요금액`, centerX+25, centerY +20);
-                ctx.fillText(`${shortage.toLocaleString()} 원`, centerX+25, centerY +45);  // 부족한 금액을 표시
-            }
-        }
-    };
+                    ctx.font = "15px border";  // 폰트 스타일 지정
+                    ctx.fillStyle = "black"; // 텍스트 색상
+                    ctx.textAlign = "center";
+                    ctx.textBaseline = "middle";
 
-		    // 차트 생성
-		    new Chart(ctx, {
-		        type: "doughnut",
-		        data: data,
-		        options: options,
-		    });
-		}
-		
-		// 모든 카테고리에 대해 도넛 차트 생성
-		const donutChartsContainer = document.getElementById('donutChartsContainer');
-		
-		// 각 카테고리별로 도넛 차트 생성
-		chartdata2.forEach(item => {
-		    createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std);
-		});
+                    // 부족한 금액을 중앙에 표시
+                    ctx.fillText(method_nm, centerX + 20, centerY + 130);
+                    ctx.fillText(`필요금액`, centerX + 25, centerY + 20);
+                    ctx.fillText(`${shortage.toLocaleString()}원`, centerX + 25, centerY + 45);  // 부족한 금액을 표시
+                }
+            },
 
-		</script>
+            // 클릭 이벤트 추가
+			onClick: function (event, elements) {
+			    if (elements.length === 0) {
+			        // 차트 자체 클릭 시 혜택 페이지로 이동
+			        const clickedChartColor = colors[chartIndex % colors.length]; // 클릭된 차트의 색상을 가져옴
+			        window.location.href = `benefit?method_nm=${encodeURIComponent(method_nm)}&mb_amount=${encodeURIComponent(mb_amount)}&benefit_std=${encodeURIComponent(benefit_std)}&chart_colors=${encodeURIComponent(JSON.stringify(clickedChartColor))}`;
+			    } else {
+			        console.log('Chart section clicked');
+			    }
+			}
+        };
+
+        // 차트 생성
+        new Chart(ctx, {
+            type: "doughnut",
+            data: data,
+            options: options,
+        });
+    }
+
+    // 모든 카테고리에 대해 도넛 차트 생성
+    const donutChartsContainer = document.getElementById('donutChartsContainer');
+
+    // 각 카테고리별로 도넛 차트 생성
+    console.log(chartdata2);  // chartdata2의 값을 출력해서 확인
+    chartdata2.forEach((item, index) => {
+        console.log(item.chart_color);  // 각 항목에서 chart_color 값을 확인
+        const chart_color = item.chart_color;
+        createDoughnutChartForCategory(donutChartsContainer, item.method_nm, item.mb_amount, item.benefit_std, index, chart_color);
+    });
+
+    // URL로 색상 배열을 전달하는 함수
+    function redirectToBenefitPage(method_nm, mb_amount, benefit_std) {
+        console.log("Redirecting with colors: " + JSON.stringify(colors));  // 색상 배열이 제대로 전달되는지 확인
+        window.location.href = `benefit?method_nm=${encodeURIComponent(method_nm)}&mb_amount=${encodeURIComponent(mb_amount)}&benefit_std=${encodeURIComponent(benefit_std)}&chart_colors=${encodeURIComponent(JSON.stringify(colors))}`;
+    }
+</script>
 	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 바 차트 js -->
 	<script th:inline="javascript">
@@ -179,24 +207,30 @@
 	      data: {
 	          labels: labels,
 	          datasets: [{
+	        	  label:'',
+	        	  fill:false,
 	              data: values,
 	              
-	              backgroundColor: [
-		              'rgba(255, 99, 132, 0.2)',
-		              'rgba(255, 159, 64, 0.2)',
-		              'rgba(255, 205, 86, 0.2)',
-		              'rgba(75, 192, 192, 0.2)',
-		              'rgba(54, 162, 235, 0.2)',
-		              'rgba(153, 102, 255, 0.2)',
-		              'rgba(201, 203, 207, 0.2)'],
-		          borderColor: [
-		               'rgb(255, 99, 132)',
-		               'rgb(255, 159, 64)',
-		               'rgb(255, 205, 86)',
-		               'rgb(75, 192, 192)',
-		               'rgb(54, 162, 235)',
-		               'rgb(153, 102, 255)',
-		               'rgb(201, 203, 207)'],
+	              backgroundColor: [ 'rgba(255, 99, 132, 0.2)',
+	            	  'rgba(255, 159, 64, 0.2)',
+	            	  'rgba(255, 205, 86, 0.2)',
+	            	  'rgba(75, 192, 192, 0.2)',
+	            	  'rgba(54, 162, 235, 0.2)',
+	            	  'rgba(153, 102, 255, 0.2)',
+	            	  'rgba(201, 203, 207, 0.2)',
+	            	  'rgba(255, 99, 132, 0.2)',
+	            	  'rgba(255, 159, 64, 0.2)',
+	            	  'rgba(255, 205, 86, 0.2)' ],
+	            	  borderColor: [ 'rgb(255, 99, 132)',
+	            		  'rgb(255, 159, 64)',
+	            		  'rgb(255, 205, 86)',
+	            		  'rgb(75, 192, 192)',
+	            		  'rgb(54, 162, 235)',
+	            		  'rgb(153, 102, 255)',
+	            		  'rgb(201, 203, 207)',
+	            		  'rgb(255, 99, 132)', 
+	            		  'rgb(255, 159, 64)', 
+	            		  'rgb(255, 205, 86)' ],
 		          borderWidth: 1
 	          }],
 	          
@@ -204,6 +238,13 @@
 	      },
 	      options:{
 	    	  responsive: true,
+	    	  legend: {
+	    		  display: false
+	    	  },
+	    	  title: {
+          		text: '항목별 소비 차트',
+          		display : true
+          	}, 
 	    	  scales : {
 	    		  yAxes : [{
 	    			  ticks: {
@@ -219,22 +260,76 @@
 	<!-- -------------------------------------------------------------------------------------------------- -->
 	<!-- 라인 차트 js -->
 	<script th:inline="javascript">
+		
+		let chartdata3 = /*[[${linetotal}]]*/;
+		chartdata3.sort((a,b)=> new Date(a.paidAt) - new Date(b.paidAt));
+		console.log(chartdata3);
+		
+		let dailyTotal = chartdata3.reduce((acc, item) => {
+			if(!acc[item.paidAt]) {
+				acc[item.paidAt] = {dailyEs:0, dailyIc:0};
+			}
+			acc[item.paidAt].dailyEs += parseFloat(item.totalAmount);
+			acc[item.paidAt].dailyIc += parseFloat(item.totalIc);
+			return acc;
+		}, {});
+		console.log(dailyTotal);
+		let cumulativeEsSum = 0; let cumulativeIcSum = 0;
+		
+		let cumulativeTotal = {};
+			chartdata3.forEach(item => {
+				if(!cumulativeTotal[item.paidAt]) {
+					cumulativeTotal[item.paidAt] = 
+					{cumulativeEs:0, cumulativeIc:0 };
+				}
+				cumulativeEsSum += parseFloat(item.totalAmount);
+				cumulativeIcSum += parseFloat(item.totalIc);
+				cumulativeTotal[item.paidAt].cumulativeEs = cumulativeEsSum;
+				cumulativeTotal[item.paidAt].cumulativeIc = cumulativeIcSum;
+			});
+			
+		console.log(cumulativeTotal);
+		
+		let lineL = Object.keys(cumulativeTotal);
+		let lineV1 = Object.keys(cumulativeTotal).map(date => cumulativeTotal[date].cumulativeEs);
+		let lineV2 = Object.keys(cumulativeTotal).map(date => cumulativeTotal[date].cumulativeIc);
+		
         let lineCt = document.getElementById('lineChart');
+        
+        
 
         let lineChart = new Chart(lineCt, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: lineL,
                 datasets: [{
-                    data: values,
+                	label : '입금',
+                    data: lineV2,
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1,
                     borderWidth: 2
+                },
+                {label : '출금',
+                    data: lineV1,
+                    fill: false,
+                    borderColor: 'rgb(792, 75, 75)',
+                    tension: 0.1,
+                    borderWidth: 2
+                	
                 }]
             },
             options: {
+            	legend: {
+            		display : true,
+            		labels : { color : 'rgb(150,100,130)}'}
+            	},
+            	title: {
+            		text: '이번달 입출금',
+            		display : true
+            	},
                 scales: {
+                	
                     yAxes: [{
                         ticks: {
                             beginAtZero: true

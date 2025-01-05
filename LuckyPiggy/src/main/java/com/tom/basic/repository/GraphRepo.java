@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.tom.basic.entity.TbCardsum;
 import com.tom.basic.entity.TbMoneybook;
 import com.tom.basic.model.CardsumVO;
+import com.tom.basic.model.lineVO;
 import com.tom.basic.model.postVO;
 
 @Repository
@@ -23,4 +24,11 @@ public interface GraphRepo extends JpaRepository<TbMoneybook, Long>{
 					"ORDER BY sum DESC"
 			, nativeQuery = true)
 	List<postVO> findGroupBYReportWithNativeQuery(@Param("userid") String userid);
+	
+	@Query(value =
+			"select IFNULL(REPLACE(mb_amount,',',''),0) AS totalAmount, IFNULL(REPLACE(mb_ic,',',''),0) as totaIc, paid_at as paidAt " + 
+			"from tb_moneybook " + 
+			"where month(paid_at) = :month and user_id = :userid"
+			, nativeQuery = true)
+	List<lineVO> getlinetotal(String month, String userid);
 }

@@ -25,9 +25,9 @@ body::-webkit-scrollbar {
 	justify-content: flex-end; /* 자식 요소를 오른쪽 끝으로 배치 */
 }
 /*-------------------------------------------------------------------------------------*/
-#donutChartsContainer1 {
-	max-width: 430px;
-	height: 270px;
+#benefitCanvas {
+	max-width: 250px;
+	height: 250px;
 	display: flex; /* 차트들을 가로로 정렬 */
     flex-wrap: nowrap; /* 한 줄로만 배치 */
     gap: 10px; /* 차트들 간의 간격 설정 */
@@ -42,16 +42,6 @@ body::-webkit-scrollbar {
 .chartjs-render-monitor{
 	width: 270px;
     height: 270px;
-}
-/* 도넛차트 스타일 */
-.doughnut {
-    width: 260px; /* 도넛 차트의 가로 크기 */
-    height: 260px; /* 도넛 차트의 세로 크기 */
-    border-radius: 50%; /* 원형으로 만듦 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box; /* padding 포함하여 크기 계산 */
 }
 .recommend-btn {
     background-color: #4CAF50; /* 녹색 배경 */

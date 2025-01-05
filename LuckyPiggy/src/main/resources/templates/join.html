@@ -58,7 +58,7 @@
 						id="card_num" name="card_num" placeholder="카드번호" required
 						onkeydown="moveFocus(event, document.getElementById('benefit_std'))"
 					/> <input type="text"
-						oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')"
+						oninput="this.value = this.value.replace(/[^0-9]/g, '')"
 						id="benefit_std" name="benefit_std" placeholder="이용실적 기준 금액"
 						onkeydown="moveFocus(event, document.getElementById('acc_nm'))"
 					/>
