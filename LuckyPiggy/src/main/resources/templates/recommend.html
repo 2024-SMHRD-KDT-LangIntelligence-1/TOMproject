@@ -18,7 +18,7 @@
 			<form id="form" method="post" action="http://127.0.0.1:8083/process">
 				<input type="hidden" id="user_id" name="user_id"
 					th:value="${session.user.userId}" />
-				<button type="button" id="submitButton">추천카드 확인하기</button>
+				<button type="button" id="submitButton" hidden>추천카드 확인하기</button>
 				<table class="card-table">
 					<thead>
 						<tr>
@@ -34,10 +34,14 @@
 		</div>
 	</div>
 </body>
-<script src="assets/js/common.js"></script>
+<!-- <script src="assets/js/common.js"></script> -->
 
 <script type="text/javascript" th:inline="javascript">
 /*<![CDATA[*/
+
+window.onload = function () {
+	document.getElementById('submitButton').click(); // 버튼 클릭 이벤트 강제 실행
+};
 
 document.getElementById('submitButton').addEventListener('click', function (e) {
     e.preventDefault(); // 기본 폼 제출 동작 방지
@@ -66,6 +70,18 @@ function displayCards(cards) {
     const cardsContainer = document.getElementById('cards');
     cardsContainer.innerHTML = ''; // 기존 내용 초기화
 
+    
+    if (cards.length === 0) {
+        // 데이터가 없을 경우 메시지 표시
+        const noDataElement = document.createElement('tr');
+        noDataElement.innerHTML = `
+            <td colspan="3" style="text-align: center; color: gray;">소비내역이 없으므로 추천할 카드가 없습니다</td>
+        `;
+        cardsContainer.appendChild(noDataElement);
+        return;
+    }
+        
+    
     cards.forEach(card => {
         // 카드 정보를 HTML로 생성
         const cardElement = document.createElement('tr');
