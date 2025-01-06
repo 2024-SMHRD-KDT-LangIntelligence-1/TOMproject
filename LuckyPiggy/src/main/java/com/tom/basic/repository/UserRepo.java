@@ -8,4 +8,6 @@ import com.tom.basic.entity.TbUser;
 @Repository
 public interface UserRepo extends JpaRepository<TbUser, String>{
 	TbUser findByUserIdAndUserPw(String user_id, String user_pw);
+
+	TbUser findByUserId(String user_id);
 }

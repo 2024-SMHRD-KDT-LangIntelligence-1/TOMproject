@@ -3,8 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="assets/css/login.css" />
+    <style>
+      /* 오류 메시지 스타일 */
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div class="login-box">
@@ -18,30 +27,35 @@
         />
         <h2>LUCKY PIGGY</h2>
       </div>
+
       <!-- 아이디/비밀번호 입력창 -->
-	  
-	  <form action="login.do" method="post">
-      <div class="input-group">
-        <input
-          type="text"
-          id="user_id"
-          name="user_id"
-          placeholder="아이디를 입력하세요"
-          required
-        />
-        <br>
-        <input
-          type="password"
-          id="user_pw"
-          name="user_pw"
-          placeholder="비밀번호를 입력하세요"
-          required
-        />
-      </div>
-      <!-- 로그인 버튼 -->
-      <button type="submit" id="login-btn" class="login-btn">로그인</button>
+      <form action="login.do" method="post">
+        <!-- 오류 메시지 표시 -->
+        <div class="error-message" th:if="${error}">
+          <p th:text="${error}"></p>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="text"
+            id="user_id"
+            name="user_id"
+            placeholder="아이디를 입력하세요"
+            required
+          />
+          <br />
+          <input
+            type="password"
+            id="user_pw"
+            name="user_pw"
+            placeholder="비밀번호를 입력하세요"
+            required
+          />
+        </div>
+        <!-- 로그인 버튼 -->
+        <button type="submit" id="login-btn" class="login-btn">로그인</button>
       </form>
-      
+
       <!-- 아이디/비밀번호 찾기 -->
       <div class="forgot-password">
         <a href="/">아이디/비밀번호 찾기</a>
