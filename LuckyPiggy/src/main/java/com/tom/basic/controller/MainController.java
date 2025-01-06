@@ -279,13 +279,27 @@ public class MainController {
 
 	// 로그인 기능
 	@PostMapping("/login.do")
-	public String login(String user_id, String user_pw, HttpSession session) {
+	public String login(String user_id, String user_pw, HttpSession session, Model model) {
+	    // 사용자 ID로 사용자 검색
+	    TbUser enti = userRepo.findByUserId(user_id);
 
-		TbUser enti = userRepo.findByUserIdAndUserPw(user_id, user_pw);
-		session.setAttribute("user", enti);
+	    if (enti == null) {
+	        // 사용자 ID가 존재하지 않는 경우
+	        model.addAttribute("error", "아이디가 존재하지 않습니다.");
+	        return "login"; // 로그인 페이지로 이동
+	    }
 
-		return "redirect:/main";
+	    if (!enti.getUserPw().equals(user_pw)) {
+	        // 비밀번호가 틀린 경우
+	        model.addAttribute("error", "비밀번호가 일치하지않습니다.");
+	        return "login"; // 로그인 페이지로 이동
+	    }
+
+	    // 로그인 성공: 세션에 사용자 정보 저장
+	    session.setAttribute("user", enti);
+	    return "redirect:/main"; // 메인 페이지로 이동
 	}
+
 
 	// 로그아웃 기능
 	@GetMapping("/logout")
