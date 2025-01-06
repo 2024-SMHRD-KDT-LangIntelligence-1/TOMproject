@@ -11,12 +11,13 @@ const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 
 let currm = urlParams.get('month');
+let currentDay = new Date().getDate();
 
 let ayear = 2025;
-let date = new Date(ayear, currm-1);
+let date = new Date(ayear, currm-1,currentDay);
 currYear = date.getFullYear(); // 현재 연도
 currMonth = date.getMonth(); // 현재 월 (0~11)
-
+console.log(date);
 console.log(currMonth);
 
 
@@ -123,6 +124,7 @@ const renderCalendar = () => {
             currYear === new Date().getFullYear()
             ? "active"
             : "";
+
       // 예시 코드
       // 수입/지출 정보 가져오기
       const expense = expenseData[i] || { mbAmount: 0, mbIc: 0 };
