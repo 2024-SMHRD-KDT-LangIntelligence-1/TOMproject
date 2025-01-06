@@ -72,6 +72,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0;
+  margin-top: 40%;
   margin-bottom: 40%; /* 이미지와의 간격 */
 }
