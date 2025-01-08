@@ -69,16 +69,15 @@
 <br>
 
 ## ⚙ 시스템 아키텍처(구조) 예시 
-![image](https://github.com/user-attachments/assets/c6d39fee-6951-4581-a80f-f4297572dfdb)
+![image](https://github.com/user-attachments/assets/6ef77770-4c58-4303-927b-7f3e01bc95d1)
 <br>
 
 ## 📌 SW유스케이스
-![image](https://user-images.githubusercontent.com/25995055/178401023-9a015e66-aa6e-4d74-8564-9b1f9d306649.png)
+![핵심유스케이스다이어그램](https://github.com/user-attachments/assets/8fb70bf5-c285-4894-9721-8880328a92e3)
 <br>
 
 ## 📌 서비스 흐름도
-![image](https://github.com/user-attachments/assets/97074aaa-25d5-4d3e-bb67-3b9134e00c96)
-
+![image](https://github.com/user-attachments/assets/c336dcfb-cc9c-4f7b-be44-c3f5d9dc7132)
 <br>
 
 ## 📌 ER다이어그램
