@@ -4,8 +4,8 @@
 ## 👀 서비스 소개
 * 서비스명 : 추천 알고리즘을 활용한 나만의 가계부 웹사이트
 * 서비스설명
-       1. 사용자 기반 추천 알고리즘을 활용한 카드 추천 서비스
-       2. 대시보드를 통한 재정 관리 및 카드 실적 관리 서비스 
+   <p>1. 사용자 기반 추천 알고리즘을 활용한 카드 추천 서비스</P>
+   <p>2. 대시보드를 통한 재정 관리 및 카드 실적 관리 서비스</p>
 <br>
 
 ## 📅 프로젝트 기간
@@ -38,7 +38,7 @@
         <td>Back-end</td>
         <td>
             <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
-            <img src="https://img.shields.io/badge/python-007396?style=for-the-badge&logo=python&logoColor=white"/>         
+            <img src="https://img.shields.io/badge/python-007397?style=for-the-badge&logo=python&logoColor=white"/>         
         </td>
     </tr>
     <tr>
@@ -50,8 +50,8 @@
     <tr>
         <td>Framework & Library</td>
         <td>
-            <img src="https://img.shields.io/badge/Spring Boot-D22128?style=for-the-badge&logo=Spring Boot&logoColor=white"/>   
-            <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Spring Boot-D22138?style=for-the-badge&logo=Spring Boot&logoColor=white"/>   
+            <img src="https://img.shields.io/badge/Apache Tomcat-D22528?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
             <img src="https://img.shields.io/badge/Chart.js-D22128?style=for-the-badge&logo=Chart.js&logoColor=white"/>
         </td>
     </tr>
