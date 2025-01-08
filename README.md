@@ -90,7 +90,7 @@
 ![image](https://github.com/user-attachments/assets/220de1a3-01ea-407c-a76b-71c073dca7db)
 <br>
 
-### 카드 등록/계좌 등록/마이페이지
+### 카드등록/계좌등록/마이페이지
 ![image](https://github.com/user-attachments/assets/b3a3bef1-7063-4b98-828a-9d7b94f06769)
 <br>
 
