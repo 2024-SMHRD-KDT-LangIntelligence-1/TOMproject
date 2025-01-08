@@ -1,21 +1,23 @@
-# 📎 (팀명)
+# 📎추천 알고리즘을 활용한 나만의 가계부 웹사이트 LuckyPiggy (팀명: TOM)
 
 
 ## 👀 서비스 소개
-* 서비스명:  꽃 개화 시기별 우리 지역 근처 데이트/드라이브 추천 장소 및 꽃 축제 추천 
-* 서비스설명: 
+* 서비스명 : 추천 알고리즘을 활용한 나만의 가계부 웹사이트
+* 서비스설명
+       1. 사용자 기반 추천 알고리즘을 활용한 카드 추천 서비스
+       2. 대시보드를 통한 재정 관리 및 카드 실적 관리 서비스 
 <br>
 
 ## 📅 프로젝트 기간
-2022.04.22 ~ 2022.06.03 (6주)
+2024.12.23 ~ 2025.01.08
 <br>
 
 ## ⭐ 주요 기능
-* 기능1
-* 기능2
-* 기능3
-* 기능4
-* 기능5
+* 사용자 기반 카드 추천 
+* 캘린더(월간 소비 내역)
+* 일일 소비 내역
+* 검색기능
+* 입출금 그래프와 소비차트
 <br>
 
 ## ⛏ 기술스택
@@ -25,48 +27,49 @@
         <th>내용</th>
     </tr>
     <tr>
-        <td>사용언어</td>
+        <td>Front-end</td>
         <td>
-            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
-            <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
             <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/>
+            <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
             <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
         </td>
     </tr>
     <tr>
-        <td>라이브러리</td>
+        <td>Back-end</td>
         <td>
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-            <img src="https://img.shields.io/badge/KakaoMap-FFCD00?style=for-the-badge&logo=Kakao&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
+            <img src ="https://blog.kakaocdn.net/dn/veirC/btrIi0ESiKQ/vaNL1uMKnUqpfik5IU2C60/img.png"/>
+            
         </td>
     </tr>
     <tr>
-        <td>개발도구</td>
+        <td><Database/td>
         <td>
             <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
             <img src="https://img.shields.io/badge/RaskpberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
             <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
+            <img src="https://img.shields.io/badge/MySQL 11g-F80000?style=for-the-badge&logo=MySQL&logoColor=white"/>
         </td>
     </tr>
     <tr>
-        <td>서버환경</td>
+        <td>Framework & Library</td>
         <td>
             <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
         </td>
     </tr>
     <tr>
-        <td>데이터베이스</td>
+        <td>IDE & etc</td>
         <td>
-            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>           
+            <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>협업도구</td>
         <td>
             <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
-            <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
+           
         </td>
     </tr>
 </table>
