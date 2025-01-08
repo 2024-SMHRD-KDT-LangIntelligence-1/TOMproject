@@ -81,7 +81,7 @@
 <br>
 
 ## 📌 ER다이어그램
-![image](https://user-images.githubusercontent.com/25995055/169925318-102784c2-893f-4fd7-bec9-a54c44b669d4.png)
+![erd_](https://github.com/user-attachments/assets/27d389e7-4708-4453-83d2-ca210ff5c31f)
 <br>
 
 ## 🖥 화면 구성
@@ -101,13 +101,6 @@
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
-    <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/></td>
-    <td align="center"><img src="https://mb.ntdtv.kr/assets/uploads/2019/01/Screen-Shot-2019-01-08-at-4.31.55-PM-e1546932545978.png" width="100" height="100"/></td>
-    <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/20160127_177/krazymouse_1453865104404DjQIi_PNG/%C4%AB%C4%AB%BF%C0%C7%C1%B7%BB%C1%EE_%B6%F3%C0%CC%BE%F0.png?type=w2" width="100" height="100"/></td>
-    <td align="center"><img src="https://i.pinimg.com/236x/ed/bb/53/edbb53d4f6dd710431c1140551404af9.jpg" width="100" height="100"/></td>
-    <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
-  </tr>
-  <tr>
     <td align="center"><strong>최민지</strong></td>
     <td align="center"><strong>곽세영</strong></td>
     <td align="center"><strong>김재민</strong></td>
@@ -122,7 +115,7 @@
     <td align="center"><b>Back-end, Model</b></td>
   </tr>
   <tr>
-    <td align="center">
+    <td align="left">
 	<ul>
 	<li>메인페이지</li>
 	<li>캘린더</li>
@@ -131,21 +124,21 @@
 	<li>DB 연동</li>
 	</ul>
     </td>
-    <td align="center">
+    <td align="left">
 	<ul>
 	<li>마이페이지</li>
 	<li>자산 등록</li>
 	<li>DB 연동</li>
 	</ul>
     </td>
-    <td align="center">
+    <td align="left">
 	<ul>
 	<li>데이터 생성</li>
 	<li>입출금 저장 기능</li>
 	<li>DB 연동</li>
 	</ul>
     </td>
-    <td align="center">
+    <td align="left">
 	<ul>
 	<li>캘린더 기능</li>
 	<li>가계부 내역</li>
@@ -153,7 +146,7 @@
 	<li>DB 연동</li>
 	</ul>
     </td>
-    <td align="center">
+    <td align="left">
 	<ul>
 	<li>카드 추천 알고리즘</li>
 	<li>카드/계좌 등록</li>
