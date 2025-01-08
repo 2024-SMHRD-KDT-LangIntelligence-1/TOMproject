@@ -38,38 +38,29 @@
         <td>Back-end</td>
         <td>
             <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>
-            <img src ="https://blog.kakaocdn.net/dn/veirC/btrIi0ESiKQ/vaNL1uMKnUqpfik5IU2C60/img.png"/>
-            
+            <img src="https://img.shields.io/badge/python-007396?style=for-the-badge&logo=python&logoColor=white"/>         
         </td>
     </tr>
     <tr>
         <td><Database/td>
         <td>
-            <img src="https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white"/>
-            <img src="https://img.shields.io/badge/RaskpberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
-            <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
-            <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
             <img src="https://img.shields.io/badge/MySQL 11g-F80000?style=for-the-badge&logo=MySQL&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>Framework & Library</td>
         <td>
+            <img src="https://img.shields.io/badge/Spring Boot-D22128?style=for-the-badge&logo=Spring Boot&logoColor=white"/>   
             <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Chart.js-D22128?style=for-the-badge&logo=Chart.js&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>IDE & etc</td>
         <td>
-            <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"/>           
+            <img src="https://img.shields.io/badge/Jupyter-FFCA28?style=for-the-badge&logo=Jupyter&logoColor=white"/>           
             <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
-        </td>
-    </tr>
-    <tr>
-        <td>협업도구</td>
-        <td>
-            <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
-           
+            <img src="https://img.shields.io/badge/STS-4-F05032?style=for-the-badge&logo=STS-4&logoColor=white"/>
         </td>
     </tr>
 </table>
