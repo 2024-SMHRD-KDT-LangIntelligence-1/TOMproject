@@ -108,25 +108,65 @@
     <td align="center"><img src="https://pbs.twimg.com/media/B-n6uPYUUAAZSUx.png" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
-    <td align="center"><strong>홍O동</strong></td>
+    <td align="center"><strong>최민지</strong></td>
+    <td align="center"><strong>곽세영</strong></td>
+    <td align="center"><strong>김재민</strong></td>
+    <td align="center"><strong>우지연</strong></td>
+    <td align="center"><strong>정혜란</strong></td>
   </tr>
   <tr>
-    <td align="center"><b>Frontend</b></td>
-    <td align="center"><b>Frontend</b></td>
-    <td align="center"><b>Backend</b></td>
-    <td align="center"><b>Backend</b></td>
-    <td align="center"><b>Deep Learning</b></td>
+    <td align="center"><b>Front-end</b></td>
+    <td align="center"><b>Front-end, Back-end</b></td>
+    <td align="center"><b>Backend, DB 설계</b></td>
+    <td align="center"><b>Back-end</b></td>
+    <td align="center"><b>Back-end, Model</b></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/자신의username작성해주세요" target='_blank'>github</a></td>
+    <td align="center">
+	<ul>
+	<li>메인페이지</li>
+	<li>캘린더</li>
+	<li>데일리</li>
+	<li>로그인, 회원가입</li>
+	<li>DB 연동</li>
+	</ul>
+    </td>
+    <td align="center">
+	<ul>
+	<li>마이페이지</li>
+	<li>자산 등록</li>
+	<li>DB 연동</li>
+	</ul>
+    </td>
+    <td align="center">
+	<ul>
+	<li>데이터 생성</li>
+	<li>입출금 저장 기능</li>
+	<li>DB 연동</li>
+	</ul>
+    </td>
+    <td align="center">
+	<ul>
+	<li>캘린더 기능</li>
+	<li>가계부 내역</li>
+	<li>검색 기능</li>
+	<li>DB 연동</li>
+	</ul>
+    </td>
+    <td align="center">
+	<ul>
+	<li>카드 추천 알고리즘</li>
+	<li>카드/계좌 등록</li>
+	<li>DB 연동</li>
+	</ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/mingd2" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/tpdud12" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/firedwood" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/WJyeon" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/jeonghr1230" target='_blank'>github</a></td>
   </tr>
 </table>
 
