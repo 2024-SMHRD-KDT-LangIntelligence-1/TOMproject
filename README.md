@@ -86,16 +86,16 @@
 
 ## 🖥 화면 구성
 
-### 로그인/회원가입/마이페이지
-![image](https://github.com/user-attachments/assets/8a5365c0-032d-47bf-a04b-5abd80677b74)
+### 로그인/회원가입
+![image](https://github.com/user-attachments/assets/220de1a3-01ea-407c-a76b-71c073dca7db)
 <br>
 
-### 옷 정보/코디 추천(날씨, 팁, 오늘의 코디, 참고할 수 있는 코디)
-![image](https://user-images.githubusercontent.com/25995055/178401127-287e6de2-4396-49fc-a107-59c4d5cd55c7.png)
+### 카드 등록/계좌 등록/마이페이지
+![image](https://github.com/user-attachments/assets/b3a3bef1-7063-4b98-828a-9d7b94f06769)
 <br>
 
-### 일정/고객센터
-![image](https://user-images.githubusercontent.com/25995055/178401150-861f0e93-0f40-4fae-98c1-2099bf513c8d.png)
+### 메인페이지/카드추천/캘린더/데일리/검색
+![image](https://github.com/user-attachments/assets/6b56fd91-001e-45ce-9ae3-61ff621ccb76)
 <br>
 
 ## 👨‍👩‍👦‍👦 팀원 역할
